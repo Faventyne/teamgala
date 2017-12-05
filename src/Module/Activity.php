@@ -8,7 +8,9 @@
 
 namespace Model;
 
-
+/**
+ * @Entity @Table(name="activity")
+ */
 class Activity extends DbObject
 {
 

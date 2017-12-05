@@ -52,4 +52,164 @@ class User extends DbObject
      */
     protected $token;
 
+    /**
+     * User constructor.
+     * @param string $firstname
+     * @param string $lastname
+     * @param string $username
+     * @param string $birthdate
+     * @param string $mail
+     * @param string $picture
+     * @param string $token
+     */
+    public function __construct($id =0, $firstname='', $lastname='', $username='', $birthdate='', $mail='', $picture='', $token='', $inserted='')
+    {
+        $this->firstname = $firstname;
+        $this->lastname = $lastname;
+        $this->username = $username;
+        $this->birthdate = $birthdate;
+        $this->mail = $mail;
+        $this->picture = $picture;
+        $this->token = $token;
+        parent::__construct($id,$inserted);
+    }
+
+    /**
+     * @return int
+     */
+
+
+
+
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getInserted()
+    {
+        return $this->inserted;
+    }
+
+    /**
+     * @param string $inserted
+     */
+    public function setInserted($inserted)
+    {
+        $this->inserted = $inserted;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFirstname()
+    {
+        return $this->firstname;
+    }
+
+    /**
+     * @param string $firstname
+     */
+    public function setFirstname($firstname)
+    {
+        $this->firstname = $firstname;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastname()
+    {
+        return $this->lastname;
+    }
+
+    /**
+     * @param string $lastname
+     */
+    public function setLastname($lastname)
+    {
+        $this->lastname = $lastname;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    /**
+     * @param string $username
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBirthdate()
+    {
+        return $this->birthdate;
+    }
+
+    /**
+     * @param string $birthdate
+     */
+    public function setBirthdate($birthdate)
+    {
+        $this->birthdate = $birthdate;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMail()
+    {
+        return $this->mail;
+    }
+
+    /**
+     * @param string $mail
+     */
+    public function setMail($mail)
+    {
+        $this->mail = $mail;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPicture()
+    {
+        return $this->picture;
+    }
+
+    /**
+     * @param string $picture
+     */
+    public function setPicture($picture)
+    {
+        $this->picture = $picture;
+    }
+
+    /**
+     * @return string
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+
+
+
+
 }
+
