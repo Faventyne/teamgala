@@ -14,22 +14,27 @@ namespace Model;
 class Participant extends DbObject
 {
     /**
-     * @Column(name="role_rol_id", length=10, type="integer")
+     * @Column(name="par_id", length=10, type="integer")
      * @var int
      */
-    protected $rol_id;
+    protected $par_id;
     /**
      * @Column(name="activity_act_id", length=10, type="integer")
      * @var int
      */
     protected $act_id;
     /**
-     * @Column(name="par_distance", length= 5, type="float", nullable=true)
+     * @Column(name="role_rol_id", length=10, type="integer")
+     * @var int
+     */
+    protected $role_id;
+    /**
+     * @Column(name="par_distance", length= 10, type="float", nullable=true)
      * @var float
      */
     protected $distance;
     /**
-     * @Column(name="par_result", length= 15, type="float", nullable=true)
+     * @Column(name="par_result", length= 10, type="float", nullable=true)
      * @var float
      */
     protected $result;
@@ -85,7 +90,7 @@ class Participant extends DbObject
      * @param float $of_penalty
 
      */
-    public function __construct($id=0, $rol_id=0, $act_id=0, $distance=0, $result=0, $type='Col', $mweight=0, $precomment='', $ivp_bonus=0, $ivp_penalty=0, $of_bonus=0, $of_penalty=0, $inserted='')
+    public function __construct($id=0, $act_id=0, $rol_id=0, $distance=0, $result=0, $type='Col', $mweight=0, $precomment='', $ivp_bonus=0, $ivp_penalty=0, $of_bonus=0, $of_penalty=0, $inserted='')
     {
         $this->rol_id = $rol_id;
         $this->act_id = $act_id;
