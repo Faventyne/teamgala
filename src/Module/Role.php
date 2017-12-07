@@ -8,12 +8,14 @@
 
 namespace Model;
 
-
+/**
+ * @Entity @Table(name="role")
+ */
 class Role extends DbObject
 {
 
     /**
-     * @Column(name="position_pos_id", length=10, type="integer")
+     * @Column(name="rol_id", length=10, type="integer")
      * @var int
      */
     protected $pos_id;
