@@ -29,10 +29,20 @@ class Organization extends DbObject
      * @Column(name="org_weight_type", type="string")
      * @var string
      */
-    protected $act_prec;
+    protected $weight_type;
+
     /**
-     * @Column(name="usr_token", type="string")
-     * @var string
+     * Organization constructor.
+     * @param string $legalname
+     * @param string $commname
+     * @param string $weight_type
      */
-    protected $token;
+    public function __construct($id=0, $legalname='', $commname='', $weight_type=0, $inserted='')
+    {
+        $this->legalname = $legalname;
+        $this->commname = $commname;
+        $this->weight_type = $weight_type;
+        parent::__construct($id,$inserted);
+    }
+
 }
