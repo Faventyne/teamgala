@@ -1,0 +1,54 @@
+*{
+  box-sizing: border-box;
+  transition-duration: 0.3s;
+}
+
+body{
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  width: 100%;
+  margin:auto;
+}
+
+img{
+  width: 30%;
+  margin-left: 37%;
+  margin-top: 20%;
+}
+
+form{
+  margin-left: 15%;
+  margin-top: 15%;
+}
+
+
+#email{
+  padding-bottom: 0.5rem;
+}
+
+#password{
+  padding-bottom: 0.5rem;
+}
+
+form p{
+  padding-left: 1rem;
+}
+
+.input-field label{
+  margin-bottom: 0.2rem;
+}
+
+.button-field button{
+  width: 50%;
+  border-style: none;
+  background-color: #929393;
+  color : white;
+  border-radius: 25px;
+  padding:1rem 2rem 1rem 2rem;
+  margin-left: 26%;
+  margin-top: 3rem;
+
+}
