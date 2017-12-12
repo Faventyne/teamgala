@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
 *{
   box-sizing: border-box;
   transition-duration: 0.3s;
+  font-family: "Montserrat";
 }
 
 body{
@@ -11,7 +14,6 @@ body{
 main {
   width: 100%;
   margin:auto;
- /* background-image: url("");*/
 }
 
 img{
@@ -19,6 +21,7 @@ img{
   margin-left: 37%;
   margin-top: 20%;
 }
+/*** FORM LOGIN*/
 
 form{
   margin-left: 15%;
@@ -52,4 +55,20 @@ form p{
   margin-left: 26%;
   margin-top: 3rem;
 
+}
+
+/*** HOME PAGE ***/
+
+ul {
+  margin-left: 6rem;
+  font-size: 1.5rem;
+  margin-top: 4rem;
+}
+
+li{
+  margin-bottom: 1rem;
+}
+
+div .button-field button{
+  background-color: #00D646;
 }
