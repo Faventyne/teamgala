@@ -9,10 +9,18 @@
 namespace Model;
 
 /**
- * @Entity @Table(name="activity")
+ * @Entity()
+ * @Table(name="activity")
  */
 class Activity extends DbObject
 {
+    /**
+     *@Id()
+     * @GeneratedValue()
+     * @Column(name="act_id, type="integer", nullable=false")
+     * @var int
+     */
+    protected $id ;
     /**
      * @Column(name="organization_org_id", length=10, type="integer")
      * @var int
@@ -61,6 +69,7 @@ class Activity extends DbObject
 
     /**
      * Activity constructor.
+     * @param int $id
      * @param int $org_id
      * @param string $name
      * @param string $quotes_deadline
@@ -73,6 +82,7 @@ class Activity extends DbObject
      */
     public function __construct($id, $org_id, $name, $quotes_deadline, $objectives, $status, $isRewarding, $distrAmount, $res_inertia, $res_benefit_eff,$inserted)
     {
+        parent::__construct($id,$inserted);
         $this->org_id = $org_id;
         $this->name = $name;
         $this->quotes_deadline = $quotes_deadline;
@@ -82,9 +92,13 @@ class Activity extends DbObject
         $this->distrAmount = $distrAmount;
         $this->res_inertia = $res_inertia;
         $this->res_benefit_eff = $res_benefit_eff;
-        parent::__construct($id,$inserted);
+        
     }
 
+    public function getId()
+    {
+        return $this->id ;
+    }
     /**
      * @return int
      */

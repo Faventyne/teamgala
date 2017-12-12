@@ -8,11 +8,18 @@
 namespace Model;
 
 /**
- * @Entity @Table(name="user")
+ * @Entity()
+ * @Table(name="user")
  */
 class User extends DbObject
 {
-
+    /**
+     * @Id()
+     * @GeneratedValue()
+     * @Column(name="usr_id", type="string", nullable=false)
+     * @var string
+     */
+    protected $id;
     /**
      * @Column(name="usr_firstname", type="string")
      * @var string
@@ -29,7 +36,11 @@ class User extends DbObject
      */
 
     protected $username;
-
+    /**
+     *@Column(name="usr_is_manager", type="boolean")
+     * @var type bool
+     */
+    protected $is_manager ;
     /**
      * @Column(name="usr_birthdate", type="datetime")
      * @var string
@@ -54,19 +65,22 @@ class User extends DbObject
 
     /**
      * User constructor.
+     * @param string $id
      * @param string $firstname
      * @param string $lastname
      * @param string $username
+     * @param bool $is_manager
      * @param string $birthdate
      * @param string $mail
      * @param string $picture
      * @param string $token
      */
-    public function __construct($id =0, $firstname='', $lastname='', $username='', $birthdate='', $mail='', $picture='', $token='', $inserted='')
+    public function __construct($id =0, $firstname='', $lastname='', $username='', $is_manager=false, $birthdate='', $mail='', $picture='', $token='', $inserted='')
     {
         $this->firstname = $firstname;
         $this->lastname = $lastname;
         $this->username = $username;
+        $this->is_manager = $is_manager;
         $this->birthdate = $birthdate;
         $this->mail = $mail;
         $this->picture = $picture;
@@ -77,11 +91,6 @@ class User extends DbObject
     /**
      * @return int
      */
-
-
-
-
-
     public function getId()
     {
         return $this->id;
@@ -150,7 +159,20 @@ class User extends DbObject
     {
         $this->username = $username;
     }
-
+    /**
+     * @return bool
+     */
+    public function getIsManager()
+    {
+        return $this->is_manager ;
+    }
+    /**
+     * @param bool
+     */
+    public function setIsManager($is_manager)
+    {
+        $this->is_manager = $is_manager ;
+    }
     /**
      * @return string
      */

@@ -9,10 +9,18 @@
 namespace Model;
 
 /**
- * @Entity @Table(name="grade")
+ * @Entity()
+ * @Table(name="grade")
  */
 class Grade extends DbObject
 {
+    /**
+     * @Id()
+     * @GeneratedValue()
+     * @Column(name="crt_id", length=10, type="integer")
+     * @var int
+     */
+    protected $id;
     /**
      * @Column(name="activity_act_id", length=10, type="integer")
      * @var int
@@ -53,6 +61,7 @@ class Grade extends DbObject
 
     /**
      * Grade constructor.
+     * @param int $id
      * @param int $act_id
      * @param int $par_id
      * @param int $cri_id
@@ -63,6 +72,7 @@ class Grade extends DbObject
      */
     public function __construct($id, $act_id, $par_id, $cri_id, $stg_id, $graded_id, $value, $comment, $inserted)
     {
+        parent::__construct($id,$inserted);
         $this->act_id = $act_id;
         $this->par_id = $par_id;
         $this->cri_id = $cri_id;
@@ -70,9 +80,16 @@ class Grade extends DbObject
         $this->graded_id = $graded_id;
         $this->value = $value;
         $this->comment = $comment;
-        parent::__construct($id,$inserted);
     }
-
+    
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+    
     /**
      * @return int
      */

@@ -9,12 +9,20 @@
 namespace Model;
 
 /**
- * @Entity @Table(name="stage")
+ * @Entity()
+ * @Table(name="stage")
  */
 class Stage extends DbObject
 {
     /**
-     * @Column(name="act_id", length=10, type="integer")
+     *@Id()
+     * @GeneratedValue()
+     * @Column(name="stg_id", type="integer",nullable=false, length=10)
+     * @var type int
+     */
+    protected $id;
+    /**
+     * @Column(name="activity_act_id", length=10, type="integer")
      * @var int
      */
     protected $act_id;
@@ -36,6 +44,7 @@ class Stage extends DbObject
 
     /**
      * Stage constructor.
+     * @param int $id
      * @param int $act_id
      * @param string $name
      * @param float $weight
@@ -43,13 +52,21 @@ class Stage extends DbObject
      */
     public function __construct($id=0, $act_id=0, $name='', $weight=0, $deadline='', $inserted='')
     {
+        parent::__construct($id,$inserted);
         $this->act_id = $act_id;
         $this->name = $name;
         $this->weight = $weight;
         $this->deadline = $deadline;
-        parent::__construct($id,$inserted);
     }
-
+    
+    /**
+     * return int
+     */
+    public function getId()
+    {
+        return $this->id ;
+    }
+    
     /**
      * @return int
      */
