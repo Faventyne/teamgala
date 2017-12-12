@@ -9,67 +9,64 @@
 namespace Model;
 
 /**
- * @Entity @Table(name="participant")
+ * @Entity()
+ * @Table(name="position")
  */
-class Participant extends DbObject
+class ActivityUser
 {
+    
     /**
-     * @Column(name="par_id", length=10, type="integer")
-     * @var int
-     */
-    protected $par_id;
-    /**
-     * @Column(name="activity_act_id", length=10, type="integer")
-     * @var int
+     *@Column(name="activity_act_id, type="integer", nullable=false)
+     * @var type int
      */
     protected $act_id;
     /**
-     * @Column(name="role_rol_id", length=10, type="integer")
-     * @var int
+     *@Column(name="user_usr_id, type="integer", nullable=false)
+     * @var type int
      */
-    protected $role_id;
+    protected $usr_id;
     /**
-     * @Column(name="par_distance", length= 10, type="float", nullable=true)
+     * @Column(name="a_u_distance", length= 10, type="float", nullable=true)
      * @var float
      */
     protected $distance;
     /**
-     * @Column(name="par_result", length= 10, type="float", nullable=true)
+     * @Column(name="a_u_result", length= 10, type="float", nullable=true)
      * @var float
      */
     protected $result;
     /**
-     * @Column(name="par_type", type="string", columnDefinition="ENUM('Mgr,Col,Tp')"
+     * @Column(name="a_u_type", type="string", columnDefinition="ENUM('Mgr,Col,Tp')"
      * @var string
      */
     protected $type;
     /**
-     * @Column(name="par_mweight", length=10, type="float")
+     * @Column(name="a_u_mweight", length=10, type="float")
      * @var float
      */
     protected $mweight;
     /**
-     * @Column(name="par_precomment", length=10, type="float")
+     * @Column(name="a_u_precomment", length=10, type="float")
      * @var float
      */
     protected $precomment;
     /**
-     * @Column(name="par_ivp_bonus", length=10, type="float")
+     * @Column(name="a_u_ivp_bonus", length=10, type="float")
      * @var float
      */
     protected $ivp_bonus;
     /**
-     * @Column(name="par_ivp_penalty", length=10, type="float")
+     * @Column(name="a_u_ivp_penalty", length=10, type="float")
      * @var float
      */
     protected $ivp_penalty;
     /**
-     * @Column(name="par_of_bonus", length=10, type="float")
+     * @Column(name="a_u_of_bonus", length=10, type="float")
      * @var float
      */
     protected $of_bonus;
     /**
-     * @Column(name="par_of_penalty", length=10, type="float")
+     * @Column(name="a_u_of_penalty", length=10, type="float")
      * @var float
      */
     protected $of_penalty;
@@ -77,11 +74,11 @@ class Participant extends DbObject
 
     /**
      * Participant constructor.
-     * @param int $rol_id
+     * @param int $usr_id
      * @param int $act_id
      * @param float $distance
      * @param float $result
-     * @param $type
+     * @param float $type
      * @param float $mweight
      * @param float $precomment
      * @param float $ivp_bonus
@@ -90,9 +87,9 @@ class Participant extends DbObject
      * @param float $of_penalty
 
      */
-    public function __construct($id=0, $act_id=0, $rol_id=0, $distance=0, $result=0, $type='Col', $mweight=0, $precomment='', $ivp_bonus=0, $ivp_penalty=0, $of_bonus=0, $of_penalty=0, $inserted='')
+    public function __construct($usr_id=0, $act_id=0, $distance=0, $result=0, $type='Col', $mweight=0, $precomment='', $ivp_bonus=0, $ivp_penalty=0, $of_bonus=0, $of_penalty=0, $inserted='')
     {
-        $this->rol_id = $rol_id;
+        $this->usr_id = $usr_id;
         $this->act_id = $act_id;
         $this->distance = $distance;
         $this->result = $result;
@@ -103,11 +100,25 @@ class Participant extends DbObject
         $this->ivp_penalty = $ivp_penalty;
         $this->of_bonus = $of_bonus;
         $this->of_penalty = $of_penalty;
-
-        parent::__construct($id,$inserted);
+        $this->inserted = $inserted;
     }
-
-
+    
+    /**
+     * @return int
+     */
+    public function getUsrId()
+    {
+        return $this->usr_id;
+    }
+    
+    /**
+     * @return int
+     */
+    public function getActId()
+    {
+        return $this->act_id;
+    }
+    
     /**
      * @return float
      */
@@ -251,25 +262,5 @@ class Participant extends DbObject
     {
         $this->of_penalty = $of_penalty;
     }
-
-    /**
-     * @return int
-     */
-    public function getRolId()
-    {
-        return $this->rol_id;
-    }
-
-
-
-    /**
-     * @return int
-     */
-    public function getActId()
-    {
-        return $this->act_id;
-    }
-
-
 
 }

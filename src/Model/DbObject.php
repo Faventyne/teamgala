@@ -13,9 +13,11 @@ namespace Model;
 abstract class DbObject
 {
 
-
     /**
-     * @Id @Column(name="id", type="integer") @GeneratedValue
+     * 
+     * @Id()
+     * @GeneratedValue()
+     * @Column(name="id", type="integer") @GeneratedValue
      * @var int
      */
     protected $id;
@@ -30,12 +32,7 @@ abstract class DbObject
     public function __construct($id = 0, $inserted = '')
     {
         $this->id = $id;
-        /*
-        if (is_numeric($inserted)) {
-            $this->inserted = $inserted;
-        } else {
-            $this->inserted = strtotime($inserted);
-        }*/
+        $this->inserted = $inserted;
     }
 
     /**
@@ -61,14 +58,6 @@ abstract class DbObject
         return $this->inserted;
     }
 
-    /**
-     * @param \DateTime $inserted
-     */
-    public function setInserted(\DateTime $inserted)
-    {
-        $this->inserted = $inserted;
-    }
-
-
+   
 
 }
