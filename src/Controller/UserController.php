@@ -15,6 +15,7 @@ use Model\User;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Model\Activity;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
 class UserController
 {
 
@@ -69,8 +70,13 @@ class UserController
     /*********** USER LOGIN AND CONTEXTUAL MENU *****************/
     //Logs current user
     public function loginAction(Request $request, Application $app){
-
-    }
+        
+        return $app['twig']->render('loginTemplate.html.twig',
+            [
+                'error' => $app['security.last_error']($request),
+                'last_email' => $app['session']->get('security.last_email')
+            ])->redirect($app['url_generator']->generate('home'));
+    } 
 
     //Displays the menu in relation with user role
     public function homeAction(Request $request, Application $app){

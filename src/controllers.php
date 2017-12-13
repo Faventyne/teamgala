@@ -12,13 +12,7 @@ $routePwd = $app->get('/password/{token}', "Controller\UserController::modifyPwd
 $routePwd->bind('password') ;
 
 // Login page
-$routeLogin = $app->get('/',function(Request $request) use ($app) {
-    return $app['twig']->render('loginTemplate.html.twig',
-            [
-                'error' => $app['security.last_error']($request),
-                'last_username' => $app['session']->get('security.last_username')
-            ]);
-});
+$routeLogin = $app->get('/', "Controller\UserController::loginAction") ;
 $routeLogin->bind('login') ;
 
 // Home page
