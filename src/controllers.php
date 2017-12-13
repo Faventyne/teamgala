@@ -49,7 +49,7 @@ $routeSettingsOrganization->bind('settingsOrganization') ;
 
 // Settings users page
 $routeSettingsUser = $app->get('/settings/users', sprintf('%s::getAllUsersAction', \Controller\UserController::class)) ;
-$routeSettingsUser->bind('settingsUser') ;
+$routeSettingsUser->bind('settingsUsers') ;
 
 // Settings users page
 $routeSettingsUser = $app->get('/settings/users/create', sprintf('%s::addUserAction', \Controller\UserController::class)) ;

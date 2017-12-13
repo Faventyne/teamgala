@@ -28,13 +28,18 @@ class UserController
         $formFactory = $app['form.factory'] ;
         $userForm = $formFactory->create(AddUserForm::class, $user, ['standalone'=>true]) ;
         $userForm->handleRequest($request) ;
-        if ($userForm->isSubmitted() && $userForm->isValid()) {
+        
+        if ($userForm->isSubmitted() /*&& $userForm->isValid()*/) {
+            $user->addRole('2');
+            $user->addPosition('1');
             $entityManager = $app['orm.em'] ;
             $entityManager->persist($user) ;
             $entityManager->flush() ;
             
-            return $app->redirect($app['url_generator']->generate('settingsUsers')) ;
-        }
+        return $app->redirect($app['url_generator']->generate('settingsUsers'));
+                
+        } 
+        
         return $app['twig']->render('create_user.html.twig',
                 [
                     'form' => $userForm->createView()
