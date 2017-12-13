@@ -29,14 +29,23 @@ class UserController
         $userForm = $formFactory->create(AddUserForm::class, $user, ['standalone'=>true]) ;
         $userForm->handleRequest($request) ;
         
+
         if ($userForm->isSubmitted() /*&& $userForm->isValid()*/) {
-            //$user->addRole('2');
-            //$user->addPosition('1');
+            $token = md5(rand()) ;
+            $user->setToken($token) ;
             $entityManager = $app['orm.em'] ;
             $entityManager->persist($user) ;
             $entityManager->flush() ;
             
-        return $app->redirect($app['url_generator']->generate('settingsUsers'));
+            // Sending a message to the added user
+            $message = \Swift_Message::newInstance()
+            ->setSubject('Your Serpico account has been created')
+            ->setFrom(array('noreply@serpico.com'))
+            ->setTo(array($user->getEmail()))
+            ->setBody("/password/$token");
+            $app['mailer']->send($message);
+            
+        return print_r($message);// $app->redirect($app['url_generator']->generate('settingsUsers'));
                 
         } 
         

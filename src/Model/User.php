@@ -209,13 +209,19 @@ class User extends DbObject
     }
 
     /**
-     * @param string $mail
+     * @param string $email
      */
     public function setEmail($email)
     {
         $this->email = $email;
     }
-
+    /**
+     * @param string $token
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
+    }
     /**
      * @return string
      */

@@ -1,0 +1,26 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+  <section class="col s10">
+  <h1>User List</h1>
+  <input type="text" name="fakesearchbar" placeholder="FAKE SEARCH BAR">
+
+    {% for user in users %}
+      <ul class="collapsible" data-collapsible="accordion">
+        <li>
+          <div class="collapsible-header">
+            <i class="material-icons">account_box</i>
+            {{ user['firstname']  }} {{ user['lastname'] | upper }}
+            <span class="badge">{{ user['id'] }}</span></div>
+          <div class="collapsible-body"><p>Position et autres infos</p></div>
+        </li>
+      </ul>
+    {% endfor %}
+    <div class="row">
+      <div class="button-field col s10">
+        <button type="submit" class="validate">ADD USERS</button>
+      </div>
+    </div>
+  </section>
+
+{% endblock %}
