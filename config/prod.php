@@ -37,6 +37,17 @@ $app->register(
     ]
 );
 
+// SwiftMailer
+$app->register(new Silex\Provider\SwiftmailerServiceProvider());
+$app['swiftmailer.options'] = array(
+    'host' => 'smtp.gmail.com',
+    'port' => '25',
+    'username' => 'alexandre.claudon@gmail.com',
+    'password' => 'k6gf1moi',
+    'encryption' => null,
+    'auth_mode' => null
+);
+
 $app->register(new \Silex\Provider\SessionServiceProvider()) ;
 
 $app->register(new \Silex\Provider\ValidatorServiceProvider()) ;
