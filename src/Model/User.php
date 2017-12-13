@@ -13,6 +13,7 @@ namespace Model;
  */
 class User extends DbObject
 {
+
     /**
      * @Id()
      * @GeneratedValue()
@@ -20,6 +21,7 @@ class User extends DbObject
      * @var string
      */
     protected $id;
+
     /**
      * @Column(name="usr_firstname", type="string")
      * @var string
@@ -48,10 +50,10 @@ class User extends DbObject
     protected $birthdate;
 
     /**
-     * @Column(name="usr_mail", type="string", nullable=true)
+     * @Column(name="usr_email", type="string", nullable=true)
      * @var string
      */
-    protected $mail;
+    protected $email;
     /**
      * @Column(name="usr_picture", type="string")
      * @var string
@@ -64,6 +66,12 @@ class User extends DbObject
     protected $token;
 
     /**
+     * @Column(name="usr_inserted", type="datetime")
+     * @var string
+     */
+    protected $inserted;
+
+    /**
      * User constructor.
      * @param string $id
      * @param string $firstname
@@ -71,38 +79,43 @@ class User extends DbObject
      * @param string $username
      * @param bool $is_manager
      * @param string $birthdate
-     * @param string $mail
+     * @param string $email
      * @param string $picture
      * @param string $token
      */
-    public function __construct($id =0, $firstname='', $lastname='', $username='', $is_manager=false, $birthdate='', $mail='', $picture='', $token='', $inserted='')
+    public function __construct($id =0, $firstname='', $lastname='', $username='', $is_manager=false, $birthdate='', $email='', $picture='', $token='', $inserted='')
     {
         $this->firstname = $firstname;
         $this->lastname = $lastname;
         $this->username = $username;
         $this->is_manager = $is_manager;
         $this->birthdate = $birthdate;
-        $this->mail = $mail;
+        $this->email = $email;
         $this->picture = $picture;
         $this->token = $token;
         parent::__construct($id,$inserted);
     }
-
+    /*
     /**
      * @return int
      */
+    /*
     public function getId()
     {
         return $this->id;
     }
+    */
 
+    /*
     /**
      * @return string
      */
+    /*
     public function getInserted()
     {
         return $this->inserted;
     }
+    */
 
     /**
      * @param string $inserted
@@ -192,17 +205,17 @@ class User extends DbObject
     /**
      * @return string
      */
-    public function getMail()
+    public function getEmail()
     {
-        return $this->mail;
+        return $this->email;
     }
 
     /**
      * @param string $mail
      */
-    public function setMail($mail)
+    public function setEmail($email)
     {
-        $this->mail = $mail;
+        $this->email = $email;
     }
 
     /**
@@ -229,7 +242,15 @@ class User extends DbObject
         return $this->token;
     }
 
-
+    public function toArray()
+    {
+        return [
+            'id' => $this->id,
+            'firstname' => $this->firstname,
+            'lastname' => $this->lastname,
+            'username' => $this->email
+        ];
+    }
 
 
 

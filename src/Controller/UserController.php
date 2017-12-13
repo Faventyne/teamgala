@@ -6,9 +6,11 @@
  * Time: 00:48
  */
 
+namespace Controller;
+
 use Form\UserForm;
-use Symfony\Component\HttpFoundation\Request;
 use Silex\Application;
+use Symfony\Component\HttpFoundation\Request;
 use Model\User;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Model\Activity;
