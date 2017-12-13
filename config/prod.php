@@ -36,3 +36,14 @@ $app->register(
         ]
     ]
 );
+
+$app->register(new \Silex\Provider\SessionServiceProvider()) ;
+
+$app->register(new \Silex\Provider\ValidatorServiceProvider()) ;
+$app->register(new Silex\Provider\FormServiceProvider()) ;
+$app['locale'] = 'en_en' ;
+$app->register(new Silex\Provider\CsrfServiceProvider());
+
+$app->register(new \Silex\Provider\TranslationServiceProvider(),[
+    'translator.domains' => []
+]) ;
