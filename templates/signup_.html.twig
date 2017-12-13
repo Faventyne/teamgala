@@ -1,0 +1,26 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+<main>
+  <img src="lib/img/Serpico.png" alt="logo serpico">
+  <form class="col s10">
+    <div id="formulaire" class="row">
+      <div class="input-field col s10">
+        <input id="password" type="password" class="validate">
+        <label for="password">Password</label>
+      </div>
+    </div>
+    <div id="formulaire" class="row">
+      <div class="input-field col s10">
+        <input id="password2" type="password" class="validate">
+        <label for="password">Password</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="button-field col s10">
+        <button type="submit" class="validate">SIGN UP</button>
+      </div>
+    </div>
+  </form>
+</main>
+{% endblock %}
