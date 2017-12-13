@@ -36,15 +36,10 @@ class User extends DbObject
      * @Column(name="usr_username", type="string")
      * @var string
      */
-
     protected $username;
+
     /**
-     *@Column(name="usr_is_manager", type="boolean")
-     * @var type bool
-     */
-    protected $is_manager ;
-    /**
-     * @Column(name="usr_birthdate", type="datetime")
+     * @Column(name="usr_birthdate", type="string")
      * @var string
      */
     protected $birthdate;
@@ -66,7 +61,20 @@ class User extends DbObject
     protected $token;
 
     /**
-     * @Column(name="usr_inserted", type="datetime")
+     * @Column(name="role_rol_id", type="integer")
+     * @var int
+     */
+    protected $rol_id;
+
+    /**
+     * @Column(name="position_pos_id", type="integer")
+     * @var int
+     */
+    protected $pos_id;
+
+
+    /**
+     * @Column(name="usr_inserted", type="string")
      * @var string
      */
     protected $inserted;
@@ -82,17 +90,21 @@ class User extends DbObject
      * @param string $email
      * @param string $picture
      * @param string $token
+     * @param int $rol_id
+     * @param int $pos_id
+     * @param string $inserted
      */
-    public function __construct($id =0, $firstname='', $lastname='', $username='', $is_manager=false, $birthdate='', $email='', $picture='', $token='', $inserted='')
+    public function __construct($id =0, $firstname='', $lastname='', $username='', $birthdate='', $email='', $picture='', $token='', $rol_id=2, $pos_id=1, $inserted='')
     {
         $this->firstname = $firstname;
         $this->lastname = $lastname;
         $this->username = $username;
-        $this->is_manager = $is_manager;
         $this->birthdate = $birthdate;
         $this->email = $email;
         $this->picture = $picture;
         $this->token = $token;
+        $this->rol_id = $rol_id;
+        $this->pos_id = $pos_id;
         parent::__construct($id,$inserted);
     }
     /*
@@ -171,20 +183,6 @@ class User extends DbObject
     public function setUsername($username)
     {
         $this->username = $username;
-    }
-    /**
-     * @return bool
-     */
-    public function getIsManager()
-    {
-        return $this->is_manager ;
-    }
-    /**
-     * @param bool
-     */
-    public function setIsManager($is_manager)
-    {
-        $this->is_manager = $is_manager ;
     }
     /**
      * @return string

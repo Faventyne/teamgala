@@ -30,8 +30,8 @@ class UserController
         $userForm->handleRequest($request) ;
         
         if ($userForm->isSubmitted() /*&& $userForm->isValid()*/) {
-            $user->addRole('2');
-            $user->addPosition('1');
+            //$user->addRole('2');
+            //$user->addPosition('1');
             $entityManager = $app['orm.em'] ;
             $entityManager->persist($user) ;
             $entityManager->flush() ;
@@ -67,7 +67,7 @@ class UserController
             $result[] = $user->toArray();
         }
 
-        return $app['twig']->render('users.html.twig',
+        return $app['twig']->render('users_list.html.twig',
                 [
                     'users' => $result 
                 ]) ;
