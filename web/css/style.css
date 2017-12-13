@@ -2,7 +2,7 @@
 
 *{
   box-sizing: border-box;
-  transition-duration: 0.3s;
+  /*transition-duration: 0.3s;*/
   font-family: "Montserrat";
 }
 
@@ -34,6 +34,10 @@ form{
 }
 
 #password{
+  padding-bottom: 0.5rem;
+}
+
+#password2{
   padding-bottom: 0.5rem;
 }
 
