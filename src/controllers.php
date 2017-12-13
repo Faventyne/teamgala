@@ -8,6 +8,10 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 //Request::setTrustedProxies(array('127.0.0.1'));
 
+// Set / Modify Password page
+$routePwd = $app->get('/password/{token}', "Controller\UserController::modifyPwdAction") ;
+$routePwd->bind('password') ;
+
 // Login page
 $routeLogin = $app->get('/', "Controller\UserController::loginAction") ;
 $routeLogin->bind('login') ;
