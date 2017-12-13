@@ -15,11 +15,55 @@ use Model\Activity;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 class UserController
 {
-    //Adds user to current organization (limited to HR)
+
+
+    /*********** ADDITION, MODIFICATION, DELETION AND DISPLAY OF USERS *****************/
+
+    //Adds user to current organization (limited to HR)  (ajax call)
     public function addUserAction(Request $request, Application $app){
+
+        if (!$request->request->has('usr_firstname')) {
+            $message = 'usr_firstname must be defined';
+            return $app->json(['status' => 'error', 'message' => $message], 400);
+        }
+
+        if (!$request->request->has('usr_lastname')) {
+            $message = 'usr_lastname must be defined';
+            return $app->json(['status' => 'error', 'message' => $message], 400);
+        }
+
+        if (!$request->request->has('usr_email')) {
+            $message = 'usr_username must be defined';
+            return $app->json(['status' => 'error', 'message' => $message], 400);
+        }
 
     }
 
+    // Modify user info  (ajax call)
+    public function modifyUserAction(Request $request, Application $app){
+
+    }
+
+    // Delete user (ajax call)
+    public function deleteUserAction(Request $request, Application $app){
+
+    }
+
+    // Display all users (when HR clicks on "users" from /settings)
+    public function getAllUsersAction(Request $request, Application $app){
+
+        $repository = $app['orm.em']->getRepository(\Model\User::class);
+
+        $result = [];
+        foreach ($repository->findAll() as $user) {
+            $result[] = $user->toArray();
+        }
+
+        return $app->json($result);
+
+    }
+
+    /*********** USER LOGIN AND CONTEXTUAL MENU *****************/
     //Logs current user
     public function loginAction(Request $request, Application $app){
 
@@ -29,6 +73,8 @@ class UserController
     public function homeAction(Request $request, Application $app){
 
     }
+
+    /*********** ADDITION, MODIFICATION AND DELETION *****************/
 
     // Creates user position and weight
     public function addPositionWeightAction(Request $request, Application $app){
@@ -40,20 +86,7 @@ class UserController
 
     }
 
-    // Modify user info
-    public function modifyUserAction(Request $request, Application $app){
 
-    }
-
-    // Delete user
-    public function deleteUserAction(Request $request, Application $app){
-
-    }
-
-    // Display all users
-    public function getAllUsersAction(Request $request, Application $app){
-
-    }
 
 
 }
