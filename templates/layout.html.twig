@@ -3,7 +3,12 @@
     <head>
         <title>{% block title '' %} - My Silex Application</title>
 
-        <link href="{{ asset('css/main.css') }}" rel="stylesheet" type="text/css" />
+        <!-- CSS Materialize -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+        <!-- CSS JQuery UI-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
+
+        <link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css" />
 
         <script type="text/javascript">
             var _gaq = _gaq || [];
@@ -19,5 +24,11 @@
     </head>
     <body>
         {% block content %}{% endblock %}
+        <!-- CDN : jquery -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" ></script>
+        <!-- CDN : script Materialize -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+        <!-- CDN JQuery UI -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
     </body>
 </html>
