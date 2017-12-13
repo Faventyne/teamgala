@@ -12,7 +12,13 @@ $routePwd = $app->get('/password/{token}', "Controller\UserController::modifyPwd
 $routePwd->bind('password') ;
 
 // Login page
-$routeLogin = $app->get('/', "Controller\UserController::loginAction") ;
+$routeLogin = $app->get('/',function(Request $request) use ($app) {
+    return $app['twig']->render('loginTemplate.html.twig',
+            [
+                'error' => $app['security.last_error']($request),
+                'last_username' => $app['session']->get('security.last_username')
+            ]);
+});
 $routeLogin->bind('login') ;
 
 // Home page
@@ -47,9 +53,13 @@ $routeActivityResults->bind('activityResults') ;
 $routeSettingsOrganization = $app->get('/settings/organization', "Controller\OrganizationController::addOrganizationAction") ;
 $routeSettingsOrganization->bind('settingsOrganization') ;
 
-// Settings user page
+// Settings users page
 $routeSettingsUser = $app->get('/settings/users', sprintf('%s::getAllUsersAction', \Controller\UserController::class)) ;
 $routeSettingsUser->bind('settingsUser') ;
+
+// Settings users page
+$routeSettingsUser = $app->get('/settings/users/create', sprintf('%s::addUserAction', \Controller\UserController::class)) ;
+$routeSettingsUser->bind('createUser') ;
 
 // Settings position page
 $routeSettingsPosition = $app->get('/settings/position-weight', "Controller\UserController::positionWeightAction") ;
