@@ -52,7 +52,7 @@ $routeSettingsUser = $app->get('/settings/users', sprintf('%s::getAllUsersAction
 $routeSettingsUser->bind('settingsUsers') ;
 
 // Settings users page
-$routeSettingsUser = $app->get('/settings/users/create', sprintf('%s::addUserAction', \Controller\UserController::class)) ;
+$routeSettingsUser = $app->match('/settings/users/create', sprintf('%s::addUserAction', \Controller\UserController::class)) ;
 $routeSettingsUser->bind('createUser') ;
 
 // Settings position page
