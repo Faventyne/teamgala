@@ -8,7 +8,7 @@
 
 namespace Controller;
 
-use Form\UserForm;
+use Form\AddUserForm;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Model\User;
@@ -23,7 +23,7 @@ class UserController
 
     //Adds user to current organization (limited to HR)
     public function addUserAction(Request $request, Application $app){
-        $user = new UserModel() ;
+        $user = new User() ;
         $formFactory = $app['form.factory'] ;
         $userForm = $formFactory->create(AddUserForm::class, $user, ['standalone'=>true]) ;
         $userForm->handleRequest($request) ;
