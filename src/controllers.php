@@ -52,6 +52,19 @@ $routeSettingsUser->bind('settingsUser') ;
 $routeSettingsPosition = $app->get('/settings/position-weight', "Controller\UserController::positionWeightAction") ;
 $routeSettingsPosition->bind('settingsPositionWeight') ;
 
+/* AJAX */
+$routeAjaxUserGet = $app->get('/ajax/user/{id}', "Controller\UserController::findById") ;
+$routeAjaxUserGet->bind('ajaxUserGet');
+
+$routeAjaxUserAdd = $app->post('/ajax/user', "Controller\UserController::addUserAction") ;
+$routeAjaxUserAdd->bind('ajaxUserAdd');
+
+$routeAjaxUserModifiy = $app->post('/ajax/user/{id}', "Controller\UserController::modifyUserAction") ;
+$routeAjaxUserModifiy->bind('ajaxUserModify');
+
+$routeAjaxUserDelete = $app->delete('/ajax/user/{id}', "Controller\UserController::deleteUserAction") ;
+$routeAjaxUserDelete->bind('ajaxUserDelete') ;
+
 $app->error(function (\Exception $e, Request $request, $code) use ($app) {
     if ($app['debug']) {
         return;
