@@ -21,23 +21,10 @@ class UserController
 
     /*********** ADDITION, MODIFICATION, DELETION AND DISPLAY OF USERS *****************/
 
-    //Adds user to current organization (limited to HR)  (ajax call)
+    //Adds user to current organization (limited to HR)
     public function addUserAction(Request $request, Application $app){
 
-        if (!$request->request->has('usr_firstname')) {
-            $message = 'usr_firstname must be defined';
-            return $app->json(['status' => 'error', 'message' => $message], 400);
-        }
 
-        if (!$request->request->has('usr_lastname')) {
-            $message = 'usr_lastname must be defined';
-            return $app->json(['status' => 'error', 'message' => $message], 400);
-        }
-
-        if (!$request->request->has('usr_email')) {
-            $message = 'usr_username must be defined';
-            return $app->json(['status' => 'error', 'message' => $message], 400);
-        }
 
     }
 
