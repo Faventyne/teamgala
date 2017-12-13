@@ -1,45 +1,40 @@
 {% extends "layout.html.twig" %}
 
 {% block content %}
-  <img src="lib/img/Serpico.png" alt="logo serpico">
-    {{ form_start(form) }}
+  <img src="{{ asset('../web/lib/img/Serpico.png') }}"/>
+  {{ form_start(form) }}
 
-  <form class="col s10">
-    <div class="row">
-      <div class="input-field col s10">
-        <input disabled value="Organisation" id="disabled" type="text" class="validate">
-        <label for="disabled">Disabled</label>
-      </div>
+  <div class="row">
+    <div class="input-field col s10">
+      <input disabled="disabled" value="Organisation" id="disabled" type="text" class="validate">
+      <label for="disabled">Disabled</label>
     </div>
-    <div class="row">
-      <div class="input-field col s10">
-
-          {{ form_widget(form.firstname) }}
-        <label for="firstname">{{ form_label(form.firstname) }}</label>
-      </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s10">
+      {{ form_widget(form.firstname) }}
+      {{ form_label(form.firstname) }}
     </div>
+  </div>
 
-    <div class="row">
-      <div class="input-field col s10">
-
-          {{ form_widget(form.lastname) }}
-        <label for="lastname"> {{ form_label(form.lastname) }}</label>
-      </div>
+  <div class="row">
+    <div class="input-field col s10">
+      {{ form_widget(form.lastname) }}
+      {{ form_label(form.lastname) }}
     </div>
+  </div>
 
-    <div class="row">
-      <div class="input-field col s10">
-
-          {{ form_widget(form.email) }}
-        <label for="email"> {{ form_label(form.email) }}</label>
-      </div>
+  <div class="row">
+    <div class="input-field col s10">
+      {{ form_widget(form.email) }}
+      {{ form_label(form.email) }}
     </div>
-    <div class="row">
-      <div class="button-field col s10">
-          {{ form_row(form.submit) }}
-      </div>
+  </div>
+  <div class="row">
+    <div class="button-field col s10">
+      {{ form_row(form.submit) }}
     </div>
-  </form>
+  </div>
 
-    {{ form_end(form)}}
+  {{ form_end(form)}}
 {% endblock %}
