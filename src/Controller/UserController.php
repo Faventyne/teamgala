@@ -30,8 +30,8 @@ class UserController
         $userForm->handleRequest($request) ;
         
         if ($userForm->isSubmitted() /*&& $userForm->isValid()*/) {
-            //$user->setRole('2');
-            //$user->setPosition('1');
+            //$user->addRole('2');
+            //$user->addPosition('1');
             $entityManager = $app['orm.em'] ;
             $entityManager->persist($user) ;
             $entityManager->flush() ;
@@ -60,15 +60,17 @@ class UserController
 
     // Display all users (when HR clicks on "users" from /settings)
     public function getAllUsersAction(Request $request, Application $app){
-
-        $repository = $app['orm.em']->getRepository(\Model\User::class);
-
+        $entityManager = $this->getEntityManager($app) ;
+        $repository = $entityManager->getRepository(\Model\User::class);
         $result = [];
         foreach ($repository->findAll() as $user) {
             $result[] = $user->toArray();
         }
 
-        return $app->json($result);
+        return $app['twig']->render('users_list.html.twig',
+                [
+                    'users' => $result 
+                ]) ;
 
     }
 
@@ -101,6 +103,11 @@ class UserController
     }
 
 
-
+    /**
+     * @return \Doctrine\ORM\EntityManager
+     */
+    public function getEntityManager (Application $app) {
+        return $app['orm.em'] ;
+    }
 
 }
