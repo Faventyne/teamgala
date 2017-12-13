@@ -1,8 +1,7 @@
 {% extends "layout.html.twig" %}
 
 {% block content %}
-{{ form_start(form) }}
-
+<main>
   <form class="col s10">
     <div class="row">
       <div class="input-field col s10">
@@ -12,7 +11,7 @@
     </div>
     <div class="row">
       <div class="input-field col s10">
-
+        
         {{ form_widget(form.firstname) }}
         <label for="firstname">{{ form_label(form.firstname) }}</label>
       </div>
@@ -20,25 +19,23 @@
 
       <div class="row">
       <div class="input-field col s10">
-
-        {{ form_widget(form.lastname) }}
-        <label for="lastname"> {{ form_label(form.lastname) }}</label>
+        <input id="lastname" type="text" class="validate">
+        <label for="lastname">Last Name</label>
       </div>
     </div>
 
     <div class="row">
       <div class="input-field col s10">
-
-        {{ form_widget(form.email) }}
-        <label for="email"> {{ form_label(form.email) }}</label>
+        <input id="email" type="email" class="validate">
+        <label for="email">Email</label>
       </div>
     </div>
     <div class="row">
       <div class="button-field col s10">
-        {{ form_row(form.submit) }}
+        <button type="submit" class="validate">CREATE</button>
       </div>
     </div>
   </form>
 
-{{ form_end(form)}}
+</main>
 {% endblock %}
