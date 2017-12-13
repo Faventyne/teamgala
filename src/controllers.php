@@ -45,7 +45,7 @@ $routeSettingsOrganization = $app->get('/settings/organization', "Controller\Org
 $routeSettingsOrganization->bind('settingsOrganization') ;
 
 // Settings user page
-$routeSettingsUser = $app->get('/settings/user', "Controller\UserController::addUserAction") ;
+$routeSettingsUser = $app->get('/settings/users', "Controller\UserController::getAllUsersAction") ;
 $routeSettingsUser->bind('settingsUser') ;
 
 // Settings position page

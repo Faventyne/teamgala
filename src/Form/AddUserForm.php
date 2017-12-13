@@ -16,7 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class UserForm extends AbstractType
+class AddUserForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -31,26 +31,15 @@ class UserForm extends AbstractType
                     new Assert\NotBlank()
                 ]
             ])
-            ->add('username', TextType::class, [
+            ->add('email', TextType::class, [
                 'constraints' => [
                     new Assert\NotBlank(),
                     new Assert\Regex([
-                        'pattern' => "/^[A-Za-z0-9_-]*$/"
+                        'pattern' => "/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/"
                     ])
                 ]
-            ])
-            //->add('roles', TextType::class)
-            ->add('password', RepeatedType::class,
-                [
-                    'type' => PasswordType::class,
-                    'required' => true,
-                    'first_options' => [
-                        'label' => 'Password',
-                    ],
-                    'second_options' => [
-                        'label' => 'Repeat password'
-                    ]
-                ]);
+            ]);
+            
         if ($options['standalone']){
             $builder->add('submit', SubmitType::class);
         }
