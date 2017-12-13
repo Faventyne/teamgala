@@ -23,7 +23,21 @@ class UserController
 
     //Adds user to current organization (limited to HR)
     public function addUserAction(Request $request, Application $app){
-
+        $user = new UserModel() ;
+        $formFactory = $app['form.factory'] ;
+        $userForm = $formFactory->create(AddUserForm::class, $user, ['standalone'=>true]) ;
+        $userForm->handleRequest($request) ;
+        if ($userForm->isSubmitted() && $userForm->isValid()) {
+            $entityManager = $app['orm.em'] ;
+            $entityManager->persist($user) ;
+            $entityManager->flush() ;
+            
+            return $app->redirect($app['url_generator']->generate('settingsUsers')) ;
+        }
+        return $app['twig']->render('create_user.html.twig',
+                [
+                    'form' => $userForm->createView()
+                ]) ;
 
 
     }
