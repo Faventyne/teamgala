@@ -41,8 +41,10 @@ class AddUserForm extends AbstractType
             ]);
             
         if ($options['standalone']){
-            $builder->add('submit', SubmitType::class);
-        }
+            $builder->add('submit', SubmitType::class, [
+                'label' => 'Soumettre'
+            ]
+        );}
     }
 
     public function configureOptions(OptionsResolver $resolver)
