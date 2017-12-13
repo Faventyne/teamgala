@@ -5,7 +5,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-
 //Request::setTrustedProxies(array('127.0.0.1'));
 
 // Login page
@@ -45,7 +44,7 @@ $routeSettingsOrganization = $app->get('/settings/organization', "Controller\Org
 $routeSettingsOrganization->bind('settingsOrganization') ;
 
 // Settings user page
-$routeSettingsUser = $app->get('/settings/users', "Controller\UserController::getAllUsersAction") ;
+$routeSettingsUser = $app->get('/settings/users', sprintf('%s::getAllUsersAction', \Controller\UserController::class)) ;
 $routeSettingsUser->bind('settingsUser') ;
 
 // Settings position page
