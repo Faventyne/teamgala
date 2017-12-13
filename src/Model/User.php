@@ -39,7 +39,12 @@ class User extends DbObject
 
     protected $username;
     /**
-     * @Column(name="usr_birthdate", type="string")
+     *@Column(name="usr_is_manager", type="boolean")
+     * @var type bool
+     */
+    protected $is_manager ;
+    /**
+     * @Column(name="usr_birthdate", type="datetime")
      * @var string
      */
     protected $birthdate;
@@ -61,23 +66,10 @@ class User extends DbObject
     protected $token;
 
     /**
-     * @Column(name="role_rol_id", type="integer")
-     * @var int
-     */
-    protected $role_id;
-
-    /**
-     * @Column(name="position_pos_id", type="integer")
-     * @var int
-     */
-    protected $position_id;
-
-    /**
-     * @Column(name="usr_inserted", type="string")
+     * @Column(name="usr_inserted", type="datetime")
      * @var string
      */
     protected $inserted;
-
 
     /**
      * User constructor.
@@ -85,26 +77,22 @@ class User extends DbObject
      * @param string $firstname
      * @param string $lastname
      * @param string $username
+     * @param bool $is_manager
      * @param string $birthdate
      * @param string $email
      * @param string $picture
      * @param string $token
-     * @param int $role_id
-     * @param int $position_id
-     * @param string $inserted
      */
-
-    public function __construct($id =0, $firstname='', $lastname='', $username='', $birthdate='', $email='', $picture='', $token='', $role_id=2, $position_id= 1,$inserted='')
+    public function __construct($id =0, $firstname='', $lastname='', $username='', $is_manager=false, $birthdate='', $email='', $picture='', $token='', $inserted='')
     {
         $this->firstname = $firstname;
         $this->lastname = $lastname;
         $this->username = $username;
+        $this->is_manager = $is_manager;
         $this->birthdate = $birthdate;
         $this->email = $email;
         $this->picture = $picture;
         $this->token = $token;
-        $this->role_id = $role_id;
-        $this->position_id = $position_id;
         parent::__construct($id,$inserted);
     }
     /*
@@ -132,8 +120,6 @@ class User extends DbObject
     /**
      * @param string $inserted
      */
-
-
     public function setInserted($inserted)
     {
         $this->inserted = $inserted;

@@ -30,8 +30,8 @@ class UserController
         $userForm->handleRequest($request) ;
         
         if ($userForm->isSubmitted() /*&& $userForm->isValid()*/) {
-            //$user->setRole('2');
-            //$user->setPosition('1');
+            $user->addRole('2');
+            $user->addPosition('1');
             $entityManager = $app['orm.em'] ;
             $entityManager->persist($user) ;
             $entityManager->flush() ;
