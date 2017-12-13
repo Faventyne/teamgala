@@ -60,15 +60,17 @@ class UserController
 
     // Display all users (when HR clicks on "users" from /settings)
     public function getAllUsersAction(Request $request, Application $app){
-
-        $repository = $app['orm.em']->getRepository(\Model\User::class);
-
+        $entityManager = $this->getEntityManager($app) ;
+        $repository = $entityManager->getRepository(\Model\User::class);
         $result = [];
         foreach ($repository->findAll() as $user) {
             $result[] = $user->toArray();
         }
 
-        return $app->json($result);
+        return $app['twig']->render('users.html.twig',
+                [
+                    'users' => $result 
+                ]) ;
 
     }
 
@@ -101,6 +103,11 @@ class UserController
     }
 
 
-
+    /**
+     * @return \Doctrine\ORM\EntityManager
+     */
+    public function getEntityManager (Application $app) {
+        return $app['orm.em'] ;
+    }
 
 }
