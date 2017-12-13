@@ -9,10 +9,17 @@
 namespace Model;
 
 /**
- * @Entity @Table(name="criterion")
+ * @Entity()
+ * @Table(name="criterion")
  */
 class Criterion extends DbObject
 {
+    /**
+     * @Id()
+     * @GeneratedValue()
+     * @column(name="crt_id", type="integer", nullable=false) 
+     */
+    protected $id ;
     /**
      * @Column(name="activity_act_id", length=10, type="integer")
      * @var int
@@ -51,6 +58,7 @@ class Criterion extends DbObject
 
     /**
      * Criterion constructor.
+     * @param int $id
      * @param int $act_id
      * @param string $name
      * @param string $grade_type
@@ -61,6 +69,7 @@ class Criterion extends DbObject
      */
     public function __construct($id=0, $act_id=0, $name='', $weight=0, $grade_lb=0, $grade_ub=5, $grade_step=0.5, $grade_type='absolute',$inserted='')
     {
+        parent::__construct($id,$inserted);
         $this->act_id = $act_id;
         $this->name = $name;
         $this->grade_type = $grade_type;
@@ -68,9 +77,16 @@ class Criterion extends DbObject
         $this->grade_lb = $grade_lb;
         $this->grade_ub = $grade_ub;
         $this->grade_step = $grade_step;
-        parent::__construct($id,$inserted);
+        
     }
 
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
     /**
      * @return int
      */

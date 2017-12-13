@@ -14,11 +14,6 @@ namespace Symfony\Bundle\WebProfilerBundle\Profiler;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Profiler\Profiler;
 use Symfony\Component\HttpKernel\Profiler\Profile;
-use Twig\Environment;
-use Twig\Error\LoaderError;
-use Twig\Loader\ExistsLoaderInterface;
-use Twig\Loader\SourceContextLoaderInterface;
-use Twig\Template;
 
 /**
  * Profiler Templates Manager.
@@ -32,7 +27,14 @@ class TemplateManager
     protected $templates;
     protected $profiler;
 
-    public function __construct(Profiler $profiler, Environment $twig, array $templates)
+    /**
+     * Constructor.
+     *
+     * @param Profiler          $profiler
+     * @param \Twig_Environment $twig
+     * @param array             $templates
+     */
+    public function __construct(Profiler $profiler, \Twig_Environment $twig, array $templates)
     {
         $this->profiler = $profiler;
         $this->twig = $twig;
@@ -63,7 +65,9 @@ class TemplateManager
     /**
      * Gets the templates for a given profile.
      *
-     * @return Template[]
+     * @param Profile $profile
+     *
+     * @return Twig_Template[]
      *
      * @deprecated not used anymore internally
      */
@@ -80,6 +84,8 @@ class TemplateManager
 
     /**
      * Gets template names of templates that are present in the viewed profile.
+     *
+     * @param Profile $profile
      *
      * @return array
      *
@@ -118,19 +124,19 @@ class TemplateManager
     protected function templateExists($template)
     {
         $loader = $this->twig->getLoader();
-        if ($loader instanceof ExistsLoaderInterface) {
+        if ($loader instanceof \Twig_ExistsLoaderInterface) {
             return $loader->exists($template);
         }
 
         try {
-            if ($loader instanceof SourceContextLoaderInterface || method_exists($loader, 'getSourceContext')) {
+            if ($loader instanceof \Twig_SourceContextLoaderInterface) {
                 $loader->getSourceContext($template);
             } else {
                 $loader->getSource($template);
             }
 
             return true;
-        } catch (LoaderError $e) {
+        } catch (\Twig_Error_Loader $e) {
         }
 
         return false;
