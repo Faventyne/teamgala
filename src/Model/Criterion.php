@@ -36,20 +36,20 @@ class Criterion extends DbObject
      */
     protected $weight;
     /**
-     * @Column(name="cri_grade_lb", length= 10, type="float")
+     * @Column(name="cri_lowerbound", length= 10, type="float")
      * @var float
      */
-    protected $grade_lb;
+    protected $lowerbound;
     /**
-     * @Column(name="cri_grade_ub", length= 10, type="float")
+     * @Column(name="cri_upperbound", length= 10, type="float")
      * @var int
      */
-    protected $grade_ub;
+    protected $upperbound;
     /**
-     * @Column(name="cri_grade_ub", length= 10, type="float")
+     * @Column(name="cri_upperbound", length= 10, type="float")
      * @var float
      */
-    protected $grade_step;
+    protected $step;
     /**
      * @Column(name="cri_grade_type", type="string")
      * @var string
@@ -63,20 +63,20 @@ class Criterion extends DbObject
      * @param string $name
      * @param string $grade_type
      * @param float $weight
-     * @param float $grade_lb
-     * @param int $grade_ub
-     * @param float $grade_step
+     * @param float $lowerbound
+     * @param int $upperbound
+     * @param float $step
      */
-    public function __construct($id=0, $act_id=0, $name='', $weight=0, $grade_lb=0, $grade_ub=5, $grade_step=0.5, $grade_type='absolute',$inserted='')
+    public function __construct($id=0, $act_id=0, $name='', $weight=0, $lowerbound=0, $upperbound=5, $step=0.5, $grade_type='absolute',$inserted='')
     {
         parent::__construct($id,$inserted);
         $this->act_id = $act_id;
         $this->name = $name;
         $this->grade_type = $grade_type;
         $this->weight = $weight;
-        $this->grade_lb = $grade_lb;
-        $this->grade_ub = $grade_ub;
-        $this->grade_step = $grade_step;
+        $this->lowerbound = $lowerbound;
+        $this->upperbound = $upperbound;
+        $this->step = $step;
         
     }
 
@@ -132,15 +132,15 @@ class Criterion extends DbObject
      */
     public function getGradeLb()
     {
-        return $this->grade_lb;
+        return $this->lowerbound;
     }
 
     /**
-     * @param float $grade_lb
+     * @param float $lowerbound
      */
-    public function setGradeLb($grade_lb)
+    public function setGradeLb($lowerbound)
     {
-        $this->grade_lb = $grade_lb;
+        $this->lowerbound = $lowerbound;
     }
 
     /**
@@ -148,15 +148,15 @@ class Criterion extends DbObject
      */
     public function getGradeUb()
     {
-        return $this->grade_ub;
+        return $this->upperbound;
     }
 
     /**
-     * @param int $grade_ub
+     * @param int $upperbound
      */
-    public function setGradeUb($grade_ub)
+    public function setGradeUb($upperbound)
     {
-        $this->grade_ub = $grade_ub;
+        $this->upperbound = $upperbound;
     }
 
     /**
@@ -164,15 +164,15 @@ class Criterion extends DbObject
      */
     public function getGradeStep()
     {
-        return $this->grade_step;
+        return $this->step;
     }
 
     /**
-     * @param float $grade_step
+     * @param float $step
      */
-    public function setGradeStep($grade_step)
+    public function setGradeStep($step)
     {
-        $this->grade_step = $grade_step;
+        $this->step = $step;
     }
 
     /**
