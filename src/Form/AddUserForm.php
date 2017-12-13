@@ -6,7 +6,7 @@
  * Time: 09:35
  */
 namespace Form;
-use Model\UserModel;
+use Model\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -47,7 +47,7 @@ class AddUserForm extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefault('data_class',UserModel::class);
+        $resolver->setDefault('data_class',User::class);
         $resolver->setDefault('standalone', false);
         $resolver->addAllowedTypes('standalone', 'bool');
     }

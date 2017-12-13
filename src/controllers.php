@@ -47,9 +47,13 @@ $routeActivityResults->bind('activityResults') ;
 $routeSettingsOrganization = $app->get('/settings/organization', "Controller\OrganizationController::addOrganizationAction") ;
 $routeSettingsOrganization->bind('settingsOrganization') ;
 
-// Settings user page
+// Settings users page
 $routeSettingsUser = $app->get('/settings/users', sprintf('%s::getAllUsersAction', \Controller\UserController::class)) ;
-$routeSettingsUser->bind('settingsUser') ;
+$routeSettingsUser->bind('settingsUsers') ;
+
+// Settings users page
+$routeSettingsUser = $app->get('/settings/users/create', sprintf('%s::addUserAction', \Controller\UserController::class)) ;
+$routeSettingsUser->bind('createUser') ;
 
 // Settings position page
 $routeSettingsPosition = $app->get('/settings/position-weight', "Controller\UserController::positionWeightAction") ;

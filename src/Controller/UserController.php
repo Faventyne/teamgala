@@ -8,36 +8,43 @@
 
 namespace Controller;
 
-use Form\UserForm;
+use Form\AddUserForm;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Model\User;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Model\Activity;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
 class UserController
 {
 
 
     /*********** ADDITION, MODIFICATION, DELETION AND DISPLAY OF USERS *****************/
 
-    //Adds user to current organization (limited to HR)  (ajax call)
+    //Adds user to current organization (limited to HR)
     public function addUserAction(Request $request, Application $app){
+        $user = new User() ;
+        $formFactory = $app['form.factory'] ;
+        $userForm = $formFactory->create(AddUserForm::class, $user, ['standalone'=>true]) ;
+        $userForm->handleRequest($request) ;
+        
+        if ($userForm->isSubmitted() /*&& $userForm->isValid()*/) {
+            $user->addRole('2');
+            $user->addPosition('1');
+            $entityManager = $app['orm.em'] ;
+            $entityManager->persist($user) ;
+            $entityManager->flush() ;
+            
+        return $app->redirect($app['url_generator']->generate('settingsUsers'));
+                
+        } 
+        
+        return $app['twig']->render('create_user.html.twig',
+                [
+                    'form' => $userForm->createView()
+                ]) ;
 
-        if (!$request->request->has('usr_firstname')) {
-            $message = 'usr_firstname must be defined';
-            return $app->json(['status' => 'error', 'message' => $message], 400);
-        }
-
-        if (!$request->request->has('usr_lastname')) {
-            $message = 'usr_lastname must be defined';
-            return $app->json(['status' => 'error', 'message' => $message], 400);
-        }
-
-        if (!$request->request->has('usr_email')) {
-            $message = 'usr_username must be defined';
-            return $app->json(['status' => 'error', 'message' => $message], 400);
-        }
 
     }
 
@@ -68,8 +75,13 @@ class UserController
     /*********** USER LOGIN AND CONTEXTUAL MENU *****************/
     //Logs current user
     public function loginAction(Request $request, Application $app){
-
-    }
+        
+        return $app['twig']->render('loginTemplate.html.twig',
+            [
+                'error' => $app['security.last_error']($request),
+                'last_email' => $app['session']->get('security.last_email')
+            ])->redirect($app['url_generator']->generate('home'));
+    } 
 
     //Displays the menu in relation with user role
     public function homeAction(Request $request, Application $app){
