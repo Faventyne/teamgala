@@ -50,6 +50,11 @@ class User extends DbObject
      */
     protected $email;
     /**
+     * @Column(name="usr_password", type="string")
+     * @var string
+     */
+    protected $password;
+    /**
      * @Column(name="usr_picture", type="string")
      * @var string
      */
@@ -88,24 +93,42 @@ class User extends DbObject
      * @param bool $is_manager
      * @param string $birthdate
      * @param string $email
+     * @param string $password
      * @param string $picture
      * @param string $token
      * @param int $rol_id
      * @param int $pos_id
      * @param string $inserted
      */
-    public function __construct($id =0, $firstname='', $lastname='', $username='', $birthdate='', $email='', $picture='', $token='', $rol_id=2, $pos_id=1, $inserted='')
+    public function __construct($id =0, $firstname='', $lastname='', $username='', $birthdate='', $email='', $password='', $picture='', $token='', $rol_id=2, $pos_id=1, $inserted='')
     {
         $this->firstname = $firstname;
         $this->lastname = $lastname;
         $this->username = $username;
         $this->birthdate = $birthdate;
         $this->email = $email;
+        $this->password = $password;
         $this->picture = $picture;
         $this->token = $token;
         $this->rol_id = $rol_id;
         $this->pos_id = $pos_id;
         parent::__construct($id,$inserted);
+    }
+
+    /**
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param string $password
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
     }
     /*
     /**

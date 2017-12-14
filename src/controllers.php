@@ -12,7 +12,7 @@ $routePwd = $app->get('/password/{token}', "Controller\UserController::modifyPwd
 $routePwd->bind('password') ;
 
 // Login page
-$routeLogin = $app->get('/', "Controller\UserController::loginAction") ;
+$routeLogin = $app->match('/', "Controller\UserController::loginAction") ;
 $routeLogin->bind('login') ;
 
 // Home page
