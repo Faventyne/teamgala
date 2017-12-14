@@ -7,7 +7,7 @@
  */
 
 namespace Form;
-use Model\User;
+use Model\Activity;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -30,7 +30,7 @@ class AddActivityForm extends AbstractType
                 ]
             ])
             ->add('deadline', DateType::class, [
-                'format' => 'dd/mm/yyyy',
+                //'format' => 'dd/MM/yyyy',
                 'placeholder' => 'dd/mm/yyyy',
                 'constraints' => [
                     new Assert\NotBlank()
@@ -54,7 +54,7 @@ class AddActivityForm extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefault('data_class',User::class);
+        $resolver->setDefault('data_class',Activity::class);
         $resolver->setDefault('standalone', false);
         $resolver->addAllowedTypes('standalone', 'bool');
     }
