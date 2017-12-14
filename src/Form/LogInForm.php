@@ -8,6 +8,15 @@
 
 namespace Form;
 
+use Model\User;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Description of LogInForm
  *
@@ -23,14 +32,12 @@ class LogInForm extends AbstractType{
                     ])
                 ]
             ])
-                ->add(
-                'password',
-                TextType::class,
-                [
-                    'type' => PasswordType::class,
-                    'required' => true,
-                    'label' => 'Password'
-                    ]);
+            ->add('password', PasswordType::class, [
+                'label' => 'Password',
+                'required' => true
+
+
+            ]);
             
         if ($options['standalone']){
             $builder->add('submit', SubmitType::class,[
