@@ -17,10 +17,10 @@ class Activity extends DbObject
     /**
      *@Id()
      * @GeneratedValue()
-     * @Column(name="act_id, type="integer", nullable=false")
+     * @Column(name="act_id", type="integer", nullable=false")
      * @var int
      */
-    protected $id ;
+    protected $id;
     /**
      * @Column(name="organization_org_id", length=10, type="integer")
      * @var int
@@ -32,10 +32,15 @@ class Activity extends DbObject
      */
     protected $name;
     /**
-     * @Column(name="act_quotes_deadline", length= 10, type="datetime")
+     * @Column(name="act_visibility", type="string")
      * @var string
      */
-    protected $quotes_deadline;
+    protected $visibility;
+    /**
+     * @Column(name="act_deadline", length= 10, type="string")
+     * @var string
+     */
+    protected $deadline;
     /**
      * @Column(name="act_objectives", type="string")
      * @var string
@@ -72,7 +77,7 @@ class Activity extends DbObject
      * @param int $id
      * @param int $org_id
      * @param string $name
-     * @param string $quotes_deadline
+     * @param string $deadline
      * @param string $objectives
      * @param string $status
      * @param bool $isRewarding
@@ -80,12 +85,13 @@ class Activity extends DbObject
      * @param int $res_inertia
      * @param int $res_benefit_eff
      */
-    public function __construct($id, $org_id, $name, $quotes_deadline, $objectives, $status, $isRewarding, $distrAmount, $res_inertia, $res_benefit_eff,$inserted)
+    public function __construct($id=0, $org_id=0, $name='',$visibility='', $deadline='', $objectives='', $status='', $isRewarding='', $distrAmount=0, $res_inertia=0, $res_benefit_eff=0,$inserted='')
     {
         parent::__construct($id,$inserted);
         $this->org_id = $org_id;
         $this->name = $name;
-        $this->quotes_deadline = $quotes_deadline;
+        $this->visibility = $visibility;
+        $this->deadline = $deadline;
         $this->objectives = $objectives;
         $this->status = $status;
         $this->isRewarding = $isRewarding;
@@ -94,7 +100,32 @@ class Activity extends DbObject
         $this->res_benefit_eff = $res_benefit_eff;
         
     }
+    
+    function getVisibility() {
+        return $this->visibility;
+    }
 
+    function getRes_inertia() {
+        return $this->res_inertia;
+    }
+
+    function getRes_benefit_eff() {
+        return $this->res_benefit_eff;
+    }
+
+    function setVisibility($visibility) {
+        $this->visibility = $visibility;
+    }
+
+    function setRes_inertia($res_inertia) {
+        $this->res_inertia = $res_inertia;
+    }
+
+    function setRes_benefit_eff($res_benefit_eff) {
+        $this->res_benefit_eff = $res_benefit_eff;
+    }
+
+    
     public function getId()
     {
         return $this->id ;
@@ -126,17 +157,17 @@ class Activity extends DbObject
     /**
      * @return string
      */
-    public function getQuotesDeadline()
+    public function getDeadline()
     {
-        return $this->quotes_deadline;
+        return $this->deadline;
     }
 
     /**
-     * @param string $quotes_deadline
+     * @param string $deadline
      */
-    public function setQuotesDeadline($quotes_deadline)
+    public function setDeadline($deadline)
     {
-        $this->quotes_deadline = $quotes_deadline;
+        $this->deadline = $deadline;
     }
 
     /**

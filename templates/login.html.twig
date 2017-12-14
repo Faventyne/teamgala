@@ -3,6 +3,22 @@
 {% block content %}
 
   <img src="lib/img/Serpico.png" alt="logo Serpico">
+
+  <form action="{{ path('admin_login_check') }}" method="post" class="col s10">
+      {{ error }}
+    <div class="input-field col s10">
+      <input type="text" name="_username" value="{{ last_username }}" />
+    </div>
+    <div class="input-field col s10">
+      <input type="password" name="_password" value="" />
+    </div>
+    <div class="button-field col s10">
+      <input type="submit" />
+    </div>
+  </form>
+
+
+
   {{ form_start(form) }}
   <form class="col s10">
     <div class="row">

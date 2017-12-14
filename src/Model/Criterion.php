@@ -51,28 +51,28 @@ class Criterion extends DbObject
      */
     protected $step;
     /**
-     * @Column(name="cri_grade_type", type="string")
+     * @Column(name="cri_gradetype", type="string")
      * @var string
      */
-    protected $grade_type;
+    protected $gradetype;
 
     /**
      * Criterion constructor.
      * @param int $id
      * @param int $act_id
      * @param string $name
-     * @param string $grade_type
+     * @param string $gradetype
      * @param float $weight
      * @param float $lowerbound
      * @param int $upperbound
      * @param float $step
      */
-    public function __construct($id=0, $act_id=0, $name='', $weight=0, $lowerbound=0, $upperbound=5, $step=0.5, $grade_type='absolute',$inserted='')
+    public function __construct($id=0, $act_id=0, $name='', $weight=0, $lowerbound=0, $upperbound=5, $step=0.5, $gradetype='absolute',$inserted='')
     {
         parent::__construct($id,$inserted);
         $this->act_id = $act_id;
         $this->name = $name;
-        $this->grade_type = $grade_type;
+        $this->gradetype = $gradetype;
         $this->weight = $weight;
         $this->lowerbound = $lowerbound;
         $this->upperbound = $upperbound;
@@ -127,68 +127,46 @@ class Criterion extends DbObject
         $this->weight = $weight;
     }
 
-    /**
-     * @return float
-     */
-    public function getGradeLb()
-    {
+    function getLowerbound() {
         return $this->lowerbound;
     }
 
-    /**
-     * @param float $lowerbound
-     */
-    public function setGradeLb($lowerbound)
-    {
-        $this->lowerbound = $lowerbound;
-    }
-
-    /**
-     * @return int
-     */
-    public function getGradeUb()
-    {
+    function getUpperbound() {
         return $this->upperbound;
     }
 
-    /**
-     * @param int $upperbound
-     */
-    public function setGradeUb($upperbound)
-    {
-        $this->upperbound = $upperbound;
-    }
-
-    /**
-     * @return float
-     */
-    public function getGradeStep()
-    {
+    function getStep() {
         return $this->step;
     }
 
-    /**
-     * @param float $step
-     */
-    public function setGradeStep($step)
-    {
+    function setLowerbound($lowerbound) {
+        $this->lowerbound = $lowerbound;
+    }
+
+    function setUpperbound($upperbound) {
+        $this->upperbound = $upperbound;
+    }
+
+    function setStep($step) {
         $this->step = $step;
     }
+
+       
 
     /**
      * @return string
      */
     public function getGradeType()
     {
-        return $this->grade_type;
+        return $this->gradetype;
     }
 
     /**
-     * @param string $grade_type
+     * @param string $gradetype
      */
-    public function setGradeType($grade_type)
+    public function setGradeType($gradetype)
     {
-        $this->grade_type = $grade_type;
+        $this->gradetype = $gradetype;
     }
 
 }
