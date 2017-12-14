@@ -43,7 +43,7 @@ class UserController
             ->setSubject('Your Serpico account has been created')
             ->setFrom(array('noreply@serpico.com' => 'no reply'))
             ->setTo(array($user->getEmail()))
-            ->setBody("/password/$token", 'text/plain');
+            ->setBody("url/password/$token", 'text/plain');
             
             $app['mailer']->send($message);
             $app['swiftmailer.spooltransport']
