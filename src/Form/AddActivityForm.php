@@ -9,6 +9,8 @@
 namespace Form;
 use Model\Activity;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -25,10 +27,17 @@ class AddActivityForm extends AbstractType
 
         $builder->add('name', TextType::class,
             [
+                'label' => 'Activity name',
                 'constraints' => [
                     new Assert\NotBlank()
                 ]
             ])
+            ->add('visibility', ChoiceType::class,
+                [   'choices' => [
+                        'Public (within the organization)' => true,
+                        'Private' => false
+                    ]
+                ])
             ->add('deadline', DateType::class, [
                 //'format' => 'dd/MM/yyyy',
                 'placeholder' => 'dd/mm/yyyy',
@@ -36,18 +45,45 @@ class AddActivityForm extends AbstractType
                     new Assert\NotBlank()
                 ]
             ])
-            ->add('dateType', TextType::class, [
-                'constraints' => [
-                    new Assert\NotBlank(),
-                    new Assert\Regex([
-                        'pattern' => "/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/"
-                    ])
-                ]
-            ]);
+            ->add('gradetype', ChoiceType::class,
+                [
+                    'choices' => [
+                        'Absolute' => true,
+                        'Relative' => false
+                    ]
+                ])
+            ->add('lowerbound', NumberType::class,
+                [
+                    'constraints' => [
+                        new Assert\GreaterThan(0)
+                    ],
+                    'scale' => 1
+                ])
+            ->add('upperbound', NumberType::class,
+                [
+                    'constraints' => [
+                        new Assert\GreaterThan(0)
+                    ],
+                    'scale' => 1
+                ])
+            ->add('step', NumberType::class,
+                [
+                    'constraints' => [
+                        new Assert\GreaterThan(0)
+                    ],
+                    'scale' => 1
+                ])
+            ->add('weight', TextType::class,
+                [
+                    'disabled' => true,
+                    'data' => '100%'
+                ])
+
+        ;
 
         if ($options['standalone']){
             $builder->add('submit', SubmitType::class,[
-                'label' => 'Soumettre'
+                'label' => 'Ajouter participants'
             ]);
         }
     }
