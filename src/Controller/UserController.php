@@ -90,45 +90,14 @@ class UserController
 
     /*********** USER LOGIN AND CONTEXTUAL MENU *****************/
     //Logs current user
-    public function loginAction(Request $request, Application $app){
-        $user = new User() ;
-        $formFactory = $app['form.factory'] ;
-        $loginForm = $formFactory->create(LogInForm::class, $user, ['standalone'=>true]) ;
-        $loginForm->handleRequest($request) ;
-        if ($loginForm->isSubmitted()){
-
-            $entityManager = $app['orm.em'];
-            $userRepository=$entityManager->getRepository(User::class);
-
-            // Check if user exists
-            $userMail = $request->request->get('ftjuyrktu');
-            $user = $userRepository->findOneByEmail($userMail);
-            if(!$user){
-                throw new NotFoundHttpException('Email not found');
-            } else {
-                //Check if password is correct
-                $userPassword = $request->request->get('usr_password');
-                if ($user->getPassword() == $userPassword) {
-                    //return $app->redirect($app['url_generator']->generate('home'));//
-                    return print_r($request);
-                    return print_r($userPassword);
-                    return print_r($user);
-                } else {
-                    throw new NotFoundHttpException('Password incorrect. Please check');
-                }
-
-            }
-
-        }
+    public function loginAction(Request $request,Application $app){
         return $app['twig']->render('login.html.twig',
             [
-                //'error' => $app['security.last_error']($request),
-                'form' => $loginForm->createView(),
-                'last_email' => $app['session']->get('security.last_email')
+                'error' => $app['security.last_error']($request),
+                'last_username' => $app['session']->get('security.last_username')
             ]);
-
-    } 
-
+    }
+        
     //Displays the menu in relation with user role
     public function homeAction(Request $request, Application $app){
 

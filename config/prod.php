@@ -5,6 +5,7 @@ use Dflydev\Provider\DoctrineOrm\DoctrineOrmServiceProvider;
 use Silex\Provider\SecurityServiceProvider;
 use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
 
+
 $app['twig.path'] = array(__DIR__.'/../templates');
 $app['twig.options'] = array('cache' => __DIR__.'/../var/cache/twig');
 
@@ -36,7 +37,53 @@ $app->register(
         ]
     ]
 );
+$app->register(new Dflydev\Provider\DoctrineOrm\DoctrineOrmServiceProvider(),
+        [
+            'orm.proxies.dir' => sys_get_temp_dir(),
+            'orm.em.options' => [
+                'mappings' => [
+                    [
+                        'type'      => 'annotation',
+                        'namespace' => 'Model',
+                        'path'      => __DIR__.'/../src/Model'
+                    ]
+                ]
+            ]
+        ]
+);
 
+// Security and firewall
+$app->register(new Silex\Provider\SecurityServiceProvider(),
+        [
+            'security.firewalls' => [
+                'logged' => [
+                    'pattern' => '^/.+$',
+                    'http' => true,
+                    'users' => function () use ($app) {
+                        $repository = $app['orm.em']->getRepository(\Model\User::class);
+                        return new Provider\DBUserProvider($repository) ;
+                    },
+                    'form' => [
+                        'login_path' => '/',
+                        'check_path' => '/admin/login_check'
+                    ],
+                            
+                ]
+              // adding settings              
+            ],
+        
+        'security.role_hierarchy' => [
+            'ROLE_SUPER_ADMIN' => ['ROLE_ADMIN'],
+            'ROLE_ADMIN' => ['ROLE_USER'] 
+        ],
+        'security.default_encoder' => function() {
+            return new Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder() ;
+        },
+        'security.access_rules' => [
+            ['^/admin', 'ROLE_ADMIN']
+        ]
+        ]
+);
 // SwiftMailer
 $app->register(new Silex\Provider\SwiftmailerServiceProvider());
 $app['swiftmailer.options'] = array(
