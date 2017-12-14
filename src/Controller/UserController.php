@@ -40,12 +40,16 @@ class UserController
             // Sending a message to the added user
             $message = \Swift_Message::newInstance()
             ->setSubject('Your Serpico account has been created')
-            ->setFrom(array('noreply@serpico.com'))
+            ->setFrom(array('noreply@serpico.com' => 'no reply'))
             ->setTo(array($user->getEmail()))
-            ->setBody("/password/$token");
-            $app['mailer']->send($message);
+            ->setBody("/password/$token", 'text/plain');
             
-        return print_r($message);// $app->redirect($app['url_generator']->generate('settingsUsers'));
+            $app['mailer']->send($message);
+            $app['swiftmailer.spooltransport']
+            ->getSpool()
+            ->flushQueue($app['swiftmailer.transport']) ;
+            
+            return $app->redirect($app['url_generator']->generate('settingsUsers'));
                 
         } 
         

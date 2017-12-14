@@ -44,8 +44,14 @@ $app['swiftmailer.options'] = array(
     'port' => '25',
     'username' => 'alexandre.claudon@gmail.com',
     'password' => 'k6gf1moi',
-    'encryption' => null,
-    'auth_mode' => null
+    'encryption' => 'tls',
+    'auth_mode' => null,
+    'stream_context_options' => [
+        'ssl' => [
+            'allow_self_signed' => true, 
+            'verify_peer' => false
+            ]
+    ]
 );
 
 $app->register(new \Silex\Provider\SessionServiceProvider()) ;
