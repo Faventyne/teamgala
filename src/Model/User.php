@@ -237,6 +237,7 @@ class User extends DbObject
     public function setEmail($email)
     {
         $this->email = $email;
+        $this->username = $email;
     }
     /**
      * @param string $token
