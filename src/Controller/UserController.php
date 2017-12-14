@@ -87,7 +87,7 @@ class UserController
     //Logs current user
     public function loginAction(Request $request, Application $app){
         
-        return $app['twig']->render('loginTemplate.html.twig',
+        return $app['twig']->render('login.html.twig',
             [
                 'error' => $app['security.last_error']($request),
                 'last_email' => $app['session']->get('security.last_email')
