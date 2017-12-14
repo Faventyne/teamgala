@@ -29,9 +29,8 @@ class LogInForm extends AbstractType{
                 [
                     'type' => PasswordType::class,
                     'required' => true,
-                    'first_options' => [
-                        'label' => 'Password'
-                    ]]);
+                    'label' => 'Password'
+                    ]);
             
         if ($options['standalone']){
             $builder->add('submit', SubmitType::class,[
