@@ -61,10 +61,14 @@ class UserController
 
 
     }
-
+    // Modify pwd
+    public function modifyPwdAction (Request $request, Application $app, $token)
+    {
+        return var_dump($token) ;
+    }
     // Modify user info  (ajax call)
     public function modifyUserAction(Request $request, Application $app){
-
+            
     }
 
     // Delete user (ajax call)
