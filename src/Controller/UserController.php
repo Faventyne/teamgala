@@ -92,7 +92,29 @@ class UserController
         $loginForm = $formFactory->create(LogInForm::class, $user, ['standalone'=>true]) ;
         $loginForm->handleRequest($request) ;
         if ($loginForm->isSubmitted()){
-            return $app->redirect($app['url_generator']->generate('home'));
+
+            $entityManager = $app['orm.em'];
+            $userRepository=$entityManager->getRepository(User::class);
+
+            // Check if user exists
+            $userMail = $request->request->get('ftjuyrktu');
+            $user = $userRepository->findOneByEmail($userMail);
+            if(!$user){
+                throw new NotFoundHttpException('Email not found');
+            } else {
+                //Check if password is correct
+                $userPassword = $request->request->get('usr_password');
+                if ($user->getPassword() == $userPassword) {
+                    //return $app->redirect($app['url_generator']->generate('home'));//
+                    return print_r($request);
+                    return print_r($userPassword);
+                    return print_r($user);
+                } else {
+                    throw new NotFoundHttpException('Password incorrect. Please check');
+                }
+
+            }
+
         }
         return $app['twig']->render('login.html.twig',
             [
