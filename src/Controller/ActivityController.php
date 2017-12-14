@@ -12,16 +12,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Silex\Application;
 use Model\User;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Model\Activity;
+use Model\Criterion;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Form\AddActivityForm;
 class ActivityController
 {
     //Creates an activity (limited to activity manager)
     public function addActivityAction(Request $request, Application $app){
-        $activity = new Activity() ;
+        $criterion = new Criterion() ;
         $formFactory = $app['form.factory'] ;
-        $activityForm = $formFactory->create(AddActivityForm::class, $activity , ['standalone'=>true]) ;
+        $activityForm = $formFactory->create(AddActivityForm::class, $criterion , ['standalone'=>true]) ;
         $activityForm->handleRequest($request) ;
         
         return $app['twig']->render('activity.html.twig',

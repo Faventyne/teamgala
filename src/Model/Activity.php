@@ -32,6 +32,11 @@ class Activity extends DbObject
      */
     protected $name;
     /**
+     * @Column(name="act_visibility", type="string")
+     * @var string
+     */
+    protected $visibility;
+    /**
      * @Column(name="act_deadline", length= 10, type="string")
      * @var string
      */
@@ -80,11 +85,12 @@ class Activity extends DbObject
      * @param int $res_inertia
      * @param int $res_benefit_eff
      */
-    public function __construct($id=0, $org_id=0, $name='', $deadline='', $objectives='', $status='', $isRewarding='', $distrAmount=0, $res_inertia=0, $res_benefit_eff=0,$inserted='')
+    public function __construct($id=0, $org_id=0, $name='',$visibility='', $deadline='', $objectives='', $status='', $isRewarding='', $distrAmount=0, $res_inertia=0, $res_benefit_eff=0,$inserted='')
     {
         parent::__construct($id,$inserted);
         $this->org_id = $org_id;
         $this->name = $name;
+        $this->visibility = $visibility;
         $this->deadline = $deadline;
         $this->objectives = $objectives;
         $this->status = $status;
@@ -94,7 +100,32 @@ class Activity extends DbObject
         $this->res_benefit_eff = $res_benefit_eff;
         
     }
+    
+    function getVisibility() {
+        return $this->visibility;
+    }
 
+    function getRes_inertia() {
+        return $this->res_inertia;
+    }
+
+    function getRes_benefit_eff() {
+        return $this->res_benefit_eff;
+    }
+
+    function setVisibility($visibility) {
+        $this->visibility = $visibility;
+    }
+
+    function setRes_inertia($res_inertia) {
+        $this->res_inertia = $res_inertia;
+    }
+
+    function setRes_benefit_eff($res_benefit_eff) {
+        $this->res_benefit_eff = $res_benefit_eff;
+    }
+
+    
     public function getId()
     {
         return $this->id ;
