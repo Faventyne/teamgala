@@ -9,6 +9,7 @@
 namespace Controller;
 
 use Form\AddUserForm;
+use Form\LogInForm;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Model\User;
@@ -86,12 +87,20 @@ class UserController
     /*********** USER LOGIN AND CONTEXTUAL MENU *****************/
     //Logs current user
     public function loginAction(Request $request, Application $app){
-        
+        $user = new User() ;
+        $formFactory = $app['form.factory'] ;
+        $loginForm = $formFactory->create(LogInForm::class, $user, ['standalone'=>true]) ;
+        $loginForm->handleRequest($request) ;
+        if ($loginForm->isSubmitted()){
+            return $app->redirect($app['url_generator']->generate('home'));
+        }
         return $app['twig']->render('login.html.twig',
             [
-                'error' => $app['security.last_error']($request),
+                //'error' => $app['security.last_error']($request),
+                'form' => $loginForm->createView(),
                 'last_email' => $app['session']->get('security.last_email')
-            ])->redirect($app['url_generator']->generate('home'));
+            ]);
+
     } 
 
     //Displays the menu in relation with user role
