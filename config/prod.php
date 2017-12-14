@@ -5,6 +5,8 @@ use Dflydev\Provider\DoctrineOrm\DoctrineOrmServiceProvider;
 use Silex\Provider\SecurityServiceProvider;
 use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
 
+require_once __DIR__.'/../Credentials/config.php';
+
 
 $app['twig.path'] = array(__DIR__.'/../templates');
 $app['twig.options'] = array('cache' => __DIR__.'/../var/cache/twig');
@@ -73,8 +75,7 @@ $app->register(new Silex\Provider\SecurityServiceProvider(),
             ],
         
         'security.role_hierarchy' => [
-            'ROLE_SUPER_ADMIN' => ['ROLE_ADMIN'],
-            'ROLE_ADMIN' => ['ROLE_USER'] 
+            'ROLE_ADMIN' => ['USER']
         ],
         'security.default_encoder' => function() {
             return new Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder() ;
@@ -89,8 +90,8 @@ $app->register(new Silex\Provider\SwiftmailerServiceProvider());
 $app['swiftmailer.options'] = array(
     'host' => 'smtp.gmail.com',
     'port' => '25',
-    'username' => 'alexandre.claudon@gmail.com',
-    'password' => 'k6gf1moi',
+    'username' => $mailProvider['username'],
+    'password' => $mailProvider['password'],
     'encryption' => 'tls',
     'auth_mode' => null,
     'stream_context_options' => [

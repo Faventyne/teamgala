@@ -59,7 +59,7 @@ class DBUserProvider implements UserProviderInterface
      */
     public function loadUserByUsername($username)
     {
-        $user = $this->repository->findOneByUsername($username);
+        $user = $this->repository->findOneByEmail($username);
         
         if (!$user) {
             throw new UsernameNotFoundException();
@@ -100,7 +100,7 @@ class DBUserProvider implements UserProviderInterface
      */
     public function supportsClass($class)
     {
-        return $class === \Model\UserModel::class;
+        return $class === \Model\User::class;
     }
 
 }

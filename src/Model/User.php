@@ -11,7 +11,7 @@ namespace Model;
  * @Entity()
  * @Table(name="user")
  */
-class User extends DbObject
+class User extends DbObject implements \Symfony\Component\Security\Core\User\UserInterface
 {
 
     /**
@@ -32,11 +32,6 @@ class User extends DbObject
      * @var string
      */
     protected $lastname;
-    /**
-     * @Column(name="usr_username", type="string")
-     * @var string
-     */
-    protected $username;
 
     /**
      * @Column(name="usr_birthdate", type="string")
@@ -100,11 +95,10 @@ class User extends DbObject
      * @param int $pos_id
      * @param string $inserted
      */
-    public function __construct($id =0, $firstname='', $lastname='', $username='', $birthdate='', $email='', $password='', $picture='', $token='', $rol_id=2, $pos_id=1, $inserted='')
+    public function __construct($id =0, $firstname='', $lastname='', $birthdate='', $email='', $password='', $picture='', $token='', $rol_id=2, $pos_id=1, $inserted='')
     {
         $this->firstname = $firstname;
         $this->lastname = $lastname;
-        $this->username = $username;
         $this->birthdate = $birthdate;
         $this->email = $email;
         $this->password = $password;
@@ -197,7 +191,7 @@ class User extends DbObject
      */
     public function getUsername()
     {
-        return $this->username;
+        return $this->email;
     }
 
     /**
@@ -205,7 +199,7 @@ class User extends DbObject
      */
     public function setUsername($username)
     {
-        $this->username = $username;
+        $this->email = $username;
     }
     /**
      * @return string
@@ -237,7 +231,6 @@ class User extends DbObject
     public function setEmail($email)
     {
         $this->email = $email;
-        $this->username = $email;
     }
     /**
      * @param string $token
@@ -280,7 +273,17 @@ class User extends DbObject
         ];
     }
 
+    public function eraseCredentials() {
+        
+    }
 
+    public function getRoles() {
+        return array('USER');
+    }
+
+    public function getSalt() {
+        
+    }
 
 }
 
