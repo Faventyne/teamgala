@@ -4,21 +4,22 @@
 
   <img src="lib/img/Serpico.png" alt="logo Serpico">
   {{ form_start(form) }}
+  
   <form class="col s10">
     <div class="row">
       <div class="input-field col s10">
-        {{ form_row(form.lowerbound) }}
+        {{ form_row(form.name) }}
       </div>
+    </div>   
+    <div class="button-field col s10">
+      {{ form_widget(form.gradetype) }}
     </div>
-    <div id="formulaire" class="row">
-      <div class="input-field col s10">
-        {{ form_row(form.upperbound) }}
-      </div>
-    </div>
-    <p>
-      <input type="checkbox" id="test5" checked/>
-      <label for="test5">Remember me</label>
-    </p>
+    
+
+  
+    
+    
+    
     <div class="row">
       <div class="button-field col s10">
         {{ form_row(form.submit) }}

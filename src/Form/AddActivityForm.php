@@ -7,6 +7,7 @@
  */
 
 namespace Form;
+
 use Model\Criterion;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -53,7 +54,11 @@ class AddActivityForm extends AbstractType
                     'choices' => [
                         'Absolute' => true,
                         'Relative' => false
-                    ]
+                    ],
+                    'expanded' => true,
+                    'multiple' => false,
+                    'choices_as_values' => true,
+                    
                 ])
             ->add('lowerbound', NumberType::class,
                 [
