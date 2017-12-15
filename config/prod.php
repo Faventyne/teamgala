@@ -53,7 +53,7 @@ $app->register(new Dflydev\Provider\DoctrineOrm\DoctrineOrmServiceProvider(),
             ]
         ]
 );
-
+/*
 // Security and firewall
 $app->register(new Silex\Provider\SecurityServiceProvider(),
         [
@@ -75,7 +75,7 @@ $app->register(new Silex\Provider\SecurityServiceProvider(),
             ],
         
         'security.role_hierarchy' => [
-            'ROLE_ADMIN' => ['USER']
+            'ROLE_USER' => ['USER','']
         ],
         'security.default_encoder' => function() {
             return new Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder() ;
@@ -84,7 +84,7 @@ $app->register(new Silex\Provider\SecurityServiceProvider(),
             ['^/admin', 'ROLE_ADMIN']
         ]
         ]
-);
+);*/
 // SwiftMailer
 $app->register(new Silex\Provider\SwiftmailerServiceProvider());
 $app['swiftmailer.options'] = array(
