@@ -5,7 +5,7 @@
     <h1>User List</h1>
     <input type="text" name="fakesearchbar" placeholder="FAKE SEARCH BAR">
 
-{% for user in users %}
+    {% for user in users %}
       <ul class="collapsible" data-collapsible="accordion">
         <li>
           <div class="collapsible-header">
@@ -14,38 +14,38 @@
             {{ user['lastname'] | upper }}
             <br>
             {{user['username']}}
-            <span class="badge">{{ user['id'] }}
-                {% if user['id'] > 10 %}
-                    <i class="material-icons">done</i>
-            </span>
-          </div>
-                {% elseif user['id'] <= 10 %}
-                    <i class="material-icons">clear</i>
-                </span>
+            <span class="badge">{{ user['id'] }}</span>
+            {% if user['id'] > 10 %}
+              <i class="material-icons">done</i>
 
-              {% endif %}
-              <div class="collapsible-body">Position et autres infos
-                <div class="row">
-                  <div class="button-field col s4">
-                    <button type="submit" class="validate modify-button" data-user-id={{ user['id'] }}>MODIFY</button>
-                  </div>
-                  <div class="button-field col s4">
-                    <button type="submit" class="validate delete-button" data-user-id={{ user['id'] }}>DELETE</button>
-                  </div>
-                </div>
-              </div>
-            </li>
-          </ul>
-        {% endfor %}
-<div class="row">
-  <div class="button-field col s10">
-    <button type="submit" class="validate">ADD USERS</button>
+            </div>
+          {% elseif user['id'] <= 10 %}
+            <i class="material-icons">clear</i>
+          </div>
+
+        {% endif %}
+        <div class="collapsible-body">Position et autres infos
+          <div class="row">
+            <div class="button-field col s4">
+              <button type="submit" class="validate modify-button" data-user-id={{ user['id'] } }="}">MODIFY</button>
+            </div>
+            <div class="button-field col s4">
+              <button type="submit" class="validate delete-button" data-user-id={{ user['id'] } }="}">DELETE</button>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  {% endfor %}
+  <div class="row">
+    <div class="button-field col s10">
+      <button type="submit" class="validate">ADD USERS</button>
+    </div>
   </div>
-</div>
 </section>
 
 {% endblock %}
 
 {% block javascripts %}
-  <script src="{{ asset('js/users.js') }}"></script>
+<script src="{{ asset('js/users.js') }}"></script>
 {% endblock %}
