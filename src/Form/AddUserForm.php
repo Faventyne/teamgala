@@ -23,13 +23,21 @@ class AddUserForm extends AbstractType
         $builder->add('firstname', TextType::class,
             [
                 'constraints' => [
-                    new Assert\NotBlank()
-                ]
+                    new Assert\NotBlank(),
+                    new Assert\Regex([
+                        'pattern' => "[a-zA-Z]"
+                    ])
+                ],
+                'label' => 'Firstname'
             ])
             ->add('lastname', TextType::class, [
                 'constraints' => [
-                    new Assert\NotBlank()
-                ]
+                    new Assert\NotBlank(),
+                    new Assert\Regex([
+                        'pattern' => "[a-zA-Z]"
+                    ])
+                ],
+                'label' => 'Lastname'
             ])
             ->add('email', TextType::class, [
                 'constraints' => [
@@ -37,7 +45,8 @@ class AddUserForm extends AbstractType
                     new Assert\Regex([
                         'pattern' => "/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/"
                     ])
-                ]
+                ],
+                'label' => 'Email'
             ]);
             
         if ($options['standalone']){

@@ -15,7 +15,8 @@
       <div class="input-field col s10">
 
           {{ form_widget(form.firstname) }}
-        <label for="firstname">{{ form_label(form.firstname) }}</label>
+          {{ form_label(form.firstname) }}
+          {{ form_errors(form.firstname) }}
       </div>
     </div>
 
@@ -23,7 +24,8 @@
       <div class="input-field col s10">
 
           {{ form_widget(form.lastname) }}
-        <label for="lastname"> {{ form_label(form.lastname) }}</label>
+          {{ form_label(form.lastname) }}
+          {{ form_errors(form.lastname) }}
       </div>
     </div>
 
@@ -31,7 +33,8 @@
       <div class="input-field col s10">
 
           {{ form_widget(form.email) }}
-        <label for="email"> {{ form_label(form.email) }}</label>
+          {{ form_label(form.email) }}
+          {{ form_errors(form.email) }}
       </div>
     </div>
     <div class="row">

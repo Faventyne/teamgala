@@ -26,8 +26,16 @@ img{
 form{
   margin-left: 15%;
   margin-top: 15%;
+  font-size: 3rem;
 }
 
+#disabled{
+    font-size: 3rem;
+}
+
+form div .input-field label{
+    font-size: 3rem;
+}
 
 #email{
   padding-bottom: 0.5rem;
