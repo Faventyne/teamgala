@@ -43,7 +43,7 @@ class SignUpForm extends AbstractType {
     }
     public function configureOptions(OptionsResolver $resolver)
       {
-          $resolver->setDefault('data_class', UserModel::class);
+          $resolver->setDefault('data_class', User::class);
           $resolver->setDefault('standalone', false);
 
           $resolver->addAllowedTypes('standalone', 'bool');

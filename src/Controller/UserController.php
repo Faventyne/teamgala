@@ -10,7 +10,7 @@ namespace Controller;
 
 use Form\AddUserForm;
 use Form\LogInForm;
-use Silex\Application;
+use Form\SignUpForm;
 use Symfony\Component\HttpFoundation\Request;
 use Model\User;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -64,8 +64,26 @@ class UserController
     // Modify pwd
     public function modifyPwdAction (Request $request, Application $app, $token)
     {
-        return var_dump($token) ;
+        $entityManager = $this->getEntityManager($app) ;
+        $repository = $entityManager->getRepository(User::class) ;
+        $user = $repository->findOneByToken($token);
+        
+        $formFactory = $app['form.factory'] ;
+        $pwdForm = $formFactory->create(SignUpForm::class, $user, ['standalone' => true]) ;
+        $pwdForm->handleRequest($request);
+        
+        if ($pwdForm->isSubmitted() && $pwdForm->isValid()) {
+            $user->setToken('');
+            $entityManager->persist($user);
+            $entityManager->flush;
+        }
+        
+        return $app['twig']->render('signup.html.twig',
+            [
+                'user' => $user
+            ]); 
     }
+    
     // Modify user info  (ajax call)
     public function modifyUserAction(Request $request, Application $app){
             
