@@ -7,6 +7,8 @@
  */
 namespace Model;
 
+use Silex\Application;
+
 /**
  * @Entity()
  * @Table(name="user")
@@ -108,7 +110,8 @@ class User extends DbObject implements \Symfony\Component\Security\Core\User\Use
         $this->pos_id = $pos_id;
         parent::__construct($id,new \DateTime());
     }
-
+    
+        
     /**
      * @return string
      */
@@ -278,7 +281,19 @@ class User extends DbObject implements \Symfony\Component\Security\Core\User\Use
     }
 
     public function getRoles() {
-        return array('ADMIN');
+        global $app ;
+        $em = $app['orm.em'] ;
+        $qb = $em->createQueryBuilder();
+        $id = $this->id;
+        $qb->select('role.rol_name')
+            ->from('role','')
+            ->innerJoin('user ON','role.rol_id=user.role_rol_id')
+            ->where("user.usr_id = $id");
+
+        $query = $qb->getQuery();
+        $result = [$query->getResult()];
+        
+        return $result;
     }
 
     public function getSalt() {

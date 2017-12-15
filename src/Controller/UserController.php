@@ -137,7 +137,7 @@ class UserController
         
     //Displays the menu in relation with user role
     public function homeAction(Request $request, Application $app){
-
+        return $app['security.token_storage']->getToken() ;
     }
 
     /*********** ADDITION, MODIFICATION AND DELETION *****************/
