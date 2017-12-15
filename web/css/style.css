@@ -26,31 +26,31 @@ img{
 form{
   margin-left: 15%;
   margin-top: 15%;
-  font-size: 3rem;
+  font-size: 3vw;
 }
 
 #disabled{
-    font-size: 3rem;
+    font-size: 1vw;
 }
 
 form div .input-field label{
-    font-size: 3rem;
+    font-size: 1vw;
 }
 
 #email{
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.5vw;
 }
 
 #password{
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.5vw;
 }
 
 form p{
-  padding-left: 1rem;
+  padding-left: 1vw;
 }
 
 .input-field label{
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.2vw;
 }
 
 .button-field button{
@@ -59,18 +59,18 @@ form p{
   background-color: #929393;
   color : white;
   border-radius: 25px;
-  padding:1rem 2rem 1rem 2rem;
+  padding:1vh 2vw 1vh 2vw;
   margin-left: 26%;
-  margin-top: 3rem;
+  margin-top: 3vw;
 
 }
 
 /*** HOME PAGE ***/
 
 ul {
-  margin-left: 6rem;
-  font-size: 1.5rem;
-  margin-top: 4rem;
+  margin-left: 6vw;
+  font-size: 1.5vw;
+  margin-top: 4vw;
 }
 
 li{
