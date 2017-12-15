@@ -6,27 +6,22 @@
     <input type="text" name="fakesearchbar" placeholder="FAKE SEARCH BAR">
 
     {% for user in users %}
-      <ul class="collapsible" data-collapsible="accordion">
-        <li>
-          <div class="collapsible-header">
-            <i class="material-icons">expand_more</i>
+      <ul class="collection">
+        <li class="collection-item">
             {{ user['firstname']  }}
             {{ user['lastname'] | upper }}
             <br>
-              {#{{user['username']}}#}
-            <span class="badge">{{ user['id'] }}
+              {{user['username']}}
+            <span class="secondary-content" >
+              <button type="submit" class="validate">ADD</button>
+              <button type="submit" class="validate">REMOVE</button>
+              <!-- le if sera pour ajoute ou non  -->
               {% if user['id'] > 10 %}
-                <i class="material-icons">done</i></span></div>
+                <i class="material-icons">done</i>
           {% elseif user['id'] <= 10 %}
-            <i class="material-icons">clear</i></span></div>
+            <i class="material-icons">clear</i>
       {% endif %}
-      <div class="collapsible-body">Position et autres infos
-        <div class="row">
-          <div class="button-field col s10">
-            <button type="submit" class="validate">MODIFY</button>
-          </div>
-        </div>
-      </div>
+      </span>
     </li>
   </ul>
 {% endfor %}
