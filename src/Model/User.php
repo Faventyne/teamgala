@@ -8,6 +8,7 @@
 namespace Model;
 
 use Silex\Application;
+use Model\Role;
 
 /**
  * @Entity()
@@ -63,6 +64,8 @@ class User extends DbObject implements \Symfony\Component\Security\Core\User\Use
     protected $token;
 
     /**
+     * @ManyToOne(targetEntity="Role")
+     * @JoinColumn(name="rol_id", referencedColumnName="role_rol_id")
      * @Column(name="role_rol_id", type="integer")
      * @var int
      */
@@ -285,15 +288,17 @@ class User extends DbObject implements \Symfony\Component\Security\Core\User\Use
         $em = $app['orm.em'] ;
         $qb = $em->createQueryBuilder();
         $id = $this->id;
-        $qb->select('role.rol_name')
-            ->from('role','')
-            ->innerJoin('user ON','role.rol_id=user.role_rol_id')
-            ->where("user.usr_id = $id");
+        $qb->select('u.lastname')
+            ->from(User::class, 'u')
+            ->innerJoin(u.role_rol_id, 'r')
+            ->where('u.id = :identifier')
+            ->setParameter('identifier', $id);
 
         $query = $qb->getQuery();
-        $result = [$query->getResult()];
+        $r = $query->getResult();
         
-        return $result;
+        
+        return var_dump($r);
     }
 
     public function getSalt() {

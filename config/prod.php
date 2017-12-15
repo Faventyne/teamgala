@@ -60,7 +60,7 @@ $app->register(new Silex\Provider\SecurityServiceProvider(),
             'security.firewalls' => [
                 'logged' => [
                     'pattern' => '^/.+$',
-                    'http' => true,
+                    'anonymous' =>true,
                     'users' => function () use ($app) {
                         $repository = $app['orm.em']->getRepository(\Model\User::class);
                         return new Provider\DBUserProvider($repository) ;
@@ -82,9 +82,6 @@ $app->register(new Silex\Provider\SecurityServiceProvider(),
                 'HR' => ['COLLABORATOR','ACTIVITY_MANAGER'],
                 'ADMIN' => ['COLLABORATOR','ACTIVITY_MANAGER','HR']   
             ],
-            'security.default_encoder' => function() {
-                return new Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder() ;
-            },
             'security.access_rules' => [
                 ['^/activity.*$', 'ACTIVITY_MANAGER'],
                 ['^/settings/users/create', 'ADMIN']
