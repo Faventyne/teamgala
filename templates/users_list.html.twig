@@ -1,8 +1,11 @@
 {% extends "layout.html.twig" %}
 
+{% block pagename %}
+User list
+{% endblock %}
+
 {% block content %}
   <section class="col s10">
-    <h1>User List</h1>
     <input type="text" name="fakesearchbar" placeholder="FAKE SEARCH BAR">
 
     {% for user in users %}

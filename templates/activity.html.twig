@@ -1,10 +1,14 @@
 {% extends "layout.html.twig" %}
 
+{% block pagename %}
+Create Activity
+{% endblock %}
+
 {% block content %}
 
   <img src="lib/img/Serpico.png" alt="logo Serpico">
   {{ form_start(form) }}
-  
+
   <!--<form class="col s10"> -->
     <div class="row">
       <div class="input-field col s10">
@@ -62,9 +66,9 @@
       </div>
     </div>
 
-    
-    
-    
+
+
+
     <div class="row">
       <div class="button-field col s10">
         {{ form_row(form.submit) }}
@@ -80,5 +84,3 @@
 {% block javascripts %}
   <script src="{{ asset('js/login.js') }}"></script>
 {% endblock %}
-
-

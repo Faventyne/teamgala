@@ -1,10 +1,13 @@
 {% extends "layout.html.twig" %}
 
+{% block pagename %}
+Select participants
+{% endblock %}
+
 {% block content %}
   <section class="col s10">
-    <h1>Participants List</h1>
-    <input type="text" name="fakesearchbar" placeholder="FAKE SEARCH BAR">
 
+    <input type="text" name="fakesearchbar" placeholder="FAKE SEARCH BAR">
     {% for user in users %}
       <ul class="collection">
         <li class="collection-item">
