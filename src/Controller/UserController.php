@@ -8,6 +8,7 @@
 
 namespace Controller;
 
+use Silex\Application;
 use Form\AddUserForm;
 use Form\LogInForm;
 use Form\SignUpForm;
@@ -72,16 +73,17 @@ class UserController
         $pwdForm = $formFactory->create(SignUpForm::class, $user, ['standalone' => true]) ;
         $pwdForm->handleRequest($request);
         
-        if ($pwdForm->isSubmitted() && $pwdForm->isValid()) {
+        if ($pwdForm->isSubmitted() /*&& $pwdForm->isValid()*/) {
             $user->setToken('');
             $entityManager->persist($user);
-            $entityManager->flush;
+            $entityManager->flush();
+            return $app->redirect($app['url_generator']->generate('login')) ;
         }
         
         return $app['twig']->render('signup.html.twig',
-            [
-                'user' => $user
-            ]); 
+                [
+                    'form' => $pwdForm->createView()
+                ]) ;
     }
     
     // Modify user info  (ajax call)
