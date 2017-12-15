@@ -7,7 +7,6 @@
  */
 
 namespace Model;
-
 /**
  * @Entity()
  * @Table(name="activity")
@@ -273,6 +272,37 @@ class Activity extends DbObject
     public function setResBenefitEff($res_benefit_eff)
     {
         $this->res_benefit_eff = $res_benefit_eff;
+    }
+
+
+    public function toArrayUser()
+    {
+        $manager = $app['orm.em'];
+        $repository = $manager->getRepository(Criterion::class);
+        $criterion = $repository->findOneByActId($this->$id);
+        return [
+            'name' => $this->name,
+            'deadline' => $this->deadline,
+            'gradetype' => $criterion->getGradeType(),
+            'lowerbound' => $criterion->getLowerbound(),
+            'upperbound' => $criterion->getUpperbound(),
+            'step' => $criterion->getStep()
+
+
+        ];
+    }
+
+    public function toArrayHR()
+    {
+        return [
+            'name' => $this->name,
+            'visibility' => $this->visibility,
+            'deadline' => $this->deadline,
+            'gradetype' => $this->gradetype,
+            'lowerbound' => $this->lowerbound,
+            'lowerbound' => $this->upperbound,
+            'inserted' => $this->inserted
+        ];
     }
 
 

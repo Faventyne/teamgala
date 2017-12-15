@@ -10,6 +10,7 @@ namespace Controller;
 use Form\AddCriterionForm;
 use Form\UserForm;
 use Model\Activity;
+use Model\ActivityUser;
 use Symfony\Component\HttpFoundation\Request;
 use Silex\Application;
 use Model\User;
@@ -71,12 +72,6 @@ class ActivityController
 
     }
 
-    //Displays all activities for current user
-    public function myActivitiesAction(Request $request, Application $app){
-        $repository = $app['orm.em']->getRepository(Activity::class);
-
-    }
-
     //Display selected activity (all users)
     public function viewAction(Request $request, Application $app){
         $repository = $app['orm.em']->getRepository(Activity::class);
@@ -95,8 +90,8 @@ class ActivityController
 
     }
 
-    // Display all activities ()
-    public function getAllUsersAction(Request $request, Application $app){
+    // Display all organization activities (limited to HR)
+    public function getAllOrganizationActivitiesAction(Request $request, Application $app){
         $entityManager = $this->getEntityManager($app);
         $repository = $entityManager->getRepository(Activity::class);
         $result = [];
@@ -104,7 +99,23 @@ class ActivityController
             $result[] = $activity->toArray();
         }
 
-        return $app['twig']->render('activities_list.html.twig',
+        return $app['twig']->render('organization_activities_list.html.twig',
+            [
+                'activities' => $result
+            ]) ;
+
+    }
+
+    // Display all activities for current user
+    public function getAllUserActivitiesAction(Request $request, Application $app, $id){
+        $entityManager = $this->getEntityManager($app);
+        $repository = $entityManager->getRepository(Activity::class);
+        $result = [];
+        foreach ($repository->findByUsrId() as $activity) {
+            $result[] = $activity->toArrayUser();
+        }
+
+        return $app['twig']->render('user_activities_list.html.twig',
             [
                 'activities' => $result
             ]) ;

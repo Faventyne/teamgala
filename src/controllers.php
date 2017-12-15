@@ -24,8 +24,12 @@ $routeProfile = $app->get('/profile', "Controller\UserController::profileAction"
 $routeProfile->bind('profile') ;
 
 // My activities page
-$routeMyActivities = $app->get('/myactivities', "Controller\ActivityController::myActivitiesAction") ;
+$routeMyActivities = $app->get('/myactivities', "Controller\ActivityController::getAllUserActivitiesAction") ;
 $routeMyActivities->bind('myActivities') ;
+
+// Organization activities page
+$routeMyActivities = $app->get('/activities/all', "Controller\ActivityController::getAllOrganizationActivitiesAction") ;
+$routeMyActivities->bind('allActivities') ;
 
 // Activity configuration page
 $routeActivityCreationParameters = $app->match('/activity/create/parameters', "Controller\ActivityController::addCriterionAction") ;
