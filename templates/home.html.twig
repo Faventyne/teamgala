@@ -5,11 +5,12 @@
 {% endblock %}
 
 {% block content %}
+    <img id="homeLogo" src="{{ asset('lib/img/Serpico.png') }}"/>
     <div id"homelist">
     <ul>
-        <li><a href="{{ path('activityCreationParticipants') }}">MY PROFILE</a></li>
-        <li><a href="{{ path('activityCreationParticipants') }}">MY PROJECTS</a></li>
-        <li><a href="{{ path('activityCreationParticipants') }}">SETTINGS</a></li>
+        <li><a href="{{ path('activityCreationParticipants') }}">MY PROFILE <i class="large material-icons">account_circle</i></a></li>
+        <li><a href="{{ path('activityCreationParticipants') }}">MY PROJECTS <i class="large material-icons">work</i></a></li>
+        <li><a href="{{ path('activityCreationParticipants') }}">SETTINGS <i class="large material-icons">perm_data_setting</i></a></li>
     </ul>
     </div>
 
