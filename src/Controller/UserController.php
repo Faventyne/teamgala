@@ -74,6 +74,10 @@ class UserController
         $pwdForm->handleRequest($request);
         
         if ($pwdForm->isSubmitted() /*&& $pwdForm->isValid()*/) {
+            $encoder = $app['security.encoder_factory']->getEncoder($user);
+            $password = $encoder->encodePassword($user->getPassword(), 'azerty');
+            $user->setPassword($password);
+            
             $user->setToken('');
             $entityManager->persist($user);
             $entityManager->flush();
@@ -136,7 +140,11 @@ class UserController
         
     //Displays the menu in relation with user role
     public function homeAction(Request $request, Application $app){
-
+        return $app['twig']->render('home.html.twig',
+            [
+                //'error' => $app['security.last_error']($request),
+                //'last_username' => $app['session']->get('security.last_username')
+            ]);
     }
 
     /*********** ADDITION, MODIFICATION AND DELETION *****************/

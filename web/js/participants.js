@@ -1,21 +1,21 @@
 $(function(){
     $('.remove-button').hide();
 
-    $('.add-button').on("click", function(){
-        $(this).hide();
-        $(this).siblings().show();
-        $(this).closest('ul').css('background-color','green');
-        $(this).closest('li').css('background-color','green');
-        $(this).closest('li').css('color','white');
+    $('.action-button').on("click", function(){
+        if($(this).text()=="ADD"){
+            $(this).text("REMOVE");
+            $(this).addClass('red')
+            $(this).closest('ul').css('background-color','green');
+            $(this).closest('li').css('background-color','green');
+            $(this).closest('li').css('color','white');
+        } else if ($(this).text()=="REMOVE"){
+            $(this).text("ADD");
+            $(this).removeClass('red');
+            $(this).closest('ul').css('background-color','');
+            $(this).closest('li').css('background-color','');
+            $(this).closest('li').css('color','');
+        }
 
     })
 
-    $('.remove-button').on("click", function(){
-        $(this).hide();
-        $(this).siblings().show();
-        $(this).closest('ul').css('background-color','transparent');
-        $(this).closest('li').css('background-color','transparent');
-        $(this).closest('li').css('color','black');
-
-    })
 });

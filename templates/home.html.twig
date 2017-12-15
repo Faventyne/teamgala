@@ -1,0 +1,16 @@
+{% extends "layout.html.twig" %}
+
+{%  block pagename %}
+    HOME
+{% endblock %}
+
+{% block content %}
+    <div id"homelist">
+    <ul>
+        <li><a href="{{ path('activityCreationParticipants') }}">MY PROFILE</a></li>
+        <li><a href="{{ path('activityCreationParticipants') }}">MY PROJECTS</a></li>
+        <li><a href="{{ path('activityCreationParticipants') }}">SETTINGS</a></li>
+    </ul>
+    </div>
+
+{% endblock %}
