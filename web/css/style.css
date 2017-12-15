@@ -16,6 +16,47 @@ main {
   margin:auto;
 }
 
+header {
+background-color: #098e6f;
+box-shadow: 0px 5px 15px #18ad8a;
+height: 15vw;
+}
+/* jai du faire trois id pour les icons ca marche pas avec materialize pour le css */
+#returnMenu {
+  margin-top: 2vw;
+  position: absolute;
+  font-size: 10vw;
+  color: white;
+  text-shadow: 3px 3px 10px black;
+}
+#returnPage{
+  margin-top: 2vw;
+  position: absolute;
+  margin-left: 10vw;
+  font-size: 10vw;
+  color: white;
+  text-shadow: 3px 3px 10px black;
+}
+#logOutButton{
+  margin-top: 2vw;
+  position: absolute;
+  font-size: 10vw;
+  color: white;
+  margin-left: 85vw;
+  text-shadow: 3px 3px 10px black;
+
+}
+.currentPage{
+  height: 10vw;
+  width: 60vw;
+  font-size: 5vw;
+  padding-top: 3vw;
+  margin-left: 22vw;
+  color: white;
+  overflow: hidden;
+}
+
+
 img{
   width: 30%;
   margin-left: 37%;
