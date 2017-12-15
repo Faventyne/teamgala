@@ -56,6 +56,27 @@ height: 15vw;
   overflow: hidden;
 }
 
+.fixed-action-btn{
+margin-right: 25vw;
+}
+.btn-large{
+  width: 50vw;
+  height: 10vh;
+  padding-top: 2vh;
+  background-color: green;
+}
+
+.add-button{
+  margin-bottom: 3vw;
+  margin-right: 2vw;
+}
+.remove-button{
+  margin-bottom: 3vw;
+  margin-right: 2vw;
+}
+
+/************************************************************************************/
+
 
 img{
   width: 30%;
