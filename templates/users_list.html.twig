@@ -21,16 +21,16 @@
             </div>
           {% elseif user['id'] <= 10 %}
             <i class="material-icons">clear</i>
-          </div>
+            </div>
 
         {% endif %}
         <div class="collapsible-body">Position et autres infos
           <div class="row">
             <div class="button-field col s4">
-              <button type="submit" class="validate modify-button" data-user-id={{ user['id'] } }="}">MODIFY</button>
+              <button type="submit" class="validate modify-button" data-user-id={{ user['id'] }}>MODIFY</button>
             </div>
             <div class="button-field col s4">
-              <button type="submit" class="validate delete-button" data-user-id={{ user['id'] } }="}">DELETE</button>
+              <button type="submit" class="validate delete-button" data-user-id={{ user['id'] }}>DELETE</button>
             </div>
           </div>
         </div>
