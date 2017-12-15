@@ -12,18 +12,24 @@ class Role extends DbObject
      * @Id()
      * @GeneratedValue()
      * @Column(name="rol_id", type="integer", nullable=false, length=10)
-     * @var type int
+     * @var int
      */
-    protected $id ;
+    protected $id;
     
     /**
      *@Column(name="rol_name", type="string", nullable=false, length=10)
-     * @var type string
+     * @var string
      */
-    protected $name ;
+    protected $name;
+
+    /**
+     *@Column(name="rol_inserted", type="datetime")
+     * @var \DateTime
+     */
+    protected $inserted;
     
-    public function __construct($id = 0, $inserted = '', $name='') {
-        parent::__construct($id, $inserted);
+    public function __construct($id = 0, $inserted = '', $name='', $inserted=null) {
+        parent::__construct($id, new \DateTime());
         $this->name = $name;
     }
     

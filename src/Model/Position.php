@@ -17,7 +17,7 @@ class Position extends DbObject
      *@Id()
      * @GeneratedValue()
      * @Column(name="pos_id", type="integer", length=10, nullable=false)
-     * @var type int
+     * @var int
      */
     protected $id;
     /**
@@ -60,6 +60,11 @@ class Position extends DbObject
      * @var float
      */
     protected $weight_5y;
+    /**
+     * @Column(name="pos_inserted", type="datetime")
+     * @var \DateTime
+     */
+    protected $inserted;
 
     /**
      * Role constructor.
@@ -72,10 +77,11 @@ class Position extends DbObject
      * @param float $weight_3y
      * @param float $weight_4y
      * @param float $weight_5y
+     * @param \DateTime inserted
      */
-    public function __construct($id=0, $org_id=0, $name='', $weight_ini=0, $weight_1y=0, $weight_2y=0, $weight_3y=0, $weight_4y=0, $weight_5y=0)
+    public function __construct($id=0, $org_id=0, $name='', $weight_ini=0.0, $weight_1y=0.0, $weight_2y=0.0, $weight_3y=0.0, $weight_4y=0.0, $weight_5y=0.0,$inserted=null)
     {
-        parent::__construct($id,$inserted);
+        parent::__construct($id,new \DateTime());
         $this->org_id = $org_id;
         $this->name = $name;
         $this->weight_ini = $weight_ini;

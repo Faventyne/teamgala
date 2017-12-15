@@ -38,9 +38,15 @@ class Stage extends DbObject
     protected $weight;
     /**
      * @Column(name="stg_deadline", type="datetime")
-     * @var string
+     * @var \DateTime
      */
     protected $deadline;
+
+    /**
+     * @Column(name="stg_inserted", type="datetime")
+     * @var \DateTime
+     */
+    protected $inserted;
 
     /**
      * Stage constructor.
@@ -48,11 +54,12 @@ class Stage extends DbObject
      * @param int $act_id
      * @param string $name
      * @param float $weight
-     * @param string $deadline
+     * @param \DateTime $deadline
+     * @param \DateTime $inserted
      */
-    public function __construct($id=0, $act_id=0, $name='', $weight=0, $deadline='', $inserted='')
+    public function __construct($id=0, $act_id=0, $name='', $weight=0.0, $deadline=null, $inserted=null)
     {
-        parent::__construct($id,$inserted);
+        parent::__construct($id,new \DateTime());
         $this->act_id = $act_id;
         $this->name = $name;
         $this->weight = $weight;
@@ -116,7 +123,7 @@ class Stage extends DbObject
     }
 
     /**
-     * @return string
+     * @return \DateTime
      */
     public function getDeadline()
     {
@@ -124,7 +131,7 @@ class Stage extends DbObject
     }
 
     /**
-     * @param string $deadline
+     * @param \DateTime $deadline
      */
     public function setDeadline($deadline)
     {

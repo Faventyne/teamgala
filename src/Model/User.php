@@ -17,8 +17,8 @@ class User extends DbObject implements \Symfony\Component\Security\Core\User\Use
     /**
      * @Id()
      * @GeneratedValue()
-     * @Column(name="usr_id", type="string", nullable=false)
-     * @var string
+     * @Column(name="usr_id", type="integer", nullable=false)
+     * @var int
      */
     protected $id;
 
@@ -34,8 +34,8 @@ class User extends DbObject implements \Symfony\Component\Security\Core\User\Use
     protected $lastname;
 
     /**
-     * @Column(name="usr_birthdate", type="string")
-     * @var string
+     * @Column(name="usr_birthdate", type="datetime")
+     * @var \DateTime
      */
     protected $birthdate;
 
@@ -80,12 +80,17 @@ class User extends DbObject implements \Symfony\Component\Security\Core\User\Use
     protected $inserted;
 
     /**
+     * @Column(name="usr_deleted", type="datetime")
+     * @var /DateTime
+     */
+    protected $deleted;
+
+    /**
      * User constructor.
-     * @param string $id
+     * @param int $id
      * @param string $firstname
      * @param string $lastname
      * @param string $username
-     * @param bool $is_manager
      * @param string $birthdate
      * @param string $email
      * @param string $password
@@ -94,8 +99,9 @@ class User extends DbObject implements \Symfony\Component\Security\Core\User\Use
      * @param int $rol_id
      * @param int $pos_id
      * @param /DateTime $inserted
+     * @param /DateTime $deleted
      */
-    public function __construct($id =0, $firstname='', $lastname='', $username='', $birthdate='', $email='', $password='', $picture='', $token='', $rol_id=2, $pos_id=1, $inserted=null)
+    public function __construct($id =0, $firstname='', $lastname='', $username='', $birthdate=null, $email='', $password='', $picture='', $token='', $rol_id=2, $pos_id=1, $inserted=null, $deleted=null)
     {
         $this->firstname = $firstname;
         $this->lastname = $lastname;
@@ -107,6 +113,8 @@ class User extends DbObject implements \Symfony\Component\Security\Core\User\Use
         $this->rol_id = $rol_id;
         $this->pos_id = $pos_id;
         parent::__construct($id,new \DateTime());
+        $this->pos_id = $pos_id;
+        $this->deleted = $deleted;
     }
 
     /**
@@ -124,28 +132,6 @@ class User extends DbObject implements \Symfony\Component\Security\Core\User\Use
     {
         $this->password = $password;
     }
-    /*
-    /**
-     * @return int
-     */
-    /*
-    public function getId()
-    {
-        return $this->id;
-    }
-    */
-
-    /*
-    /**
-     * @return string
-     */
-    /*
-    public function getInserted()
-    {
-        return $this->inserted;
-    }
-    */
-
     /**
      * @param /DateTime $inserted
      */
@@ -269,7 +255,8 @@ class User extends DbObject implements \Symfony\Component\Security\Core\User\Use
             'id' => $this->id,
             'firstname' => $this->firstname,
             'lastname' => $this->lastname,
-            'username' => $this->email
+            'username' => $this->email,
+            'inserted' => $this->inserted
         ];
     }
 
@@ -284,6 +271,7 @@ class User extends DbObject implements \Symfony\Component\Security\Core\User\Use
     public function getSalt() {
         
     }
+
 
 }
 

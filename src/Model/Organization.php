@@ -38,6 +38,11 @@ class Organization extends DbObject
      * @var string
      */
     protected $weight_type;
+    /**
+     * @Column(name="org_inserted", type="datetime")
+     * @var \DateTime
+     */
+    protected $inserted;
 
     /**
      * Organization constructor.
@@ -45,10 +50,11 @@ class Organization extends DbObject
      * @param string $legalname
      * @param string $commname
      * @param string $weight_type
+     * @param \DateTime $inserted
      */
-    public function __construct($id=0, $legalname='', $commname='', $weight_type=0, $inserted='')
+    public function __construct($id=0, $legalname='', $commname='', $weight_type='', $inserted=null)
     {
-        parent::__construct($id,$inserted);
+        parent::__construct($id,new \DateTime());
         $this->legalname = $legalname;
         $this->commname = $commname;
         $this->weight_type = $weight_type;
