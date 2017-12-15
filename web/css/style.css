@@ -72,3 +72,7 @@ li{
 div .button-field button{
   background-color: #00D646;
 }
+
+input+label{
+  margin : 1vh 5vw;
+}

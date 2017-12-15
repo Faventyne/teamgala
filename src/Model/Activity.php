@@ -36,6 +36,7 @@ class Activity extends DbObject
      * @var string
      */
     protected $visibility;
+    /* Deadline property is set to public as an external getter created in Criterion needs to access it (Activity Parameters form)*/
     /**
      * @Column(name="act_deadline", length= 10, type="string")
      * @var string

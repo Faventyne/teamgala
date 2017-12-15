@@ -7,7 +7,6 @@
  */
 
 namespace Model;
-
 /**
  * @Entity()
  * @Table(name="criterion")
@@ -47,6 +46,7 @@ class Criterion extends DbObject
     protected $upperbound;
     /**
      * @Column(name="cri_upperbound", length= 10, type="float")
+     * @Assert\GreaterThan($lowerbound)
      * @var float
      */
     protected $step;
@@ -169,4 +169,30 @@ class Criterion extends DbObject
         $this->gradetype = $gradetype;
     }
 
+
+    //Creation of external getters and setters to call the method when setting activity parameters in a Criterion form
+    public function setDeadline($deadline)
+{
+    $activity = new Activity();
+    $activity->setDeadline($deadline);
 }
+
+    public function getDeadline()
+    {
+        $activity = new Activity();
+        return $activity->getDeadline();
+    }
+
+    public function setVisibility($visibility)
+    {
+        $activity = new Activity();
+        $activity->setVisibility($visibility);
+    }
+
+    public function getVisibility()
+    {
+        $activity = new Activity();
+        return $activity->getVisibility();
+    }
+}
+
