@@ -46,8 +46,8 @@ class ActivityUser
      */
     protected $mweight;
     /**
-     * @Column(name="a_u_precomment", length=10, type="float")
-     * @var float
+     * @Column(name="a_u_precomment", length=10, type="string")
+     * @var string
      */
     protected $precomment;
     /**
@@ -70,6 +70,11 @@ class ActivityUser
      * @var float
      */
     protected $of_penalty;
+    /**
+     * @Column(name="a_u_inserted", type="datetime")
+     * @var /DateTime
+     */
+    protected $inserted;
 
 
     /**
@@ -78,16 +83,16 @@ class ActivityUser
      * @param int $act_id
      * @param float $distance
      * @param float $result
-     * @param float $type
+     * @param string $type
      * @param float $mweight
-     * @param float $precomment
+     * @param string $precomment
      * @param float $ivp_bonus
      * @param float $ivp_penalty
      * @param float $of_bonus
      * @param float $of_penalty
 
      */
-    public function __construct($usr_id=0, $act_id=0, $distance=0, $result=0, $type='Col', $mweight=0, $precomment='', $ivp_bonus=0, $ivp_penalty=0, $of_bonus=0, $of_penalty=0, $inserted='')
+    public function __construct($usr_id=0, $act_id=0, $distance=0.0, $result=0.0, $type='Col', $mweight=0.0, $precomment='', $ivp_bonus=0.0, $ivp_penalty=0.0, $of_bonus=0.0, $of_penalty=0.0, $inserted=null)
     {
         $this->usr_id = $usr_id;
         $this->act_id = $act_id;

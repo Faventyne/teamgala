@@ -58,6 +58,11 @@ class Grade extends DbObject
      * @var string
      */
     protected $comment;
+/**
+* @Column(name="grd_inserted", type="datetime")
+* @var /DateTime
+*/
+    protected $inserted;
 
     /**
      * Grade constructor.
@@ -70,7 +75,7 @@ class Grade extends DbObject
      * @param float $value
      * @param string $comment
      */
-    public function __construct($id, $act_id, $par_id, $cri_id, $stg_id, $graded_id, $value, $comment, $inserted)
+    public function __construct($id=0, $act_id=0, $par_id=0, $cri_id=0, $stg_id=0, $graded_id=0, $value=0.0, $comment='',$inserted=null)
     {
         parent::__construct($id,$inserted);
         $this->act_id = $act_id;

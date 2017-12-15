@@ -41,7 +41,7 @@ class Criterion extends DbObject
     protected $lowerbound;
     /**
      * @Column(name="cri_upperbound", length= 10, type="float")
-     * @var int
+     * @var float
      */
     protected $upperbound;
     /**
@@ -64,12 +64,12 @@ class Criterion extends DbObject
      * @param string $gradetype
      * @param float $weight
      * @param float $lowerbound
-     * @param int $upperbound
+     * @param float $upperbound
      * @param float $step
      */
-    public function __construct($id=0, $act_id=0, $name='', $weight=0, $lowerbound=0, $upperbound=5, $step=0.5, $gradetype='absolute',$inserted='')
+    public function __construct($id=0, $act_id=0, $name='', $weight=0.0, $lowerbound=0.0, $upperbound=5.0, $step=0.5, $gradetype='absolute',$inserted=null)
     {
-        parent::__construct($id,$inserted);
+        parent::__construct($id,new \DateTime());
         $this->act_id = $act_id;
         $this->name = $name;
         $this->gradetype = $gradetype;

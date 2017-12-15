@@ -38,8 +38,8 @@ class Activity extends DbObject
     protected $visibility;
     /* Deadline property is set to public as an external getter created in Criterion needs to access it (Activity Parameters form)*/
     /**
-     * @Column(name="act_deadline", length= 10, type="string")
-     * @var string
+     * @Column(name="act_deadline",  type="datetime")
+     * @var datetime
      */
     protected $deadline;
     /**
@@ -74,10 +74,17 @@ class Activity extends DbObject
     protected $res_benefit_eff;
 
     /**
+     * @Column(name="act_inserted", type="datetime")
+     * @var /DateTime
+     */
+    protected $inserted;
+
+    /**
      * Activity constructor.
      * @param int $id
      * @param int $org_id
      * @param string $name
+     * @param string $visibility
      * @param string $deadline
      * @param string $objectives
      * @param string $status
@@ -85,10 +92,11 @@ class Activity extends DbObject
      * @param float $distrAmount
      * @param int $res_inertia
      * @param int $res_benefit_eff
+     * * @param /DateTime $inserted
      */
-    public function __construct($id=0, $org_id=0, $name='',$visibility='', $deadline='', $objectives='', $status='', $isRewarding='', $distrAmount=0, $res_inertia=0, $res_benefit_eff=0,$inserted='')
+    public function __construct($id=0, $org_id=0, $name='',$visibility='', $deadline=null, $objectives='', $status='', $isRewarding=false, $distrAmount=0.0, $res_inertia=0, $res_benefit_eff=0,$inserted=null)
     {
-        parent::__construct($id,$inserted);
+        parent::__construct($id,new \DateTime());
         $this->org_id = $org_id;
         $this->name = $name;
         $this->visibility = $visibility;
@@ -156,7 +164,7 @@ class Activity extends DbObject
     }
 
     /**
-     * @return string
+     * @return \DateTime
      */
     public function getDeadline()
     {
@@ -164,7 +172,7 @@ class Activity extends DbObject
     }
 
     /**
-     * @param string $deadline
+     * @param  \DateTime $deadline
      */
     public function setDeadline($deadline)
     {
