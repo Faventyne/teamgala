@@ -66,14 +66,11 @@ margin-right: 25vw;
   background-color: green;
 }
 
-.add-button{
+.action-button{
   margin-bottom: 3vw;
   margin-right: 2vw;
 }
-.remove-button{
-  margin-bottom: 3vw;
-  margin-right: 2vw;
-}
+
 
 /************************************************************************************/
 
