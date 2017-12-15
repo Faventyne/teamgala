@@ -127,6 +127,7 @@ class UserController
     /*********** USER LOGIN AND CONTEXTUAL MENU *****************/
     //Logs current user
     public function loginAction(Request $request,Application $app){
+        
         return $app['twig']->render('login.html.twig',
             [
                 'error' => $app['security.last_error']($request),

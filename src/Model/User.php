@@ -278,7 +278,7 @@ class User extends DbObject implements \Symfony\Component\Security\Core\User\Use
     }
 
     public function getRoles() {
-        return array('USER');
+        return array('ADMIN');
     }
 
     public function getSalt() {

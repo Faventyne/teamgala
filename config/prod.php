@@ -53,7 +53,7 @@ $app->register(new Dflydev\Provider\DoctrineOrm\DoctrineOrmServiceProvider(),
             ]
         ]
 );
-/*
+
 // Security and firewall
 $app->register(new Silex\Provider\SecurityServiceProvider(),
         [
@@ -68,23 +68,30 @@ $app->register(new Silex\Provider\SecurityServiceProvider(),
                     'form' => [
                         'login_path' => '/',
                         'check_path' => '/admin/login_check'
-                    ],
-                            
-                ]
-              // adding settings              
+                    ], /*
+                    'logout' => [
+                        'logout_path' => '/admin/logout',
+                        'invalide_session' => true,
+                        'target_url' => '/'
+                    ], */
+                ],
+            ],          
+            'security.role_hierarchy' => [
+                'COLLABORATOR' => [],
+                'ACTIVITY_MANAGER' => ['COLLABORATOR'],
+                'HR' => ['COLLABORATOR','ACTIVITY_MANAGER'],
+                'ADMIN' => ['COLLABORATOR','ACTIVITY_MANAGER','HR']   
             ],
-        
-        'security.role_hierarchy' => [
-            'ROLE_USER' => ['USER','']
-        ],
-        'security.default_encoder' => function() {
-            return new Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder() ;
-        },
-        'security.access_rules' => [
-            ['^/admin', 'ROLE_ADMIN']
+            'security.default_encoder' => function() {
+                return new Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder() ;
+            },
+            'security.access_rules' => [
+                ['^/activity.*$', 'ACTIVITY_MANAGER'],
+                ['^/settings.*$', 'HR']
+            ]
         ]
-        ]
-);*/
+);
+            
 // SwiftMailer
 $app->register(new Silex\Provider\SwiftmailerServiceProvider());
 $app['swiftmailer.options'] = array(
