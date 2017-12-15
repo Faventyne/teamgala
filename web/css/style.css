@@ -61,9 +61,10 @@ margin-right: 25vw;
 }
 .btn-large{
   width: 50vw;
-  height: 10vh;
-  padding-top: 2vh;
+  height: 10vw;
+  padding-top: 2vw;
   background-color: green;
+  font-size: 3vw;
 }
 
 .action-button{
