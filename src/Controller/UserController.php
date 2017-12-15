@@ -8,9 +8,10 @@
 
 namespace Controller;
 
+use Silex\Application;
 use Form\AddUserForm;
 use Form\LogInForm;
-use Silex\Application;
+use Form\SignUpForm;
 use Symfony\Component\HttpFoundation\Request;
 use Model\User;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -41,12 +42,16 @@ class UserController
             // Sending a message to the added user
             $message = \Swift_Message::newInstance()
             ->setSubject('Your Serpico account has been created')
-            ->setFrom(array('noreply@serpico.com'))
+            ->setFrom(array('noreply@serpico.com' => 'no reply'))
             ->setTo(array($user->getEmail()))
-            ->setBody("/password/$token");
-            $app['mailer']->send($message);
+            ->setBody("url/password/$token", 'text/plain');
             
-        return print_r($message);// $app->redirect($app['url_generator']->generate('settingsUsers'));
+            $app['mailer']->send($message);
+            $app['swiftmailer.spooltransport']
+            ->getSpool()
+            ->flushQueue($app['swiftmailer.transport']) ;
+            
+            return $app->redirect($app['url_generator']->generate('settingsUsers'));
                 
         } 
         
@@ -57,10 +62,33 @@ class UserController
 
 
     }
-
+    // Modify pwd
+    public function modifyPwdAction (Request $request, Application $app, $token)
+    {
+        $entityManager = $this->getEntityManager($app) ;
+        $repository = $entityManager->getRepository(User::class) ;
+        $user = $repository->findOneByToken($token);
+        
+        $formFactory = $app['form.factory'] ;
+        $pwdForm = $formFactory->create(SignUpForm::class, $user, ['standalone' => true]) ;
+        $pwdForm->handleRequest($request);
+        
+        if ($pwdForm->isSubmitted() /*&& $pwdForm->isValid()*/) {
+            $user->setToken('');
+            $entityManager->persist($user);
+            $entityManager->flush();
+            return $app->redirect($app['url_generator']->generate('login')) ;
+        }
+        
+        return $app['twig']->render('signup.html.twig',
+                [
+                    'form' => $pwdForm->createView()
+                ]) ;
+    }
+    
     // Modify user info  (ajax call)
     public function modifyUserAction(Request $request, Application $app){
-
+            
     }
 
     // Delete user (ajax call)
@@ -98,45 +126,14 @@ class UserController
 
     /*********** USER LOGIN AND CONTEXTUAL MENU *****************/
     //Logs current user
-    public function loginAction(Request $request, Application $app){
-        $user = new User() ;
-        $formFactory = $app['form.factory'] ;
-        $loginForm = $formFactory->create(LogInForm::class, $user, ['standalone'=>true]) ;
-        $loginForm->handleRequest($request) ;
-        if ($loginForm->isSubmitted()){
-
-            $entityManager = $app['orm.em'];
-            $userRepository=$entityManager->getRepository(User::class);
-
-            // Check if user exists
-            $userMail = $request->request->get('ftjuyrktu');
-            $user = $userRepository->findOneByEmail($userMail);
-            if(!$user){
-                throw new NotFoundHttpException('Email not found');
-            } else {
-                //Check if password is correct
-                $userPassword = $request->request->get('usr_password');
-                if ($user->getPassword() == $userPassword) {
-                    //return $app->redirect($app['url_generator']->generate('home'));//
-                    return print_r($request);
-                    return print_r($userPassword);
-                    return print_r($user);
-                } else {
-                    throw new NotFoundHttpException('Password incorrect. Please check');
-                }
-
-            }
-
-        }
+    public function loginAction(Request $request,Application $app){
         return $app['twig']->render('login.html.twig',
             [
-                //'error' => $app['security.last_error']($request),
-                'form' => $loginForm->createView(),
-                'last_email' => $app['session']->get('security.last_email')
+                'error' => $app['security.last_error']($request),
+                'last_username' => $app['session']->get('security.last_username')
             ]);
-
-    } 
-
+    }
+        
     //Displays the menu in relation with user role
     public function homeAction(Request $request, Application $app){
 

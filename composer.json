@@ -24,7 +24,7 @@
         "symfony/validator": "~2.8|^3.0",
         "doctrine/orm": "^2.5",
         "dflydev/doctrine-orm-service-provider": "^2.0",
-        "swiftmailer/swiftmailer" : "~5.4.8"
+        "swiftmailer/swiftmailer": "~5.4.8"
     },
     "autoload": {
         "psr-0": { "": "src/" }
@@ -43,7 +43,7 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/leClaude/silex"
+            "url": "https://github.com/leClaude/Silex"
         }
     ]
 }

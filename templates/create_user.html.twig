@@ -1,15 +1,18 @@
 {% extends "layout.html.twig" %}
 
 {% block content %}
+<<<<<<< HEAD
   <img src="{{ asset('../web/lib/img/Serpico.png') }}" alt="Logo Serpico" />
     {{ form_start(form) }}
+=======
+  <img src="{{ asset('../web/lib/img/Serpico.png') }}"/>
+  {{ form_start(form) }}
+>>>>>>> origin/Login
 
-  <form class="col s10">
-    <div class="row">
-      <div class="input-field col s10">
-        <input disabled value="Organisation" id="disabled" type="text" class="validate">
-        <label for="disabled">Disabled</label>
-      </div>
+  <div class="row">
+    <div class="input-field col s10">
+      <input disabled="disabled" value="Organisation" id="disabled" type="text" class="validate">
+      <label for="disabled">Disabled</label>
     </div>
     <div class="row">
       <div class="input-field col s10">
@@ -18,8 +21,6 @@
           {{ form_label(form.firstname) }}
           {{ form_errors(form.firstname) }}
       </div>
-    </div>
-
     <div class="row">
       <div class="input-field col s10">
 
@@ -27,8 +28,6 @@
           {{ form_label(form.lastname) }}
           {{ form_errors(form.lastname) }}
       </div>
-    </div>
-
     <div class="row">
       <div class="input-field col s10">
 
@@ -37,12 +36,12 @@
           {{ form_errors(form.email) }}
       </div>
     </div>
-    <div class="row">
-      <div class="button-field col s10">
-          {{ form_row(form.submit) }}
-      </div>
+  </div>
+  <div class="row">
+    <div class="button-field col s10">
+      {{ form_row(form.submit) }}
     </div>
-  </form>
+  </div>
 
-    {{ form_end(form)}}
+  {{ form_end(form)}}
 {% endblock %}
