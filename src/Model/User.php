@@ -79,8 +79,8 @@ class User extends DbObject
 
 
     /**
-     * @Column(name="usr_inserted", type="string")
-     * @var string
+     * @Column(name="usr_inserted", type="datetime")
+     * @var /DateTime
      */
     protected $inserted;
 
@@ -98,9 +98,9 @@ class User extends DbObject
      * @param string $token
      * @param int $rol_id
      * @param int $pos_id
-     * @param string $inserted
+     * @param /DateTime $inserted
      */
-    public function __construct($id =0, $firstname='', $lastname='', $username='', $birthdate='', $email='', $password='', $picture='', $token='', $rol_id=2, $pos_id=1, $inserted='')
+    public function __construct($id =0, $firstname='', $lastname='', $username='', $birthdate='', $email='', $password='', $picture='', $token='', $rol_id=2, $pos_id=1, $inserted=null)
     {
         $this->firstname = $firstname;
         $this->lastname = $lastname;
@@ -112,7 +112,7 @@ class User extends DbObject
         $this->token = $token;
         $this->rol_id = $rol_id;
         $this->pos_id = $pos_id;
-        parent::__construct($id,$inserted);
+        parent::__construct($id,new \DateTime());
     }
 
     /**
@@ -153,7 +153,7 @@ class User extends DbObject
     */
 
     /**
-     * @param string $inserted
+     * @param /DateTime $inserted
      */
     public function setInserted($inserted)
     {

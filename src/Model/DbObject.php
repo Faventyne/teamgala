@@ -25,11 +25,11 @@ abstract class DbObject
 
     /**
      * @Column(name="inserted", type="datetime")
-     * @var string
+     * @var \DateTime
      */
     protected $inserted;
 
-    public function __construct($id = 0, $inserted = '')
+    public function __construct($id = 0, $inserted = null)
     {
         $this->id = $id;
         $this->inserted = $inserted;
