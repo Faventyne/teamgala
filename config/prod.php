@@ -53,14 +53,14 @@ $app->register(new Dflydev\Provider\DoctrineOrm\DoctrineOrmServiceProvider(),
             ]
         ]
 );
-/*
+
 // Security and firewall
 $app->register(new Silex\Provider\SecurityServiceProvider(),
         [
             'security.firewalls' => [
                 'logged' => [
-                    'pattern' => '^/.+$',
-                    'http' => true,
+                    'pattern' => '^/',
+                    'anonymous' =>true,
                     'users' => function () use ($app) {
                         $repository = $app['orm.em']->getRepository(\Model\User::class);
                         return new Provider\DBUserProvider($repository) ;
@@ -77,14 +77,12 @@ $app->register(new Silex\Provider\SecurityServiceProvider(),
         'security.role_hierarchy' => [
             'ROLE_USER' => ['USER','']
         ],
-        'security.default_encoder' => function() {
-            return new Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder() ;
-        },
         'security.access_rules' => [
             ['^/admin', 'ROLE_ADMIN']
         ]
         ]
-);*/
+);
+        
 // SwiftMailer
 $app->register(new Silex\Provider\SwiftmailerServiceProvider());
 $app['swiftmailer.options'] = array(

@@ -74,6 +74,10 @@ class UserController
         $pwdForm->handleRequest($request);
         
         if ($pwdForm->isSubmitted() /*&& $pwdForm->isValid()*/) {
+            $encoder = $app['security.encoder_factory']->getEncoder($user);
+            $password = $encoder->encodePassword($user->getPassword(), 'azerty');
+            $user->setPassword($password);
+            
             $user->setToken('');
             $entityManager->persist($user);
             $entityManager->flush();

@@ -56,6 +56,25 @@ height: 15vw;
   overflow: hidden;
 }
 
+.fixed-action-btn{
+margin-right: 25vw;
+}
+.btn-large{
+  width: 50vw;
+  height: 10vw;
+  padding-top: 2vw;
+  background-color: green;
+  font-size: 3vw;
+}
+
+.action-button{
+  margin-bottom: 3vw;
+  margin-right: 2vw;
+}
+
+
+/************************************************************************************/
+
 
 img{
   width: 30%;

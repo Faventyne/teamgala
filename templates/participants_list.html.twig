@@ -18,19 +18,13 @@ Select participants
             <span class="secondary-content" >
               <button type="submit" class="waves-effect waves-light btn action-button">ADD</button>
               <!-- le if sera pour ajoute ou non  -->
-              {% if user['id'] > 10 %}
-                <i class="material-icons">done</i>
-          {% elseif user['id'] <= 10 %}
-            <i class="material-icons">clear</i>
-      {% endif %}
+
       </span>
     </li>
   </ul>
 {% endfor %}
-<div class="row">
-  <div class="button-field col s10">
-    <button type="submit" class="validate">SEE ACTIVITY PREVIEW</button>
-  </div>
+<div class="fixed-action-btn">
+  <a class="waves-effect waves-light btn-large">ADD PARTICIPANTS</a>
 </div>
 </section>
 
