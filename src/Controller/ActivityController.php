@@ -101,7 +101,7 @@ class ActivityController
 
         return $app['twig']->render('organization_activities_list.html.twig',
             [
-                'activities' => $result
+                'organization_activities' => $result
             ]) ;
 
     }
@@ -117,7 +117,7 @@ class ActivityController
 
         return $app['twig']->render('user_activities_list.html.twig',
             [
-                'activities' => $result
+                'users_activities' => $result
             ]) ;
 
     }
