@@ -28,8 +28,12 @@ $routeMyActivities = $app->get('/myactivities', "Controller\ActivityController::
 $routeMyActivities->bind('myActivities') ;
 
 // Activity configuration page
-$routeActivityConfiguration = $app->get('/activity/configuration', "Controller\ActivityController::addActivityAction") ;
-$routeActivityConfiguration->bind('activityConfiguration') ;
+$routeActivityCreationParameters = $app->match('/activity/create/parameters', "Controller\ActivityController::addCriterionAction") ;
+$routeActivityCreationParameters->bind('activityCreationParameters') ;
+
+// Activity configuration page
+$routeActivityCreationParticipants = $app->get('/activity/create/participants', "Controller\ActivityController::getAllParticipantsAction") ;
+$routeActivityCreationParticipants->bind('activityCreationParticipants') ;
 
 // Activity grade page
 $routeActivityGrade = $app->get('/activity/grade', "Controller\ActivityController::gradeAction") ;

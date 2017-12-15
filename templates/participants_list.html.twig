@@ -1,0 +1,40 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+  <section class="col s10">
+    <h1>Participants List</h1>
+    <input type="text" name="fakesearchbar" placeholder="FAKE SEARCH BAR">
+
+    {% for user in users %}
+      <ul class="collapsible" data-collapsible="accordion">
+        <li>
+          <div class="collapsible-header">
+            <i class="material-icons">expand_more</i>
+            {{ user['firstname']  }}
+            {{ user['lastname'] | upper }}
+            <br>
+              {#{{user['username']}}#}
+            <span class="badge">{{ user['id'] }}
+              {% if user['id'] > 10 %}
+                <i class="material-icons">done</i></span></div>
+          {% elseif user['id'] <= 10 %}
+            <i class="material-icons">clear</i></span></div>
+      {% endif %}
+      <div class="collapsible-body">Position et autres infos
+        <div class="row">
+          <div class="button-field col s10">
+            <button type="submit" class="validate">MODIFY</button>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+{% endfor %}
+<div class="row">
+  <div class="button-field col s10">
+    <button type="submit" class="validate">SEE ACTIVITY PREVIEW</button>
+  </div>
+</div>
+</section>
+
+{% endblock %}

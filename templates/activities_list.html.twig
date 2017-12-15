@@ -1,0 +1,47 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+  <section class="col s10">
+    <h1>User List</h1>
+    <input type="text" name="fakesearchbar" placeholder="FAKE SEARCH BAR">
+
+    {% for activity in activities %}
+      <ul class="collapsible" data-collapsible="accordion">
+        <li>
+          <div class="collapsible-header">
+            <i class="material-icons">expand_more</i>
+            {{ user['firstname']  }}
+            {{ user['lastname'] | upper }}
+            <br>
+            {{user['username']}}
+            <span class="badge">{{ user['id'] }}
+              {% if user['id'] > 10 %}
+                <i class="material-icons">done</i></span></div>
+          {% elseif user['id'] <= 10 %}
+            <i class="material-icons">clear</i></span></div>
+      {% endif %}
+      <div class="collapsible-body">Position et autres infos
+        <div class="row">
+          <div class="button-field col s4">
+            <button type="submit" class="validate modify-button" data-user-id={{ user['id'] }}>MODIFY</button>
+          </div>
+          <div class="button-field col s4">
+            <button type="submit" class="validate delete-button" data-user-id={{ user['id'] }}>DELETE</button>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+{% endfor %}
+<div class="row">
+  <div class="button-field col s10">
+    <button type="submit" class="validate">ADD USERS</button>
+  </div>
+</div>
+</section>
+
+{% endblock %}
+
+{% block javascripts %}
+  <script src="{{ asset('js/users.js') }}"></script>
+{% endblock %}

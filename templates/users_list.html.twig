@@ -5,7 +5,7 @@
     <h1>User List</h1>
     <input type="text" name="fakesearchbar" placeholder="FAKE SEARCH BAR">
 
-    {% for user in users %}
+{% for user in users %}
       <ul class="collapsible" data-collapsible="accordion">
         <li>
           <div class="collapsible-header">
@@ -15,24 +15,28 @@
             <br>
             {{user['username']}}
             <span class="badge">{{ user['id'] }}
-              {% if user['id'] > 10 %}
-                <i class="material-icons">done</i></span></div>
-          {% elseif user['id'] <= 10 %}
-            <i class="material-icons">clear</i></span></div>
-      {% endif %}
-      <div class="collapsible-body">Position et autres infos
-        <div class="row">
-          <div class="button-field col s5">
-            <button type="submit" class="validate">MODIFY</button>
+                {% if user['id'] > 10 %}
+                    <i class="material-icons">done</i>
+            </span>
           </div>
-          <div class="button-field col s5">
-            <button type="submit" class="validate">DELETE</button>
-          </div>
-        </div>
-      </div>
-    </li>
-  </ul>
-{% endfor %}
+                {% elseif user['id'] <= 10 %}
+                    <i class="material-icons">clear</i>
+                </span>
+
+              {% endif %}
+              <div class="collapsible-body">Position et autres infos
+                <div class="row">
+                  <div class="button-field col s4">
+                    <button type="submit" class="validate modify-button" data-user-id={{ user['id'] }}>MODIFY</button>
+                  </div>
+                  <div class="button-field col s4">
+                    <button type="submit" class="validate delete-button" data-user-id={{ user['id'] }}>DELETE</button>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        {% endfor %}
 <div class="row">
   <div class="button-field col s10">
     <button type="submit" class="validate">ADD USERS</button>
@@ -40,4 +44,8 @@
 </div>
 </section>
 
+{% endblock %}
+
+{% block javascripts %}
+  <script src="{{ asset('js/users.js') }}"></script>
 {% endblock %}

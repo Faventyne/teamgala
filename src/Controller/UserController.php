@@ -64,8 +64,20 @@ class UserController
     }
 
     // Delete user (ajax call)
-    public function deleteUserAction(Request $request, Application $app){
+    public function deleteUserAction(Request $request, Application $app, $id){
+        $manager = $app['orm.em'];
+        $repository = $manager->getRepository(User::class);
+        $user = $repository->find($id);
 
+        if (!$user) {
+            $message = sprintf('User %d not found', $id);
+            return $app->json(['status' => 'error', 'message' => $message], 404);
+        }
+
+        $manager->remove($user);
+        $manager->flush();
+
+        return $app->json(['status' => 'done']);
     }
 
     // Display all users (when HR clicks on "users" from /settings)
@@ -143,11 +155,13 @@ class UserController
     }
 
 
+
+
     /**
      * @return \Doctrine\ORM\EntityManager
      */
     public function getEntityManager (Application $app) {
-        return $app['orm.em'] ;
-    }
+    return $app['orm.em'] ;
+}
 
 }
