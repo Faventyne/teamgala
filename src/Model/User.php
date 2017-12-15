@@ -272,6 +272,26 @@ class User extends DbObject implements \Symfony\Component\Security\Core\User\Use
         
     }
 
+    //Creation of external getters and setters to call the method when setting activity parameters in a User form
+    public function setPositionName($posname){
+        $position = new Position();
+        $position->setName($posname);
+    }
+
+    public function getPositionName(){
+        $position = new Position();
+        return $position->getName();
+    }
+
+    public function setPositionWeight($weight){
+        $position = new Position();
+        $position->setWeightIni($weight);
+    }
+
+    public function getPositionWeight(){
+        $position = new Position();
+        return $position->getWeightIni();
+    }
 
 }
 

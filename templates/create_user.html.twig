@@ -37,6 +37,21 @@ Create User
           {{ form_errors(form.email) }}
       </div>
     </div>
+      <div class="row">
+        <div class="input-field col s10">
+
+            {{ form_widget(form.positionName) }}
+            {{ form_label(form.positionName) }}
+            {{ form_errors(form.positionName) }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s10">
+            {{ form_widget(form.positionWeight) }}
+            {{ form_label(form.positionWeight) }}
+            {{ form_errors(form.positionWeight) }}
+        </div>
+      </div>
   </div>
   <div class="row">
     <div class="button-field col s10">

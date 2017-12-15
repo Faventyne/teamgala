@@ -91,7 +91,7 @@ class Activity extends DbObject
      * @param float $distrAmount
      * @param int $res_inertia
      * @param int $res_benefit_eff
-     * * @param /DateTime $inserted
+     * @param /DateTime $inserted
      */
     public function __construct($id=0, $org_id=0, $name='',$visibility='', $deadline=null, $objectives='', $status='', $isRewarding=false, $distrAmount=0.0, $res_inertia=0, $res_benefit_eff=0,$inserted=null)
     {
