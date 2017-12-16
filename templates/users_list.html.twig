@@ -16,7 +16,7 @@ User list
             {{ user['firstname']  }}
             {{ user['lastname'] | upper }}
             <br>
-            {{user['username']}}
+            {{user['position']}}
             <span class="badge">{{ user['id'] }}</span>
             {% if user['id'] > 10 %}
               <i class="material-icons">done</i>
@@ -27,7 +27,11 @@ User list
             </div>
 
         {% endif %}
-        <div class="collapsible-body">Position et autres infos
+        <div class="collapsible-body">
+          <div class="row">
+            Autres infos <br>
+            Poids : {{ user['weight']  }}
+          </div>
           <div class="row">
             <div class="button-field col s4">
               <button type="submit" class="validate modify-button" data-user-id={{ user['id'] }}>MODIFY</button>

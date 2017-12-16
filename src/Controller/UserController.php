@@ -14,6 +14,7 @@ use Form\LogInForm;
 use Form\SignUpForm;
 use Symfony\Component\HttpFoundation\Request;
 use Model\User;
+use Model\Position;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Model\Activity;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -27,17 +28,34 @@ class UserController
     //Adds user to current organization (limited to HR)
     public function addUserAction(Request $request, Application $app){
         $user = new User() ;
+        $position = new Position();
         $formFactory = $app['form.factory'] ;
         $userForm = $formFactory->create(AddUserForm::class, $user, ['standalone'=>true]) ;
         $userForm->handleRequest($request) ;
         
 
         if ($userForm->isSubmitted() /*&& $userForm->isValid()*/) {
+
+
             $token = md5(rand()) ;
             $user->setToken($token) ;
             $entityManager = $app['orm.em'] ;
-            $entityManager->persist($user) ;
-            $entityManager->flush() ;
+
+            //If users sets a new position and do not chose between existing one, we just flush the new position
+            //before inserting the user
+            if($userForm->get('positionName')->getData() != ''){
+
+                $position->setName($userForm->get('positionName')->getData());
+                $entityManager->persist($position);
+                $entityManager->flush();
+                $positionId = $position->getId();
+                $user->setPosId($positionId);
+                $entityManager->persist($user);
+                $entityManager->flush();
+
+            }
+
+
             
             // Sending a message to the added user
             $message = \Swift_Message::newInstance()
@@ -50,9 +68,11 @@ class UserController
             $app['swiftmailer.spooltransport']
             ->getSpool()
             ->flushQueue($app['swiftmailer.transport']) ;
+
+
             
             return $app->redirect($app['url_generator']->generate('settingsUsers'));
-                
+
         } 
         
         return $app['twig']->render('create_user.html.twig',
@@ -118,12 +138,14 @@ class UserController
         $repository = $entityManager->getRepository(\Model\User::class);
         $result = [];
         foreach ($repository->findAll() as $user) {
-            $result[] = $user->toArray();
+
+            $result[] = $user->toArray($app);
+
         }
 
         return $app['twig']->render('users_list.html.twig',
                 [
-                    'users' => $result 
+                    'users' => $result,
                 ]) ;
 
     }
