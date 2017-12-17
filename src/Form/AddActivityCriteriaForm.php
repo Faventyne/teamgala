@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -23,7 +24,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class AddCriterionForm extends AbstractType
+class AddActivityCriteriaForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -47,13 +48,14 @@ class AddCriterionForm extends AbstractType
                     'data' => true
                 ])
 
-            ->add('deadline', TextType::class, [
+            ->add('deadline', DateTimeType::class, [
                 //'format' => 'dd/MM/yyyy',
                 //'placeholder' => 'dd/mm/yyyy',
                 'label' => 'Grading deadline (dd/mm/yyyy)',
+
                 'constraints' => [
                     new Assert\NotBlank(),
-                    new Assert\DateTime(['format' => 'd/m/Y'])
+                    //new Assert\DateTime(['format' => 'd/m/Y'])
                 ]
             ])
 
@@ -96,6 +98,13 @@ class AddCriterionForm extends AbstractType
                     'scale' => 1,
                     'label' => 'Min increment'
                 ])
+
+            ->add('objectives', TextareaType::class,
+                [
+
+                    'label' => 'Activity remarks and objectives'
+                ])
+
             ->add('weight', TextType::class,
                 [
                     'disabled' => true,

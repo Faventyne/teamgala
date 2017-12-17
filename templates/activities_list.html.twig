@@ -20,9 +20,15 @@ Activity list
       <div class="collapsible-body">autres infos
         {{ activity['objectives']  }}
         <br>
-        {{ activity['inserted']  }} - {{ activity['deadline']  }}
+        Created on : {{ activity['inserted']  }} - Quotes deadline : {{ activity['deadline']  }}
         <br>
-        {{ activity['gradetype']  }}{{ activity['lowerbound']  }}{{ activity['upperbound']  }}{{ activity['step']  }}{{ activity['weight']  }}
+        Grade type : {{ activity['gradetype']  }}
+        <br>
+        Grade scale : from {{ activity['lowerbound']  }} to {{ activity['upperbound']  }} (increment : {{ activity['step']  }})
+          {#
+          As there is only one criterion, weight is not worth displaying
+          {{ activity['weight']  }}
+          #}
         <div class="button-field col s5">
           <button type="submit" class="validate">GRADE</button>
         </div>

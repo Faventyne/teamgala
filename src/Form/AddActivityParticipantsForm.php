@@ -15,14 +15,14 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 
-class AddParticipantsForm extends AbstractType
+class AddActivityParticipantsForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
         if ($options['standalone']) {
             $builder->add('submit', SubmitType::class, [
-                'label' => 'Créer activité'
+                'label' => 'Finaliser activité'
             ]);
         }
     }

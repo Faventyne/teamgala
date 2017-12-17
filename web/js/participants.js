@@ -1,7 +1,8 @@
 $(function(){
     $('.remove-button').hide();
 
-    $('.action-button').on("click", function(){
+    $('.action-button').on("click", function(e){
+        e.preventDefault();
         if($(this).text()=="ADD"){
             $(this).text("REMOVE");
             $(this).addClass('red')

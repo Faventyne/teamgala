@@ -7,8 +7,8 @@
  */
 namespace Controller;
 
-use Form\AddCriterionForm;
-use Form\AddParticipantsForm;
+use Form\AddActivityCriteriaForm;
+use Form\AddActivityParticipantsForm;
 use Form\UserForm;
 use Model\Activity;
 use Model\ActivityUser;
@@ -31,26 +31,44 @@ class ActivityController
     public function addCriterionAction(Request $request, Application $app){
 
         $criterion = new Criterion() ;
+        $activity = new Activity();
+        $entityManager=$this->getEntityManager($app);
         $formFactory = $app['form.factory'] ;
-        $criterionForm = $formFactory->create(AddCriterionForm::class, $criterion , ['standalone'=>true]) ;
+        $criterionForm = $formFactory->create(AddActivityCriteriaForm::class, $criterion , ['standalone'=>true]) ;
         $criterionForm->handleRequest($request);
 
         if ($criterionForm->isSubmitted()){
             if ($criterionForm->isValid()){
 
+                //Settings activity parameters before inserting ("forcing") foreign key act_id in criterion
+                $activity->setDeadline($criterionForm->get('deadline')->getData());
+                $activity->setVisibility($criterionForm->get('visibility')->getData());
+                $activity->setObjectives($criterionForm->get('objectives')->getData());
+                $activity->setName($criterionForm->get('name')->getData());
+                $entityManager->persist($activity);
+                $entityManager->flush();
+                $activityId = $activity->getId();
+                $criterion->setActId($activityId);
+                $entityManager->persist($criterion);
+                $entityManager->flush();
+
+                return $app->redirect($app['url_generator']->generate('activityCreationParticipants'));
+
+
+
+                /*
                 //Subrequest to get to participants and keep param values with post method
                 // as activity will not be inserted in DB till act mgr does not finish activity creation
-
-                $subrequest = Request::create($app['url_generator']->generate('activityCreationParticipants'), 'GET', $_POST, $_COOKIE, $_FILES, $_SERVER);
-                return $app->handle($subrequest,HttpKernelInterface::SUB_REQUEST);
-
+                $subrequest = Request::create($app['url_generator']->generate('activityCreationParticipants'), 'POST', $_POST, $_COOKIE, $_FILES, $_SERVER);
+                $app->handle($subrequest,HttpKernelInterface::SUB_REQUEST);
+                */
             //return $app->redirect($app['url_generator']->generate('activityCreationParticipants'));
             } else {
                 return $criterionForm->getErrors();
             }
         }
 
-        return $app['twig']->render('activity.html.twig',
+        return $app['twig']->render('criteria_list.twig',
                 [
                     'form' => $criterionForm->createView()
                 ]) ;
@@ -68,7 +86,7 @@ class ActivityController
         }
         // Creation of a void form
         $formFactory = $app['form.factory'] ;
-        $participantsForm = $formFactory->create(AddParticipantsForm::class, $user, ['standalone'=>true]) ;
+        $participantsForm = $formFactory->create(AddActivityParticipantsForm::class, $user, ['standalone'=>true]) ;
         $participantsForm->handleRequest($request);
 
         if ($participantsForm->isSubmitted()){
@@ -84,9 +102,9 @@ class ActivityController
             [
                 'participants' => $result,
                 'form' => $participantsForm->createView()
-            ]) ;
+            ]);
 
-        //return print_r($_POST);
+
     }
 
 
@@ -145,9 +163,9 @@ class ActivityController
             $result[] = $activity->toArray();
         }
 
-        return $app['twig']->render('organization_activities_list.html.twig',
+        return $app['twig']->render('activities_list.html.twig',
             [
-                'organization_activities' => $result
+                'activities' => $result
             ]) ;
 
     }
@@ -161,9 +179,9 @@ class ActivityController
             $result[] = $activity->toArrayUser();
         }
 
-        return $app['twig']->render('user_activities_list.html.twig',
+        return $app['twig']->render('activities_list.html.twig',
             [
-                'users_activities' => $result
+                'activities' => $result
             ]) ;
 
     }

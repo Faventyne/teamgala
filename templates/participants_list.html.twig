@@ -8,8 +8,7 @@ Select participants
   <section class="col s10">
 
     <input type="text" name="fakesearchbar" placeholder="FAKE SEARCH BAR">
-    <form action=""
-      {% for participant in participants %}
+    {% for participant in participants %}
       <ul class="collection">
         <li class="collection-item">
             {{ participant['firstname']  }}
@@ -18,10 +17,7 @@ Select participants
               {{participant['position']}}
             <span class="secondary-content" >
 
-              {{ form_start(form) }}
-                {{ form_row(form.submit) }}
-              {{ form_end(form) }}
-              <!--<button type="submit" class="waves-effect waves-light btn action-button">ADD</button>-->
+              <button type="submit" class="waves-effect waves-light btn action-button">ADD</button>
               <!-- le if sera pour ajoute ou non  -->
 
             </span>
@@ -29,7 +25,10 @@ Select participants
       </ul>
     {% endfor %}
 <div class="fixed-action-btn">
-  <a class="waves-effect waves-light btn-large">ADD PARTICIPANTS</a>
+    {{ form_start(form) }}
+    {{ form_row(form.submit,{'attr': {'class': 'waves-effect waves-light btn-large'}}) }}
+    {{ form_end(form) }}
+  <!--<a class="waves-effect waves-light btn-large">ADD PARTICIPANTS</a>-->
 </div>
 </section>
 

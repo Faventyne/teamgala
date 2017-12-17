@@ -14,9 +14,9 @@ namespace Model;
 class Activity extends DbObject
 {
     /**
-     *@Id()
+     * @Id()
      * @GeneratedValue()
-     * @Column(name="act_id", type="integer", nullable=false")
+     * @Column(name="act_id", type="integer", nullable=false)
      * @var int
      */
     protected $id;
@@ -37,7 +37,7 @@ class Activity extends DbObject
     protected $visibility;
     /* Deadline property is set to public as an external getter created in Criterion needs to access it (Activity Parameters form)*/
     /**
-     * @Column(name="act_deadline",  type="datetime")
+     * @Column(name="act_quotes_deadline",  type="datetime")
      * @var datetime
      */
     protected $deadline;
@@ -71,12 +71,21 @@ class Activity extends DbObject
      * @var int
      */
     protected $res_benefit_eff;
-
     /**
      * @Column(name="act_inserted", type="datetime")
      * @var /DateTime
      */
     protected $inserted;
+    /**
+     * @Column(name="act_deleted", type="datetime")
+     * @var /DateTime
+     */
+    protected $deleted;
+    /**
+     * @Column(name="act_completed", type="datetime")
+     * @var /DateTime
+     */
+    protected $completed;
 
     /**
      * Activity constructor.
@@ -92,8 +101,10 @@ class Activity extends DbObject
      * @param int $res_inertia
      * @param int $res_benefit_eff
      * @param /DateTime $inserted
+     * @param /DateTime $deleted
+     * @param /DateTime $completed
      */
-    public function __construct($id=0, $org_id=0, $name='',$visibility='', $deadline=null, $objectives='', $status='', $isRewarding=false, $distrAmount=0.0, $res_inertia=0, $res_benefit_eff=0,$inserted=null)
+    public function __construct($id=0, $org_id=1, $name='',$visibility='', $deadline=null, $objectives='', $status='', $isRewarding=false, $distrAmount=0.0, $res_inertia=0, $res_benefit_eff=0,$inserted=null,$deleted=null,$completed=null)
     {
         parent::__construct($id,new \DateTime());
         $this->org_id = $org_id;
@@ -106,6 +117,8 @@ class Activity extends DbObject
         $this->distrAmount = $distrAmount;
         $this->res_inertia = $res_inertia;
         $this->res_benefit_eff = $res_benefit_eff;
+        $this->deleted = $deleted;
+        $this->completed = $completed;
         
     }
     
@@ -133,10 +146,12 @@ class Activity extends DbObject
         $this->res_benefit_eff = $res_benefit_eff;
     }
 
-    
+    /**
+     * @return int
+     */
     public function getId()
     {
-        return $this->id ;
+        return $this->id;
     }
     /**
      * @return int
@@ -275,6 +290,9 @@ class Activity extends DbObject
     }
 
 
+
+
+
     public function toArrayUser()
     {
         $manager = $app['orm.em'];
@@ -286,7 +304,8 @@ class Activity extends DbObject
             'gradetype' => $criterion->getGradeType(),
             'lowerbound' => $criterion->getLowerbound(),
             'upperbound' => $criterion->getUpperbound(),
-            'step' => $criterion->getStep()
+            'step' => $criterion->getStep(),
+            'creationdate' => $this->inserted
 
 
         ];
@@ -301,7 +320,7 @@ class Activity extends DbObject
             'gradetype' => $this->gradetype,
             'lowerbound' => $this->lowerbound,
             'lowerbound' => $this->upperbound,
-            'inserted' => $this->inserted
+            'creationdate' => $this->inserted
         ];
     }
 
