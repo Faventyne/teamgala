@@ -6,7 +6,7 @@ Select participants
 
 {% block content %}
   <section class="col s10">
-      {{ form_start(form,{'attr': {'class': 'foo'}}) }}
+      {#{{ form_start(form,{'attr': {'class': 'foo'}}) }}#}
     <input type="text" name="fakesearchbar" placeholder="FAKE SEARCH BAR">
     {% for participant in participants %}
       <ul class="collection">
@@ -26,15 +26,15 @@ Select participants
     {% endfor %}
 <div class="fixed-action-btn">
 
-    {{ form_row(form.submit,{'attr': {'class': 'waves-effect waves-light btn-large'}}) }}
+    {#{{ form_row(form.submit,{'attr': {'class': 'waves-effect waves-light btn-large'}}) }}#}
 
-  <!--<a class="waves-effect waves-light btn-large">ADD PARTICIPANTS</a>-->
+  <a class="waves-effect waves-light btn-large">CREATE ACTIVITY</a>
 </div>
-      {{ form_end(form) }}
+{#{{ form_end(form) }}#}
 </section>
 
 {% endblock %}
 
 {% block javascripts %}
-  <script src="{{ asset('js/participants.js') }}"></script>
+<script src="{{ asset('js/participants.js') }}"></script>
 {% endblock %}

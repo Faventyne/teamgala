@@ -52,7 +52,7 @@ class ActivityController
                 $entityManager->persist($criterion);
                 $entityManager->flush();
                 $_SESSION['created_act_id']=$activityId;
-                return $app->redirect($app['url_generator']->generate('activityCreationParticipants'));
+                return $app->redirect($app['url_generator']->generate('activityCreationParticipants',['actId' => $activityId]));
 
 
 
@@ -76,16 +76,17 @@ class ActivityController
 
     // 2 - Add participants
 
-    public function addParticipantsAction(Request $request, Application $app){
+    public function addParticipantsAction(Request $request, Application $app, $actId){
 
         // Get all participants (users)
         $entityManager = $this->getEntityManager($app) ;
         $activityuser = new ActivityUser();
         $repository = $entityManager->getRepository(\Model\User::class);
         $result = [];
-        foreach ($repository->findAll() as $user) {
+        foreach ($repository->findAllActive() as $user) {
             $result[] = $user->toArray($app);
         }
+        /*
         // Creation of a void form
         $formFactory = $app['form.factory'] ;
         $participantsForm = $formFactory->create(AddActivityParticipantsForm::class, $user, ['standalone'=>true]) ;
@@ -98,12 +99,13 @@ class ActivityController
                 return $participantsForm->getErrors();
             }
         }
+        */
 
 
         return $app['twig']->render('participants_list.html.twig',
             [
                 'participants' => $result,
-                'form' => $participantsForm->createView()
+                //'form' => $participantsForm->createView()
             ]);
 
 

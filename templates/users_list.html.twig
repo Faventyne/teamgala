@@ -46,7 +46,9 @@ User list
   {% endfor %}
   <div class="row">
     <div class="button-field col s10">
+      <form action="{{ url('createUser') }}">
       <button type="submit" class="validate">ADD USERS</button>
+      </form>
     </div>
   </div>
 </section>

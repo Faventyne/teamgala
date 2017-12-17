@@ -9,7 +9,10 @@
 namespace Form;
 
 use Model\User;
+use Silex\Application;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -22,7 +25,7 @@ class AddActivityParticipantsForm extends AbstractType
 
         if ($options['standalone']) {
             $builder->add('submit', SubmitType::class, [
-                'label' => 'Finaliser activité',
+                'label' => 'Finaliser activité'
 
             ]);
         }

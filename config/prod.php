@@ -82,11 +82,12 @@ $app->register(new Silex\Provider\SecurityServiceProvider(),
                 'HR' => ['COLLABORATOR','ACTIVITY_MANAGER'],
                 'ADMIN' => ['COLLABORATOR','ACTIVITY_MANAGER','HR']   
             ],
-
+            /*
             'security.access_rules' => [
                 ['^/activity.*$', 'ACTIVITY_MANAGER'],
                 ['^/settings/users/create', 'ADMIN']
             ]
+            */
         ]
 );
 

@@ -36,7 +36,7 @@ $routeActivityCreationParameters = $app->match('/activity/create/parameters', "C
 $routeActivityCreationParameters->bind('activityCreationParameters') ;
 
 // Activity creation : users page
-$routeActivityCreationParticipants = $app->get('/activity/create/participants', "Controller\ActivityController::addParticipantsAction") ;
+$routeActivityCreationParticipants = $app->get('/activity/create/participants/{actId}', "Controller\ActivityController::addParticipantsAction") ;
 $routeActivityCreationParticipants->bind('activityCreationParticipants') ;
 
 // Activity grade page
