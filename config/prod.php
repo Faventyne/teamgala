@@ -59,7 +59,7 @@ $app->register(new Silex\Provider\SecurityServiceProvider(),
         [
             'security.firewalls' => [
                 'logged' => [
-                    'pattern' => '^/',
+                    'pattern' => '^/.+$',
                     'anonymous' =>true,
                     'users' => function () use ($app) {
                         $repository = $app['orm.em']->getRepository(\Model\User::class);
@@ -68,21 +68,28 @@ $app->register(new Silex\Provider\SecurityServiceProvider(),
                     'form' => [
                         'login_path' => '/',
                         'check_path' => '/admin/login_check'
-                    ],
-                            
-                ]
-              // adding settings              
+                    ], /*
+                    'logout' => [
+                        'logout_path' => '/admin/logout',
+                        'invalide_session' => true,
+                        'target_url' => '/'
+                    ], */
+                ],
+            ],          
+            'security.role_hierarchy' => [
+                'COLLABORATOR' => [],
+                'ACTIVITY_MANAGER' => ['COLLABORATOR'],
+                'HR' => ['COLLABORATOR','ACTIVITY_MANAGER'],
+                'ADMIN' => ['COLLABORATOR','ACTIVITY_MANAGER','HR']   
             ],
-        
-        'security.role_hierarchy' => [
-            'ROLE_USER' => ['USER','']
-        ],
-        'security.access_rules' => [
-            ['^/admin', 'ROLE_ADMIN']
-        ]
+
+            'security.access_rules' => [
+                ['^/activity.*$', 'ACTIVITY_MANAGER'],
+                ['^/settings/users/create', 'ADMIN']
+            ]
         ]
 );
-        
+
 // SwiftMailer
 $app->register(new Silex\Provider\SwiftmailerServiceProvider());
 $app['swiftmailer.options'] = array(

@@ -6,8 +6,9 @@
  * Time: 23:28
  */
 namespace Model;
+
 use Silex\Application;
-use Doctrine\ORM\Mapping as ORM;
+use Model\Role;
 /**
  * @Entity(repositoryClass="Repository\UserRepository")
  * @Table(name="user")
@@ -91,6 +92,8 @@ class User extends DbObject implements \Symfony\Component\Security\Core\User\Use
      */
     protected $weight_5y;
     /**
+     * @ManyToOne(targetEntity="Role")
+     * @JoinColumn(name="rol_id", referencedColumnName="role_rol_id")
      * @Column(name="role_rol_id", type="integer")
      * @var int
      */
@@ -154,6 +157,7 @@ class User extends DbObject implements \Symfony\Component\Security\Core\User\Use
         $this->pos_id = $pos_id;
         $this->deleted = $deleted;
     }
+
 
     /**
      * @return string
@@ -456,15 +460,21 @@ class User extends DbObject implements \Symfony\Component\Security\Core\User\Use
     }
 
     public function eraseCredentials() {
-        
+
     }
 
     public function getRoles() {
-        return array('USER');
+        global $app ;
+        $sql = "SELECT rol_name FROM role INNER JOIN user ON user.role_rol_id=role.rol_id WHERE user.usr_id=:id" ;
+        $pdoStatement = $app['db']->prepare($sql) ;
+        $pdoStatement->bindValue(':id', $this->id) ;
+        $pdoStatement->execute() ;
+        $r = $pdoStatement->fetch() ;
+        return $r;
     }
 
     public function getSalt() {
-        
+
     }
 
     //Creation of external getters and setters to call the method when setting activity parameters in a User form
@@ -487,4 +497,3 @@ class User extends DbObject implements \Symfony\Component\Security\Core\User\Use
 
 
 }
-
