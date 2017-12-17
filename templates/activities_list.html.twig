@@ -13,18 +13,19 @@ Activity list
         <li>
           <div class="collapsible-header">
             <i class="material-icons">expand_more</i>
-            {{ activity['name']  }}
-            <button type="submit" class="validate">JOIN</button>
-            <span class="new badge"> 5 grades </span>
-
+            {{ activity['act_name']  }}
+            <button type="submit" class="validate"> GRADE </button>
+            <span class="new badge"> {{ activity['act_status'] }} </span>
+          </div>
       <div class="collapsible-body">autres infos
-        {{ activity['objectives']  }}
+        <div class="row">
+        {{ activity['act_objectives']  }}
         <br>
-        Created on : {{ activity['inserted']  }} - Quotes deadline : {{ activity['deadline']  }}
+        Created on : {{ activity['act_inserted']  }} - Quotes deadline : {{ activity['act_quotes_deadline']  }}
         <br>
-        Grade type : {{ activity['gradetype']  }}
+        Grade type : {{ activity['cri_gradetype']  }}
         <br>
-        Grade scale : from {{ activity['lowerbound']  }} to {{ activity['upperbound']  }} (increment : {{ activity['step']  }})
+        Grade scale : from {{ activity['cri_lowerbound']  }} to {{ activity['cri_upperbound']  }} (increment : {{ activity['cri_step']  }})
           {#
           As there is only one criterion, weight is not worth displaying
           {{ activity['weight']  }}
@@ -34,6 +35,7 @@ Activity list
         </div>
         <div class="button-field col s5">
           <button type="submit" class="validate">SUBMIT GRADES</button>
+        </div>
         </div>
       </div>
     </li>

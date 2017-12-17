@@ -195,24 +195,28 @@ class ActivityController
     // Display all activities for current user
     public function getAllUserActivitiesAction(Request $request, Application $app){
         $id = $app['security.token_storage']->getToken()->getUser()->getId();
-        $sql = "SELECT * FROM activity INNER JOIN activity_user ON activity_user.activity_act_id=activity.act_id INNER JOIN user ON user.usr_id=activity_user.user_usr_id WHERE user.usr_id=:id";
+        $sql = "SELECT * FROM activity 
+        INNER JOIN activity_user ON activity_user.activity_act_id=activity.act_id
+        INNER JOIN criterion ON activity.act_id = criterion.activity_act_id 
+        INNER JOIN user ON user.usr_id=activity_user.user_usr_id 
+        WHERE user.usr_id=:id";
         $pdoStatement = $app['db']->prepare($sql) ;
         $pdoStatement->bindValue(':id',$id);
         $pdoStatement->execute();
         $result = $pdoStatement->fetchAll();
-        return print_r($result);
-        /*
+        /*return print_r($result);
+
         $repository = $entityManager->getRepository(Activity::class);
         $result = [];
         foreach ($repository->findByUsrId() as $activity) {
             $result[] = $activity->toArrayUser();
         }
-
+        */
         return $app['twig']->render('activities_list.html.twig',
             [
-                'activities' => $result
+                'user_activities' => $result
             ]) ;
-                */
+
     }
 
 
