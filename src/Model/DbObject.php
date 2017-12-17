@@ -7,9 +7,11 @@
  */
 
 namespace Model;
-
+use Doctrine\ORM\Mapping as ORM;
 //use Classes\Exceptions\InvalidSqlQueryException;
-
+/**
+ * @ORM\MappedSuperclass
+ */
 abstract class DbObject
 {
 

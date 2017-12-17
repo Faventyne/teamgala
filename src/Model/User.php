@@ -7,9 +7,9 @@
  */
 namespace Model;
 use Silex\Application;
-
+use Doctrine\ORM\Mapping as ORM;
 /**
- * @Entity()
+ * @Entity(repositoryClass="Repository\UserRepository")
  * @Table(name="user")
  */
 class User extends DbObject implements \Symfony\Component\Security\Core\User\UserInterface
@@ -484,6 +484,7 @@ class User extends DbObject implements \Symfony\Component\Security\Core\User\Use
     public function getEntityManager (Application $app) {
         return $app['orm.em'] ;
     }
+
 
 }
 

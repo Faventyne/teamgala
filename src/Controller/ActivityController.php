@@ -8,6 +8,7 @@
 namespace Controller;
 
 use Form\AddCriterionForm;
+use Form\AddParticipantsForm;
 use Form\UserForm;
 use Model\Activity;
 use Model\ActivityUser;
@@ -17,33 +18,78 @@ use Model\User;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Model\Criterion;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 class ActivityController
 {
 
 
-    //Activity creation - 1st step - criterion definition (limited to activity manager)
+    //ACTIVITY CREATION
+
+    // 1st step - criterion definition (limited to activity manager)
 
     public function addCriterionAction(Request $request, Application $app){
 
         $criterion = new Criterion() ;
         $formFactory = $app['form.factory'] ;
-        $activityForm = $formFactory->create(AddCriterionForm::class, $criterion , ['standalone'=>true]) ;
-        $activityForm->handleRequest($request);
+        $criterionForm = $formFactory->create(AddCriterionForm::class, $criterion , ['standalone'=>true]) ;
+        $criterionForm->handleRequest($request);
 
-        if ($activityForm->isSubmitted()){
-            if ($activityForm->isValid()){
-            return $app->redirect($app['url_generator']->generate('activityCreationParticipants'));
+        if ($criterionForm->isSubmitted()){
+            if ($criterionForm->isValid()){
+
+                //Subrequest to get to participants and keep param values with post method
+                // as activity will not be inserted in DB till act mgr does not finish activity creation
+
+                $subrequest = Request::create($app['url_generator']->generate('activityCreationParticipants'), 'GET', $_POST, $_COOKIE, $_FILES, $_SERVER);
+                return $app->handle($subrequest,HttpKernelInterface::SUB_REQUEST);
+
+            //return $app->redirect($app['url_generator']->generate('activityCreationParticipants'));
             } else {
-            return $activityForm->getErrors();
+                return $criterionForm->getErrors();
             }
         }
 
         return $app['twig']->render('activity.html.twig',
                 [
-                    'form' => $activityForm->createView()
+                    'form' => $criterionForm->createView()
                 ]) ;
     }
+
+    // 2 - Add participants
+    public function addParticipantsAction(Request $request, Application $app){
+
+        // Get all participants (users)
+        $entityManager = $this->getEntityManager($app) ;
+        $repository = $entityManager->getRepository(\Model\User::class);
+        $result = [];
+        foreach ($repository->findAll() as $user) {
+            $result[] = $user->toArray($app);
+        }
+        // Creation of a void form
+        $formFactory = $app['form.factory'] ;
+        $participantsForm = $formFactory->create(AddParticipantsForm::class, $user, ['standalone'=>true]) ;
+        $participantsForm->handleRequest($request);
+
+        if ($participantsForm->isSubmitted()){
+            if ($participantsForm->isValid()){
+                return $app->redirect($app['url_generator']->generate('myActivities'));
+            } else {
+                return $participantsForm->getErrors();
+            }
+        }
+
+
+        return $app['twig']->render('participants_list.html.twig',
+            [
+                'participants' => $result,
+                'form' => $participantsForm->createView()
+            ]) ;
+
+        //return print_r($_POST);
+    }
+
+
 
     //Update activity (limited to activity manager)
     public function modifyActivityAction(Request $request, Application $app){

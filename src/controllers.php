@@ -31,12 +31,12 @@ $routeMyActivities->bind('myActivities') ;
 $routeMyActivities = $app->get('/activities/all', "Controller\ActivityController::getAllOrganizationActivitiesAction") ;
 $routeMyActivities->bind('allActivities') ;
 
-// Activity configuration page
+// Activity creation : parameters page
 $routeActivityCreationParameters = $app->match('/activity/create/parameters', "Controller\ActivityController::addCriterionAction") ;
 $routeActivityCreationParameters->bind('activityCreationParameters') ;
 
-// Activity configuration page
-$routeActivityCreationParticipants = $app->get('/activity/create/participants', "Controller\ActivityController::getAllParticipantsAction") ;
+// Activity creation : users page
+$routeActivityCreationParticipants = $app->get('/activity/create/participants', "Controller\ActivityController::addParticipantsAction") ;
 $routeActivityCreationParticipants->bind('activityCreationParticipants') ;
 
 // Activity grade page

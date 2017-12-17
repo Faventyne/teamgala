@@ -18,6 +18,7 @@ use Model\Position;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Model\Activity;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class UserController
 {
@@ -125,8 +126,9 @@ class UserController
             $message = sprintf('User %d not found', $id);
             return $app->json(['status' => 'error', 'message' => $message], 404);
         }
-
-        $manager->remove($user);
+        $user->setDeleted(new \DateTime());
+        $manager->persist($user);
+        //$manager->remove($user);
         $manager->flush();
 
         return $app->json(['status' => 'done']);
@@ -135,9 +137,9 @@ class UserController
     // Display all users (when HR clicks on "users" from /settings)
     public function getAllUsersAction(Request $request, Application $app){
         $entityManager = $this->getEntityManager($app) ;
-        $repository = $entityManager->getRepository(\Model\User::class);
+        $repository = $entityManager->getRepository(User::class);
         $result = [];
-        foreach ($repository->findAll() as $user) {
+        foreach ($repository->findAllActive() as $user) {
 
             $result[] = $user->toArray($app);
 
