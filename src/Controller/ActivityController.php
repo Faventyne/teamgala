@@ -162,11 +162,36 @@ class ActivityController
     public function viewAction(Request $request, Application $app){
         $repository = $app['orm.em']->getRepository(Activity::class);
 
+
     }
 
     //Grade an activity (all users)
-    public function gradeAction(Request $request, Application $app){
-        $repository = $app['orm.em']->getRepository(Activity::class);
+    public function gradeAction(Request $request, Application $app, $actId){
+
+        $entityManager = $this->getEntityManager($app) ;
+
+        //Get all participants
+        $repository = $entityManager->getRepository(\Model\ActivityUser::class);
+        $participants = [];
+        foreach ($repository->findByActId() as $participant) {
+            //TODO : define toArray method in ActivityUser repository; create repository
+            $participants[] = $participant->toArray();
+        }
+
+        //Get all criteria
+        $repository = $entityManager->getRepository(\Model\Criterion::class);
+        $criteria = [];
+        foreach ($repository->findByActId() as $criterion) {
+            //TODO : define toArray method in Criteria repository; create repository
+            $criteria[] = $criteria->toArray();
+        }
+
+        return $app['twig']->render('activity_grade.html.twig',
+            [
+                'criteria' => $criteria,
+                'participants' => $participants
+            ]) ;
+
 
     }
 
