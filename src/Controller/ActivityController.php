@@ -51,7 +51,7 @@ class ActivityController
                 $criterion->setActId($activityId);
                 $entityManager->persist($criterion);
                 $entityManager->flush();
-
+                $_SESSION['created_act_id']=$activityId;
                 return $app->redirect($app['url_generator']->generate('activityCreationParticipants'));
 
 
@@ -75,10 +75,12 @@ class ActivityController
     }
 
     // 2 - Add participants
+
     public function addParticipantsAction(Request $request, Application $app){
 
         // Get all participants (users)
         $entityManager = $this->getEntityManager($app) ;
+        $activityuser = new ActivityUser();
         $repository = $entityManager->getRepository(\Model\User::class);
         $result = [];
         foreach ($repository->findAll() as $user) {

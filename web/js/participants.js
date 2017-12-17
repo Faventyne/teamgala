@@ -1,8 +1,22 @@
 $(function(){
-    $('.remove-button').hide();
 
-    $('.action-button').on("click", function(e){
-        e.preventDefault();
+
+    $('.btn-large').css('background-color','grey');
+    $('.btn-large').on("click",function(e){
+        var nb_selected_participants = $('.red').length;
+        if(nb_selected_participants<2){
+            e.preventDefault();
+        }
+    });
+
+
+    $('.action-button').on("click", function(){
+        var nb_selected_participants = $('.red').length;
+        if(nb_selected_participants >=1){
+            $('.btn-large').css('background-color','');
+        }
+
+
         if($(this).text()=="ADD"){
             $(this).text("REMOVE");
             $(this).addClass('red')

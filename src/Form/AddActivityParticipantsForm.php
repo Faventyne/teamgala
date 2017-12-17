@@ -22,7 +22,8 @@ class AddActivityParticipantsForm extends AbstractType
 
         if ($options['standalone']) {
             $builder->add('submit', SubmitType::class, [
-                'label' => 'Finaliser activité'
+                'label' => 'Finaliser activité',
+
             ]);
         }
     }
