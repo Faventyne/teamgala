@@ -113,8 +113,8 @@ class User extends DbObject implements \Symfony\Component\Security\Core\User\Use
         $this->pos_id = $pos_id;
         parent::__construct($id,new \DateTime());
     }
-    
-        
+
+
     /**
      * @return string
      */
@@ -280,30 +280,21 @@ class User extends DbObject implements \Symfony\Component\Security\Core\User\Use
     }
 
     public function eraseCredentials() {
-        
+
     }
 
     public function getRoles() {
         global $app ;
-        $em = $app['orm.em'] ;
-        $qb = $em->createQueryBuilder();
-        $id = $this->id;
-        $qb->select('u.lastname')
-            ->from(User::class, 'u')
-            ->innerJoin(u.role_rol_id, 'r')
-            ->where('u.id = :identifier')
-            ->setParameter('identifier', $id);
-
-        $query = $qb->getQuery();
-        $r = $query->getResult();
-        
-        
-        return var_dump($r);
+        $sql = "SELECT rol_name FROM role INNER JOIN user ON user.role_rol_id=role.rol_id WHERE user.usr_id=:id" ;
+        $pdoStatement = $app['db']->prepare($sql) ;
+        $pdoStatement->bindValue(':id', $this->id) ;
+        $pdoStatement->execute() ;
+        $r = $pdoStatement->fetch() ;
+        return $r;
     }
 
     public function getSalt() {
-        
+
     }
 
 }
-
