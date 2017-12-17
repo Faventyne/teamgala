@@ -52,7 +52,9 @@ class ActivityController
                 $entityManager->persist($criterion);
                 $entityManager->flush();
                 $_SESSION['created_act_id']=$activityId;
+
                 return $app->redirect($app['url_generator']->generate('activityCreationParticipants',['actId' => $activityId]));
+
 
 
 
@@ -175,8 +177,15 @@ class ActivityController
     }
 
     // Display all activities for current user
-    public function getAllUserActivitiesAction(Request $request, Application $app, $id){
-        $entityManager = $this->getEntityManager($app);
+    public function getAllUserActivitiesAction(Request $request, Application $app){
+        $id = $app['security.token_storage']->getToken()->getUser()->getId();
+        $sql = "SELECT * FROM activity INNER JOIN activity_user ON activity_user.activity_act_id=activity.act_id INNER JOIN user ON user.usr_id=activity_user.user_usr_id WHERE user.usr_id=:id";
+        $pdoStatement = $app['db']->prepare($sql) ;
+        $pdoStatement->bindValue(':id',$id);
+        $pdoStatement->execute();
+        $result = $pdoStatement->fetchAll();
+        return print_r($result);
+        /*
         $repository = $entityManager->getRepository(Activity::class);
         $result = [];
         foreach ($repository->findByUsrId() as $activity) {
@@ -187,7 +196,7 @@ class ActivityController
             [
                 'activities' => $result
             ]) ;
-
+                */
     }
 
 

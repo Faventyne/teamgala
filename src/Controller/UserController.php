@@ -56,6 +56,7 @@ class UserController
                 $entityManager->flush();
 
             }
+
             // Sending a message to the added user
             $message = \Swift_Message::newInstance()
             ->setSubject('Your Serpico account has been created')
@@ -71,6 +72,7 @@ class UserController
             return $app->redirect($app['url_generator']->generate('settingsUsers'));
 
         } 
+
 
         return $app['twig']->render('create_user.html.twig',
                 [
@@ -94,7 +96,7 @@ class UserController
             $encoder = $app['security.encoder_factory']->getEncoder($user);
             $password = $encoder->encodePassword($user->getPassword(), 'azerty');
             $user->setPassword($password);
-            
+
             $user->setToken('');
             $entityManager->persist($user);
             $entityManager->flush();
