@@ -76,7 +76,7 @@ class ActivityController
                 ]) ;
     }
 
-    // 2 - Add participants
+    // 2 - Display participants to be added
 
     public function addParticipantsAction(Request $request, Application $app, $actId){
 
@@ -88,28 +88,44 @@ class ActivityController
         foreach ($repository->findAllActive() as $user) {
             $result[] = $user->toArray($app);
         }
-        /*
-        // Creation of a void form
-        $formFactory = $app['form.factory'] ;
-        $participantsForm = $formFactory->create(AddActivityParticipantsForm::class, $user, ['standalone'=>true]) ;
-        $participantsForm->handleRequest($request);
 
-        if ($participantsForm->isSubmitted()){
-            if ($participantsForm->isValid()){
-                return $app->redirect($app['url_generator']->generate('myActivities'));
-            } else {
-                return $participantsForm->getErrors();
-            }
+        return $app['twig']->render('participants_list.html.twig',
+            [
+                'participants' => $result,
+            ]);
+
+
+    }
+
+
+    //AJAX call which inserts users in created activity
+
+    public function insertParticipantsAction(Request $request, Application $app, $actId){
+
+        // Get all participants (users)
+        $entityManager = $this->getEntityManager($app) ;
+
+        //return print_r($_POST['parId'])
+
+        foreach ($_POST['usrId'] as $usrId) {
+            $activityuser = new ActivityUser();
+            $activityuser->setActId($actId);
+            $activityuser->setUsrId($usrId);
+            $entityManager->persist($activityuser);
+
+
         }
-        */
+        $entityManager->flush();
 
+        return true;
 
+        /*
         return $app['twig']->render('participants_list.html.twig',
             [
                 'participants' => $result,
                 //'form' => $participantsForm->createView()
             ]);
-
+        */
 
     }
 

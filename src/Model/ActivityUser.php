@@ -10,19 +10,21 @@ namespace Model;
 
 /**
  * @Entity()
- * @Table(name="position")
+ * @Table(name="activity_user")
  */
 class ActivityUser
 {
     
     /**
-     *@Column(name="activity_act_id, type="integer", nullable=false)
-     * @var type int
+     * @Id()
+     *@Column(name="activity_act_id", type="integer", nullable=false)
+     * @var int
      */
     protected $act_id;
     /**
-     *@Column(name="user_usr_id, type="integer", nullable=false)
-     * @var type int
+     * @Id()
+     *@Column(name="user_usr_id", type="integer", nullable=false)
+     * @var int
      */
     protected $usr_id;
     /**
@@ -36,7 +38,7 @@ class ActivityUser
      */
     protected $result;
     /**
-     * @Column(name="a_u_type", type="string", columnDefinition="ENUM('Mgr,Col,Tp')"
+     * @Column(name="a_u_type", type="string", columnDefinition="ENUM('contributor,thirdparty')")
      * @var string
      */
     protected $type;
@@ -92,7 +94,7 @@ class ActivityUser
      * @param float $of_penalty
 
      */
-    public function __construct($usr_id=0, $act_id=0, $distance=0.0, $result=0.0, $type='Col', $mweight=0.0, $precomment='', $ivp_bonus=0.0, $ivp_penalty=0.0, $of_bonus=0.0, $of_penalty=0.0, $inserted=null)
+    public function __construct($usr_id=0, $act_id=0, $distance=0.0, $result=0.0, $type='contributor', $mweight=0.0, $precomment='', $ivp_bonus=0.0, $ivp_penalty=0.0, $of_bonus=0.0, $of_penalty=0.0, $inserted=null)
     {
         $this->usr_id = $usr_id;
         $this->act_id = $act_id;
@@ -105,7 +107,7 @@ class ActivityUser
         $this->ivp_penalty = $ivp_penalty;
         $this->of_bonus = $of_bonus;
         $this->of_penalty = $of_penalty;
-        $this->inserted = $inserted;
+        $this->inserted = new \DateTime();
     }
     
     /**
@@ -267,5 +269,26 @@ class ActivityUser
     {
         $this->of_penalty = $of_penalty;
     }
+
+
+    /* Setters of table primary keys */
+
+    /**
+     * @param int $act_id
+     */
+    public function setActId($act_id)
+    {
+        $this->act_id = $act_id;
+    }
+
+    /**
+     * @param int $usr_id
+     */
+    public function setUsrId($usr_id)
+    {
+        $this->usr_id = $usr_id;
+    }
+
+
 
 }

@@ -74,6 +74,9 @@ $routeAjaxUserGet->bind('ajaxUserGet');
 $routeAjaxUserAdd = $app->post('/ajax/user', "Controller\UserController::addUserAction") ;
 $routeAjaxUserAdd->bind('ajaxUserAdd');
 
+$routeAjaxActivityAdd = $app->post('/ajax/activity/{actId}', "Controller\ActivityController::insertParticipantsAction") ;
+$routeAjaxActivityAdd->bind('ajaxActivityAdd');
+
 $routeAjaxUserModifiy = $app->post('/ajax/user/{id}', "Controller\UserController::modifyUserAction") ;
 $routeAjaxUserModifiy->bind('ajaxUserModify');
 
