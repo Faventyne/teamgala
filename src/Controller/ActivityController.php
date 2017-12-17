@@ -51,7 +51,7 @@ class ActivityController
                 $criterion->setActId($activityId);
                 $entityManager->persist($criterion);
                 $entityManager->flush();
-
+                $_SESSION['created_act_id']=$activityId;
                 return $app->redirect($app['url_generator']->generate('activityCreationParticipants'));
 
 
@@ -75,10 +75,12 @@ class ActivityController
     }
 
     // 2 - Add participants
+
     public function addParticipantsAction(Request $request, Application $app){
 
         // Get all participants (users)
         $entityManager = $this->getEntityManager($app) ;
+        $activityuser = new ActivityUser();
         $repository = $entityManager->getRepository(\Model\User::class);
         $result = [];
         foreach ($repository->findAll() as $user) {
@@ -171,8 +173,15 @@ class ActivityController
     }
 
     // Display all activities for current user
-    public function getAllUserActivitiesAction(Request $request, Application $app, $id){
-        $entityManager = $this->getEntityManager($app);
+    public function getAllUserActivitiesAction(Request $request, Application $app){
+        $id = 2 ;
+        $sql = "SELECT * FROM activity INNER JOIN activity_user ON activity_user.activity_act_id=activity.act_id INNER JOIN user ON user.usr_id=activity_user.user_usr_id WHERE user.usr_id=:id";
+        $pdoStatement = $app['db']->prepare($sql) ;
+        $pdoStatement->bindValue(':id',$id);
+        $pdoStatement->execute();
+        $result = $pdoStatement->fetchAll();
+        return print_r($result);
+        /*
         $repository = $entityManager->getRepository(Activity::class);
         $result = [];
         foreach ($repository->findByUsrId() as $activity) {
@@ -183,7 +192,7 @@ class ActivityController
             [
                 'activities' => $result
             ]) ;
-
+                */
     }
 
 
