@@ -33,7 +33,7 @@ class UserController
         $formFactory = $app['form.factory'] ;
         $userForm = $formFactory->create(AddUserForm::class, $user, ['standalone'=>true]) ;
         $userForm->handleRequest($request) ;
-        
+
 
         if ($userForm->isSubmitted() /*&& $userForm->isValid()*/) {
 
@@ -57,25 +57,25 @@ class UserController
             }
 
 
-            
+
             // Sending a message to the added user
             $message = \Swift_Message::newInstance()
             ->setSubject('Your Serpico account has been created')
             ->setFrom(array('noreply@serpico.com' => 'no reply'))
             ->setTo(array($user->getEmail()))
             ->setBody("url/password/$token", 'text/plain');
-            
+
             $app['mailer']->send($message);
             $app['swiftmailer.spooltransport']
             ->getSpool()
             ->flushQueue($app['swiftmailer.transport']) ;
 
 
-            
+
             return $app->redirect($app['url_generator']->generate('settingsUsers'));
 
-        } 
-        
+        }
+
         return $app['twig']->render('create_user.html.twig',
                 [
                     'form' => $userForm->createView()
@@ -89,31 +89,31 @@ class UserController
         $entityManager = $this->getEntityManager($app) ;
         $repository = $entityManager->getRepository(User::class) ;
         $user = $repository->findOneByToken($token);
-        
+
         $formFactory = $app['form.factory'] ;
         $pwdForm = $formFactory->create(SignUpForm::class, $user, ['standalone' => true]) ;
         $pwdForm->handleRequest($request);
-        
+
         if ($pwdForm->isSubmitted() /*&& $pwdForm->isValid()*/) {
             $encoder = $app['security.encoder_factory']->getEncoder($user);
             $password = $encoder->encodePassword($user->getPassword(), 'azerty');
             $user->setPassword($password);
-            
+
             $user->setToken('');
             $entityManager->persist($user);
             $entityManager->flush();
             return $app->redirect($app['url_generator']->generate('login')) ;
         }
-        
+
         return $app['twig']->render('signup.html.twig',
                 [
                     'form' => $pwdForm->createView()
                 ]) ;
     }
-    
+
     // Modify user info  (ajax call)
     public function modifyUserAction(Request $request, Application $app){
-            
+
     }
 
     // Delete user (ajax call)
@@ -161,7 +161,7 @@ class UserController
                 'last_username' => $app['session']->get('security.last_username')
             ]);
     }
-        
+
     //Displays the menu in relation with user role
     public function homeAction(Request $request, Application $app){
         return $app['twig']->render('home.html.twig',
