@@ -455,7 +455,8 @@ class User extends DbObject implements \Symfony\Component\Security\Core\User\Use
             'lastname' => $this->lastname,
             'weight' => $this->weight_ini,
             'inserted' => $this->inserted,
-            'position' => $position
+            'position' => $position,
+            'role' => $this->rol_id
         ];
     }
 
