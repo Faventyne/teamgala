@@ -8,6 +8,9 @@ Select participants
 {% block pagename %}
 Select participants
 {% endblock %}
+{% block username %}
+    {{ currentuser.firstname }} {{ currentuser.lastname }}
+{% endblock %}
 
 {% block content %}
   <section class="col s10">
