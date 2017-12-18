@@ -20,13 +20,13 @@ class ActivityUser
      *@Column(name="activity_act_id", type="integer", nullable=false)
      * @var int
      */
-    protected $act_id;
+    protected $actId;
     /**
      * @Id()
      *@Column(name="user_usr_id", type="integer", nullable=false)
      * @var int
      */
-    protected $usr_id;
+    protected $usrId;
     /**
      * @Column(name="a_u_distance", length= 10, type="float", nullable=true)
      * @var float
@@ -94,10 +94,10 @@ class ActivityUser
      * @param float $of_penalty
 
      */
-    public function __construct($usr_id=0, $act_id=0, $distance=0.0, $result=0.0, $type='contributor', $mweight=0.0, $precomment='', $ivp_bonus=0.0, $ivp_penalty=0.0, $of_bonus=0.0, $of_penalty=0.0, $inserted=null)
+    public function __construct($usrId=0, $actId=0, $distance=0.0, $result=0.0, $type='contributor', $mweight=0.0, $precomment='', $ivp_bonus=0.0, $ivp_penalty=0.0, $of_bonus=0.0, $of_penalty=0.0, $inserted=null)
     {
-        $this->usr_id = $usr_id;
-        $this->act_id = $act_id;
+        $this->usr_id = $usrId;
+        $this->actId = $actId;
         $this->distance = $distance;
         $this->result = $result;
         $this->type = $type;
@@ -115,7 +115,7 @@ class ActivityUser
      */
     public function getUsrId()
     {
-        return $this->usr_id;
+        return $this->usrId;
     }
     
     /**
@@ -123,7 +123,7 @@ class ActivityUser
      */
     public function getActId()
     {
-        return $this->act_id;
+        return $this->actId;
     }
     
     /**
@@ -274,21 +274,34 @@ class ActivityUser
     /* Setters of table primary keys */
 
     /**
-     * @param int $act_id
+     * @param int $actId
      */
-    public function setActId($act_id)
+    public function setActId($id)
     {
-        $this->act_id = $act_id;
+        $this->actId = $id;
     }
 
     /**
-     * @param int $usr_id
+     * @param int $usrId
      */
-    public function setUsrId($usr_id)
+    public function setUsrId($id)
     {
-        $this->usr_id = $usr_id;
+        $this->usrId = $id;
     }
 
-
+    public function toArray()
+    {
+        global $app;
+        $sql = "SELECT * FROM user INNER JOIN activity_user ON activity_user.user_usr_id=user.usr_id WHERE usr_id=:id";
+        $pdoStatement = $app['db']->prepare($sql);
+        $pdoStatement->bindValue(':id', $this->usrId);
+        $pdoStatement->execute();
+        $result = $pdoStatement->fetchAll();
+        $participants = [];
+        foreach ($result as $key => $value) {
+            $participants[] = $value;
+        }
+        return $participants;
+    }
 
 }
