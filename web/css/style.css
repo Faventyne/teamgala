@@ -78,6 +78,10 @@ margin-right: 25vw;
   border-bottom-right-radius: 30%;
 }
 
+/* error messages */
+.errorMessage{
+  color: red;
+}
 
 /************************************************************************************/
 

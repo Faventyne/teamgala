@@ -28,7 +28,7 @@ class AddUserForm extends AbstractType
                     new Assert\NotBlank(),
                     new Assert\Regex([
                         'pattern' => "/[a-zA-Z]/",
-                        'message' => 'Firstname is invalid, please use only letters a-z, A-Z in this field'
+                        'message' => '*Firstname is invalid, please use only letters a-z, A-Z in this field.'
                     ])
                 ],
                 'label' => 'Firstname'
@@ -38,7 +38,7 @@ class AddUserForm extends AbstractType
                     new Assert\NotBlank(),
                     new Assert\Regex([
                         'pattern' => "/[a-zA-Z]/",
-                        'message' => 'Lastname is invalid, please use only letters a-z, A-Z in this field'
+                        'message' => '*Lastname is invalid, please use only letters a-z, A-Z in this field.'
                     ])
                 ],
                 'label' => 'Lastname',
@@ -49,7 +49,7 @@ class AddUserForm extends AbstractType
                     new Assert\NotBlank(),
                     new Assert\Regex([
                         'pattern' => "/^[a-zA-Z0-9_.]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/",
-                        'message' => 'Email is invalid, please enter a valid email adress in this field (example : some@thing.com)'
+                        'message' => '*Email is invalid, please enter a valid email adress in this field (example : some@thing.com).'
                     ])
                 ]
 
@@ -83,7 +83,7 @@ class AddUserForm extends AbstractType
                 new Assert\NotBlank(),
                 new Assert\Regex([
                     'pattern' => "/[a-zA-Z0-9]/",
-                    'message' => 'The position field is currently invalid, please do not use special characters'
+                    'message' => '*The position field is currently invalid, please do not use special characters.'
                 ])
             ],
         'label' => 'Position'
