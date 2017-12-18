@@ -20,7 +20,7 @@ use Model\Criterion;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
-class ActivityController
+class ActivityController extends MasterController
 {
 
 
@@ -249,11 +249,4 @@ class ActivityController
     public function resultsAction(Request $request, Application $app){
         $repository = $app['orm.em']->getRepository(Activity::class);
     */
-
-    /**
-     * @return \Doctrine\ORM\EntityManager
-     */
-    public function getEntityManager (Application $app) {
-        return $app['orm.em'] ;
-    }
 }

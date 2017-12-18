@@ -14,7 +14,7 @@ use Model\User;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Model\Activity;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-class OrganizationController
+class OrganizationController extends \MasterController
 {
     //Adds organization (limited to root master)
     public function addOrganizationAction(Request $request, Application $app){

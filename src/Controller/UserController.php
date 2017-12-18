@@ -21,7 +21,7 @@ use Model\Activity;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Validator\Constraints\DateTime;
 
-class UserController
+class UserController extends MasterController
 {
 
 
@@ -182,15 +182,5 @@ class UserController
     public function modifyPositionWeightAction(Request $request, Application $app){
 
     }
-
-
-
-
-    /**
-     * @return \Doctrine\ORM\EntityManager
-     */
-    public function getEntityManager (Application $app) {
-    return $app['orm.em'] ;
-}
 
 }
