@@ -193,7 +193,7 @@ class ActivityController extends MasterController
         $gradeForm = $formFactory->create(GradeForm::class, $grade, ['standalone'=>true]);
 =======
         $formFactory = $app['form.factory'];
-        $gradeForm = $formFactory->create(GradeForm::class, $grade, ['standalone'=>true,'criteria'=>$criteria,'participants'=>$participants,'computed'=>false]);
+
         $gradeForm->handleRequest($request);
 
         if ($gradeForm->isSubmitted()){
