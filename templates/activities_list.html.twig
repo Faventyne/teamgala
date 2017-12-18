@@ -7,9 +7,10 @@ Activity list
 {% block pagename %}
 Activity list
 {% endblock %}
- {% block username %}
- {{  }}
- {% endblock %}
+
+{% block username %}
+{{ currentuser.firstname }} {{ currentuser.lastname }}
+{% endblock %}
 
 {% block content %}
   <section class="col s10">

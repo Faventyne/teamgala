@@ -8,6 +8,10 @@
     Activity Grade
 {% endblock %}
 
+{% block username %}
+    {{ currentuser.firstname }} {{ currentuser.lastname }}
+{% endblock %}
+
 
 {% for criterion in criteria %}
 
