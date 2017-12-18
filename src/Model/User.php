@@ -154,7 +154,6 @@ class User extends DbObject implements \Symfony\Component\Security\Core\User\Use
         $this->rol_id = $rol_id;
         $this->pos_id = $pos_id;
         parent::__construct($id,new \DateTime());
-        $this->pos_id = $pos_id;
         $this->deleted = $deleted;
     }
 

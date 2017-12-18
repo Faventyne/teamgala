@@ -36,8 +36,7 @@ class UserController
         $userForm->handleRequest($request) ;
 
 
-        if ($userForm->isSubmitted() /*&& $userForm->isValid()*/) {
-
+        if ($userForm->isSubmitted() && $userForm->isValid()) {
 
             $token = md5(rand()) ;
             $user->setToken($token) ;
