@@ -31,54 +31,62 @@ class UserController extends MasterController
     public function addUserAction(Request $request, Application $app){
         $user = new User() ;
         $position = new Position();
+        //Create the addUserForm
         $formFactory = $app['form.factory'] ;
         $userForm = $formFactory->create(AddUserForm::class, $user, ['standalone'=>true]) ;
         $userForm->handleRequest($request) ;
 
+        //Form submitted and valid
+        if ($userForm->isSubmitted() && $userForm->isValid()) {
+            
+            // Email : check wether the email exists or not
+            $entityManager = $this->getEntityManager($app) ;
+            $repository = $entityManager->getRepository(User::class) ;
+            $userExists = $repository->findOneByEmail($user->getEmail());
+            if ($userExists->getEmail() != '') {
+                $errorMessage = 'User already created' ;
+            } else {
+            
+                $token = md5(rand()) ;
+                $user->setToken($token) ;
+                $entityManager = $app['orm.em'] ;
 
-        if ($userForm->isSubmitted() /*&& $userForm->isValid()*/) {
+                //If users sets a new position and do not chose between existing one, we just flush the new position
+                //before inserting the user
+                if($userForm->get('positionName')->getData() != ''){
 
+                    $position->setName($userForm->get('positionName')->getData());
+                    $entityManager->persist($position);
+                    $entityManager->flush();
+                    $positionId = $position->getId();
+                    $user->setPosId($positionId);
+                    $entityManager->persist($user);
+                    $entityManager->flush();
 
-            $token = md5(rand()) ;
-            $user->setToken($token) ;
-            $entityManager = $app['orm.em'] ;
+                }
 
-            //If users sets a new position and do not chose between existing one, we just flush the new position
-            //before inserting the user
-            if($userForm->get('positionName')->getData() != ''){
+                // Sending a message to the added user
+                $message = \Swift_Message::newInstance()
+                ->setSubject('Your Serpico account has been created')
+                ->setFrom(array('noreply@serpico.com' => 'no reply'))
+                ->setTo(array($user->getEmail()))
+                ->setBody("url/password/$token", 'text/plain');
 
-                $position->setName($userForm->get('positionName')->getData());
-                $entityManager->persist($position);
-                $entityManager->flush();
-                $positionId = $position->getId();
-                $user->setPosId($positionId);
-                $entityManager->persist($user);
-                $entityManager->flush();
+                $app['mailer']->send($message);
+                $app['swiftmailer.spooltransport']
+                ->getSpool()
+                ->flushQueue($app['swiftmailer.transport']) ;
 
-            }
+                return $app->redirect($app['url_generator']->generate('settingsUsers'));
 
-            // Sending a message to the added user
-            $message = \Swift_Message::newInstance()
-            ->setSubject('Your Serpico account has been created')
-            ->setFrom(array('noreply@serpico.com' => 'no reply'))
-            ->setTo(array($user->getEmail()))
-            ->setBody("url/password/$token", 'text/plain');
-
-            $app['mailer']->send($message);
-            $app['swiftmailer.spooltransport']
-            ->getSpool()
-            ->flushQueue($app['swiftmailer.transport']) ;
-
-            return $app->redirect($app['url_generator']->generate('settingsUsers'));
-
-        } 
-
+            } 
+        }
 
         return $app['twig']->render('create_user.html.twig',
                 [
-                    'form' => $userForm->createView()
+                    'form' => $userForm->createView(),
+                    'message' => $errorMessage,
                 ]) ;
-
 
     }
     // Modify pwd
