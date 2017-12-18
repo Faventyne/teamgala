@@ -141,6 +141,13 @@ form p{
 .collection{
   font-size: 3.5vw;
 }
+#userPhoto{
+  margin: 0px;
+  padding: 0px;
+  height: 5vw;
+  width: 5vw;
+  border-radius: 50%;
+}
 
 /*** HOME PAGE ***/
 
