@@ -26,8 +26,10 @@ class GradeForm extends AbstractType
     {
 
         foreach ($options['criteria'] as $criterion) {
+
             foreach ($options['participants'] as $participant) {
-                $builder->add('firstname', TextType::class,
+
+                $builder->add('value', NumberType::class,
                     [
                         'constraints' => [
                             new Assert\NotBlank(),
@@ -36,9 +38,12 @@ class GradeForm extends AbstractType
                             ])
                         ],
                         'label' => $participant['usr_firstname'],
+
+
                     ]);
             }
         }
+
         if ($options['standalone']){
                 $builder->add('save', SubmitType::class,[
                     'label' => 'Sauvegarder'
