@@ -23,7 +23,7 @@ class Criterion extends DbObject
      * @Column(name="activity_act_id", length=10, type="integer")
      * @var int
      */
-    protected $act_id;
+    protected $actId;
     /**
      * @Column(name="cri_name", type="string")
      * @var string
@@ -73,10 +73,10 @@ class Criterion extends DbObject
      * @param float $step
      * @param /DateTime $inserted
      */
-    public function __construct($id=0, $act_id=0, $name='', $weight=0.0, $lowerbound=0.0, $upperbound=5.0, $step=0.5, $gradetype='absolute',$inserted=null)
+    public function __construct($id=0, $actId=0, $name='', $weight=0.0, $lowerbound=0.0, $upperbound=5.0, $step=0.5, $gradetype='absolute',$inserted=null)
     {
         parent::__construct($id,new \DateTime());
-        $this->act_id = $act_id;
+        $this->actId = $actId;
         $this->name = $name;
         $this->gradetype = $gradetype;
         $this->weight = $weight;
@@ -98,7 +98,7 @@ class Criterion extends DbObject
      */
     public function getActId()
     {
-        return $this->act_id;
+        return $this->actId;
     }
 
 
@@ -110,9 +110,9 @@ class Criterion extends DbObject
     /**
      * @param int $act_id
      */
-    public function setActId($act_id)
+    public function setActId($actId)
     {
-        $this->act_id = $act_id;
+        $this->actId = $actId;
     }
 
 
@@ -228,7 +228,15 @@ class Criterion extends DbObject
         $activity = new Activity();
         return $activity->getObjectives();
     }
+    
+    public function toArray()
+    {
+        return [
+            'id' => $this->id,
+            'actId' => $this->actId,
 
+        ];
+    }
 
 }
 
