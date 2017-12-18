@@ -65,11 +65,17 @@ margin-right: 25vw;
   padding-top: 2vw;
   background-color: green;
   font-size: 3vw;
+  border-radius: 2vw;
+
 }
 
 .action-button{
-  margin-bottom: 3vw;
+  margin-bottom: 6vw;
   margin-right: 2vw;
+  width: 15vw;
+  height: 7vw;
+  border-top-left-radius: 30%;
+  border-bottom-right-radius: 30%;
 }
 
 
@@ -122,7 +128,18 @@ form p{
   padding:1vh 2vw 1vh 2vw;
   margin-left: 26%;
   margin-top: 3vw;
+}
 
+
+/*********lists *********/
+.collapsible{
+  font-size: 2.5vh;
+}
+#userListButtons button{
+  width: 20vw;
+}
+.collection{
+  font-size: 3.5vw;
 }
 
 /*** HOME PAGE ***/

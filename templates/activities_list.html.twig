@@ -1,5 +1,9 @@
 {% extends "layout.html.twig" %}
 
+{% block title %}
+Activity list
+{% endblock %}
+
 {% block pagename %}
 Activity list
 {% endblock %}
@@ -12,7 +16,7 @@ Activity list
     <input type="text" name="fakesearchbar" placeholder="FAKE SEARCH BAR">
 
     {% for activity in user_activities %}
-      <ul class="collapsible" data-collapsible="accordion">
+      <ul id="userListButtons" class="collapsible" data-collapsible="accordion">
         <li>
           <div class="collapsible-header">
             <i class="material-icons">expand_more</i>
@@ -40,10 +44,8 @@ Activity list
               As there is only one criterion, weight is not worth displaying
               {{ activity['weight']  }}
               #}
-            <div class="button-field col s5">
-                <button type="submit" class="validate" >GRADE</button>
-            </div>
-            <div class="button-field col s5">
+
+            <div class="button-field col s10">
               <button type="submit" class="validate">SUBMIT GRADES</button>
             </div>
             </div>

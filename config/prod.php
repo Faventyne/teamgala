@@ -77,17 +77,17 @@ $app->register(new Silex\Provider\SecurityServiceProvider(),
                 ],
             ],          
             'security.role_hierarchy' => [
-                'COLLABORATOR' => [],
-                'ACTIVITY_MANAGER' => ['COLLABORATOR'],
-                'HR' => ['COLLABORATOR','ACTIVITY_MANAGER'],
-                'ADMIN' => ['COLLABORATOR','ACTIVITY_MANAGER','HR']   
+                'ROLE_COLLABORATOR' => [],
+                'ROLE_ACTIVITY_MANAGER' => ['ROLE_COLLABORATOR'],
+                'HR' => ['ROLE_COLLABORATOR','ROLE_ACTIVITY_MANAGER'],
+                'ADMIN' => ['ROLE_COLLABORATOR','ROLE_ACTIVITY_MANAGER','ROLE_HR']   
             ],
-            /*
+            
             'security.access_rules' => [
-                ['^/activity.*$', 'ACTIVITY_MANAGER'],
-                ['^/settings/users/create', 'ADMIN']
+                ['^/activity', 'ROLE_ACTIVITY_MANAGER'],
+                ['^/settings/users/create', 'ROLE_ADMIN']
             ]
-            */
+            
         ]
 );
 
