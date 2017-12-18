@@ -25,25 +25,45 @@
         </script>
     </head>
     <body>
+      <div id="logOutMenu" class="hiddenMenu">
+        <h1> {% block username %}{% endblock %} </h1>
+        would you like to :
+        <ul>
+          <li><a href="#">Log out</a></li>
+          <br>
+          <li><a href="#">Change your password</a></li>
+          <br>
+          <li><a href="#">Change your photo</a></li>
+        </ul>
+        <div id="closeButton">
+          close
+        </div>
+      </div>
 
-      <header id="wesh">
+      <header>
         <a href="{{ path('home') }}"><i id="returnMenu" class="material-icons">home</i></a>
         <a href="#"><i id="returnPage" class="material-icons">chevron_left</i></a>
         <a href="#"><i id="logOutButton" class="material-icons">person</i></a>
         <div class="currentPage">
           {% block pagename %}{% endblock %}
-           {% block username %}{% endblock %}
+
         </div>
 
       </header>
 
+
+
+
         {% block content %}{% endblock %}
+
         <!-- CDN : jquery -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" ></script>
         <!-- CDN : script Materialize -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
         <!-- CDN JQuery UI -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+        <!-- header custom js -->
+        <script src="{{ asset('js/header_Log_Out.js') }}"></script>
         {% block javascripts %}{% endblock %}
     </body>
 </html>
