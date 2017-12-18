@@ -85,7 +85,7 @@ $app->register(new Silex\Provider\SecurityServiceProvider(),
             
             'security.access_rules' => [
                 ['^/activity', 'ROLE_ACTIVITY_MANAGER'],
-                ['^/settings/users/create', 'ADMIN']
+                ['^/settings/users/create', 'ROLE_ADMIN']
             ]
             
         ]
