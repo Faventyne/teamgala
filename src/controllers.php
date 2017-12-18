@@ -39,9 +39,15 @@ $routeActivityCreationParameters->bind('activityCreationParameters') ;
 $routeActivityCreationParticipants = $app->get('/activity/create/participants/{actId}', "Controller\ActivityController::addParticipantsAction") ;
 $routeActivityCreationParticipants->bind('activityCreationParticipants') ;
 
+// Activity modify page
+$routeActivityGrade = $app->get('/activity/{actId}/modify', "Controller\ActivityController::gradeAction") ;
+$routeActivityGrade->bind('activityModify') ;
+
 // Activity grade page
 $routeActivityGrade = $app->get('/activity/{actId}/grade', "Controller\ActivityController::gradeAction") ;
 $routeActivityGrade->bind('activityGrade') ;
+
+
 
 // Activity view page
 $routeActivityView = $app->get('/activity/view', "Controller\ActivityController::viewAction") ;

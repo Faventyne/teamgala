@@ -239,29 +239,51 @@ class ActivityController extends MasterController
             INNER JOIN activity_user ON activity_user.activity_act_id=activity.act_id
             INNER JOIN criterion ON activity.act_id = criterion.activity_act_id 
             INNER JOIN user ON user.usr_id=activity_user.user_usr_id 
-            WHERE user.usr_id=:id";
+            WHERE user.usr_id=:id 
+            ORDER BY activity.act_id";
 
         $pdoStatement = $app['db']->prepare($sql) ;
         $pdoStatement->bindValue(':id',$id);
         $pdoStatement->execute();
         $result = $pdoStatement->fetchAll();
 
+        foreach($result as $participant){
+            $participant['isParticipant'] = 1;
+        }
 
-        if($role >= 3){
-
+        if($role != 1) {
+            return $app['twig']->render('activities_list.html.twig',
+                [
+                    'user_activities' => $result
+                ]);
+        } else {
             $sql = "SELECT * FROM activity 
-        INNER JOIN activity_user ON activity_user.activity_act_id=activity.act_id
-        INNER JOIN criterion ON activity.act_id = criterion.activity_act_id 
-        INNER JOIN user ON user.usr_id=activity_user.user_usr_id";
+            INNER JOIN activity_user ON activity_user.activity_act_id=activity.act_id
+            INNER JOIN criterion ON activity.act_id = criterion.activity_act_id 
+            INNER JOIN user ON user.usr_id=activity_user.user_usr_id
+            ORDER BY activity.act_id";
             $pdoStatement = $app['db']->prepare($sql) ;
             $pdoStatement->bindValue(':id',$id);
             $pdoStatement->execute();
             $resultAdmin = $pdoStatement->fetchAll();
+            $finalResult=[];
+            foreach ($resultAdmin as $key => $actAdmin){
 
-            foreach ($resultAdmin as $project){
-
+                $actAdmin['isParticipant'] = 0 ;
+                foreach ($result as $key => $act)
+                    if ($actAdmin['act_id'] == $act['act_id']) {
+                        $actAdmin['isParticipant'] = 1;
+                        break;
+                    }
+                $finalResult[]=$actAdmin;
             }
+            //print_r($finalResult);
+            //die;
 
+            return $app['twig']->render('activities_list.html.twig',
+                [
+                    'user_activities' => $finalResult
+                ]);
         }
 
         /*return print_r($result);

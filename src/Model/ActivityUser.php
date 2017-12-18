@@ -286,7 +286,7 @@ class ActivityUser
      */
     public function setUsrId($id)
     {
-        $this->usr_id = $id;
+        $this->usrId = $id;
     }
 
     public function toArray()
