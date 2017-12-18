@@ -7,7 +7,9 @@ user list
 {% block pagename %}
 User list
 {% endblock %}
-
+{% block username %}
+    {{ currentuser.firstname }} {{ currentuser.lastname }}
+{% endblock %}
 {% block content %}
   <section class="col s10">
     <input type="text" name="fakesearchbar" placeholder="FAKE SEARCH BAR">
@@ -17,6 +19,16 @@ User list
         <li>
           <div class="collapsible-header">
             <i class="material-icons">expand_more</i>
+            <!-- if pour la photo du user  pour un : if user['picture'] != null -->
+            <div id="userPhoto" class="">
+            {% if user['id'] > 10 %}
+                <img id="userPhoto" src="{{ asset('lib/img/Serpico.png') }}"/>
+            {% elseif user['id'] <= 10 %}
+                <img id="userPhoto" src="{{ asset('lib/img/Serpico.png') }}"/>
+            {% endif %}
+              </div>
+            <!-- fin du if pour la photo du user -->
+
             {{ user['firstname']  }}
             {{ user['lastname'] | upper }}
             <br>

@@ -7,6 +7,9 @@ Create User
 {% block pagename %}
 Create User
 {% endblock %}
+{% block username %}
+    {{ currentuser.firstname }} {{ currentuser.lastname }}
+{% endblock %}
 
 {% block content %}
 
