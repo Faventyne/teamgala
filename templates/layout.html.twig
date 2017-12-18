@@ -29,9 +29,10 @@
       <header id="wesh">
         <a href="{{ path('home') }}"><i id="returnMenu" class="material-icons">home</i></a>
         <a href="#"><i id="returnPage" class="material-icons">chevron_left</i></a>
-        <a href="#"><i id="logOutButton" class="material-icons">menu</i></a>
+        <a href="#"><i id="logOutButton" class="material-icons">person</i></a>
         <div class="currentPage">
           {% block pagename %}{% endblock %}
+           {% block username %}{% endblock %}
         </div>
 
       </header>
