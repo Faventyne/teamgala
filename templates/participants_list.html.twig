@@ -1,5 +1,10 @@
 {% extends "layout.html.twig" %}
 
+{% block title %}
+Select participants
+{% endblock %}
+
+
 {% block pagename %}
 Select participants
 {% endblock %}
@@ -13,6 +18,7 @@ Select participants
         <li class="collection-item">
             {{ participant['firstname']  }}
             {{ participant['lastname'] | upper }}
+            <br>
             <br>
               {{participant['position']}}
             <span class="secondary-content" >

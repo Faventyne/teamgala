@@ -1,5 +1,9 @@
 {% extends "layout.html.twig" %}
 
+{% block title %}
+user list
+{% endblock %}
+
 {% block pagename %}
 User list
 {% endblock %}
@@ -27,7 +31,7 @@ User list
             </div>
 
         {% endif %}
-        <div class="collapsible-body">
+        <div id="userListButtons" class="collapsible-body">
           <div class="row">
             Autres infos <br>
             Poids : {{ user['weight']  }}

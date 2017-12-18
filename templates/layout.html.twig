@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>{% block title '' %} - My Silex Application</title>
+        <title>{% block title '' %} - Serpico</title>
 
         <!-- CSS Materialize -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
@@ -29,9 +29,10 @@
       <header id="wesh">
         <a href="{{ path('home') }}"><i id="returnMenu" class="material-icons">home</i></a>
         <a href="#"><i id="returnPage" class="material-icons">chevron_left</i></a>
-        <a href="#"><i id="logOutButton" class="material-icons">menu</i></a>
+        <a href="#"><i id="logOutButton" class="material-icons">person</i></a>
         <div class="currentPage">
           {% block pagename %}{% endblock %}
+           {% block username %}{% endblock %}
         </div>
 
       </header>
