@@ -27,7 +27,7 @@ class AddUserForm extends AbstractType
                 'constraints' => [
                     new Assert\NotBlank(),
                     new Assert\Regex([
-                        'pattern' => "[a-zA-Z]"
+                        'pattern' => "/[a-zA-Z]/"
                     ])
                 ],
                 'label' => 'Firstname'
@@ -36,7 +36,7 @@ class AddUserForm extends AbstractType
                 'constraints' => [
                     new Assert\NotBlank(),
                     new Assert\Regex([
-                        'pattern' => "[a-zA-Z]"
+                        'pattern' => "/[a-zA-Z]/"
                     ])
                 ],
                 'label' => 'Lastname'
@@ -45,7 +45,7 @@ class AddUserForm extends AbstractType
                 'constraints' => [
                     new Assert\NotBlank(),
                     new Assert\Regex([
-                        'pattern' => "/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/"
+                        'pattern' => "/^[a-zA-Z0-9_.]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/"
                     ])
                 ]
             ])
@@ -77,7 +77,7 @@ class AddUserForm extends AbstractType
             'constraints' => [
                 new Assert\NotBlank(),
                 new Assert\Regex([
-                    'pattern' => "[a-zA-Z]"
+                    'pattern' => "/[a-zA-Z0-9]/"
                 ])
             ],
         'label' => 'Position'

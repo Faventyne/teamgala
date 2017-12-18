@@ -15,8 +15,9 @@ Create User
 
   <img src="{{ asset('lib/img/Serpico.png') }}" alt="Logo Serpico" />
     {{ form_start(form) }}
-
-
+  <div>
+        {{ message }}  
+  </div>
   <div class="row">
     <div class="">
       <input disabled="disabled" value="Organisation" id="disabled" type="text" class="validate">
@@ -68,6 +69,7 @@ Create User
       </div>
     </div>
   </div>
+  
   <div class="row">
     <div class="button-field col s10">
       {{ form_row(form.submit) }}
