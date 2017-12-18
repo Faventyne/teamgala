@@ -24,80 +24,28 @@ class GradeForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('firstname', TextType::class,
-            [
-                'constraints' => [
-                    new Assert\NotBlank(),
-                    new Assert\Regex([
-                        'pattern' => "[a-zA-Z]"
-                    ])
-                ],
-                'label' => 'Firstname'
-            ])
-            ->add('lastname', TextType::class, [
-                'constraints' => [
-                    new Assert\NotBlank(),
-                    new Assert\Regex([
-                        'pattern' => "[a-zA-Z]"
-                    ])
-                ],
-                'label' => 'Lastname'
-            ])
-            ->add('email', TextType::class, [
-                'constraints' => [
-                    new Assert\NotBlank(),
-                    new Assert\Regex([
-                        'pattern' => "/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/"
-                    ])
-                ]
-            ])
-            ->add('rolId', ChoiceType::class,
-                [
 
-                    'choices' =>
-                        [
-                            1 => false,
-                            2 => true,
-                            3 => false
+        foreach ($options['criteria'] as $criterion) {
+            foreach ($options['participants'] as $participant) {
+                $builder->add('firstname', TextType::class,
+                    [
+                        'constraints' => [
+                            new Assert\NotBlank(),
+                            new Assert\Regex([
+                                'pattern' => "[a-zA-Z]"
+                            ])
                         ],
-                    'choices_as_values' => true,
-                    'choice_label' => function ($value, $key, $index) {
-                        if ($key == 1) {
-                            return "HR";
-                        } elseif ($key == 2) {
-                            return "Activity Manager";
-                        } elseif ($key == 3) {
-                            return "Collaborator";
-                        }
-                    },
-
-                    'label' => 'Role',
-                    'expanded' => true,
-                    'multiple' => false,
-
-                    'data' => true
-                ])
-
-
-
-
-            ->add('positionName', TextType::class, [
-                'constraints' => [
-                    new Assert\NotBlank(),
-                    new Assert\Regex([
-                        'pattern' => "[a-zA-Z]"
-                    ])
-                ],
-                'label' => 'Position'
-            ])
-            ->add('weightIni', NumberType::class, [
-                'constraints' => [
-                    new Assert\NotBlank(),
-                ],
-                'label' => 'Weight'
-            ]);
-
+                        'label' => $participant['usr_firstname'],
+                    ]);
+            }
+        }
         if ($options['standalone']){
+                $builder->add('save', SubmitType::class,[
+                    'label' => 'Sauvegarder'
+                ]);
+        }
+
+        if ($options['computed']){
             $builder->add('submit', SubmitType::class,[
                 'label' => 'Soumettre'
             ]);
@@ -109,6 +57,10 @@ class GradeForm extends AbstractType
         $resolver->setDefault('data_class',Grade::class);
         $resolver->setDefault('standalone', false);
         $resolver->addAllowedTypes('standalone', 'bool');
+        $resolver->setRequired('criteria');
+        $resolver->setRequired('participants');
+        $resolver->setDefault('computed', false);
+
     }
 
 }

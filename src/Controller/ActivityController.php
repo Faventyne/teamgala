@@ -187,15 +187,23 @@ class ActivityController extends MasterController
             $criteria[] = $criteria->toArray();
         }
 
-        $formFactory = $app['form.factory'] ;
-        $gradeForm = $formFactory->create(GradeForm::class, $grade, ['standalone'=>true,'criteria'=>$criteria,'participants'=>$participants]);
+        $formFactory = $app['form.factory'];
+        $gradeForm = $formFactory->create(GradeForm::class, $grade, ['standalone'=>true,'criteria'=>$criteria,'participants'=>$participants,'computed'=>false]);
+        $gradeForm->handleRequest($request);
 
+        if ($gradeForm->isSubmitted()){
+
+            print_r("Coucou");
+            die;
+        }
+        /*
         return $app['twig']->render('activity_grade.html.twig',
             [
                 'criteria' => $criteria,
                 'participants' => $participants
             ]) ;
-
+        */
+        return true;
 
     }
 
@@ -225,24 +233,36 @@ class ActivityController extends MasterController
     public function getAllUserActivitiesAction(Request $request, Application $app){
         $role = $app['security.token_storage']->getToken()->getUser()->getRolId();
         $id = $app['security.token_storage']->getToken()->getUser()->getId();
-        if($role >= 3){
-            $sql = "SELECT * FROM activity 
-        INNER JOIN activity_user ON activity_user.activity_act_id=activity.act_id
-        INNER JOIN criterion ON activity.act_id = criterion.activity_act_id 
-        INNER JOIN user ON user.usr_id=activity_user.user_usr_id";
 
-        } else {
-
-            $sql = "SELECT * FROM activity 
+        $sql = "SELECT * FROM activity 
             INNER JOIN activity_user ON activity_user.activity_act_id=activity.act_id
             INNER JOIN criterion ON activity.act_id = criterion.activity_act_id 
             INNER JOIN user ON user.usr_id=activity_user.user_usr_id 
             WHERE user.usr_id=:id";
-        }
+
         $pdoStatement = $app['db']->prepare($sql) ;
         $pdoStatement->bindValue(':id',$id);
         $pdoStatement->execute();
         $result = $pdoStatement->fetchAll();
+
+
+        if($role >= 3){
+
+            $sql = "SELECT * FROM activity 
+        INNER JOIN activity_user ON activity_user.activity_act_id=activity.act_id
+        INNER JOIN criterion ON activity.act_id = criterion.activity_act_id 
+        INNER JOIN user ON user.usr_id=activity_user.user_usr_id";
+            $pdoStatement = $app['db']->prepare($sql) ;
+            $pdoStatement->bindValue(':id',$id);
+            $pdoStatement->execute();
+            $resultAdmin = $pdoStatement->fetchAll();
+
+            foreach ($resultAdmin as $project){
+
+            }
+
+        }
+
         /*return print_r($result);
 
         $repository = $entityManager->getRepository(Activity::class);
