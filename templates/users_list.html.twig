@@ -20,13 +20,13 @@ User list
           <div class="collapsible-header">
             <i class="material-icons">expand_more</i>
             <!-- if pour la photo du user  pour un : if user['picture'] != null -->
-            <div id="userPhoto" class="">
+            <div id="userPhotoDiv">
             {% if user['id'] > 10 %}
                 <img id="userPhoto" src="{{ asset('lib/img/Serpico.png') }}"/>
             {% elseif user['id'] <= 10 %}
                 <img id="userPhoto" src="{{ asset('lib/img/Serpico.png') }}"/>
             {% endif %}
-              </div>
+            </div>
             <!-- fin du if pour la photo du user -->
 
             {{ user['firstname']  }}
@@ -50,7 +50,7 @@ User list
             {% endif %}
           </span>
             </div>
-        <div id="userListButtons" class="collapsible-body">
+        <div id="ListButtons" class="collapsible-body">
           <div class="row">
             Autres infos <br>
             Poids : {{ user['weight']  }}
