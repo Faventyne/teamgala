@@ -240,7 +240,7 @@ class ActivityController extends MasterController
 
 
         $formFactory = $app['form.factory'] ;
-        $gradeForm = $formFactory->create(GradeForm::class, $grade, ['standalone'=>true,'criteria'=>$criteria,'participants'=>$participants,'computed'=>false]);
+        $gradeForm = $formFactory->create(GradeForm::class, $grade, ['standalone'=>true]);
         $gradeForm->handleRequest($request);
 
         if ($gradeForm->isSubmitted()){
@@ -249,12 +249,25 @@ class ActivityController extends MasterController
             die;
         }
 
+        $result=[];
+
+        /*Feed all activity info in $result */
+
+        //foreach($stage as $stage){
+                $result['stage']['name']=1;
+                //$result['stage']['name']=$stage;
+            foreach($criteria as $criterion){
+                $result['stage']['criterion']=$criterion;
+                $result['stage']['participants']=$participants;
+            }
+        //}
+
         return $app['twig']->render('activity_grade.html.twig',
             [
                 'form' => $gradeForm->createView(),
-            ]) ;
+                'result' => $result
 
-        //return true;
+            ]) ;
 
     }
 

@@ -73,7 +73,7 @@ class Criterion extends DbObject
      * @param float $step
      * @param /DateTime $inserted
      */
-    public function __construct($id=0, $actId=0, $name='', $weight=0.0, $lowerbound=0.0, $upperbound=5.0, $step=0.5, $gradetype='absolute',$inserted=null)
+    public function __construct($id=0, $actId=0, $name='', $weight=0.0, $lowerbound=0.0, $upperbound=5.0, $step=0.1, $gradetype='absolute',$inserted=null)
     {
         parent::__construct($id,new \DateTime());
         $this->actId = $actId;
@@ -234,7 +234,10 @@ class Criterion extends DbObject
         return [
             'id' => $this->id,
             'actId' => $this->actId,
-
+            'name' => $this->name,
+            'lowerbound' => $this->lowerbound,
+            'upperbound' => $this->upperbound,
+            'step' => $this->step
         ];
     }
 

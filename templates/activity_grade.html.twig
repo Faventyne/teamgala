@@ -13,6 +13,38 @@
 {% endblock %}
 
 {% block content %}
-{{ form_start(form)}}
-{{ form_end(form)}}
+    <form action="">
+
+        {# For every criterion/stage (similar here)...#}
+        {% for stage in result %}
+
+            <div class="row">
+                <h3> {{ stage.criterion.name }} </h3>
+            </div>
+
+            {# For every activity stage...#}
+            {% for participant in stage.participants %}
+
+                <div class="row">
+                    {{ participant.usr_firstname }}
+                    <div class="input-field col s10 m5">
+                        <label for="grade">Valeur</label>
+                        {% if {{ stage.criterion.step }} is null %}
+                            <input type="number" id="grade" step="any" min="{{ stage.criterion.lowerbound }}" max="{{ stage.criterion.upperbound }}" >
+                        {% else %}
+                            <input type="number" id="grade" step="{{ stage.criterion.step }}" min="{{ stage.criterion.lowerbound }}" max="{{ stage.criterion.upperbound }}" >
+                    </div>
+                </div>
+
+            {% endfor %}
+        {% endfor %}
+
+        <button type="submit" class="waves-effect waves-light btn-large save-button">SAVE</button>
+
+        <button type="submit" class="waves-effect waves-light btn-large submit-button">SUBMIT</button>
+
+    </form>
+
+
+
 {% endblock %}

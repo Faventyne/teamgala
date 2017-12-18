@@ -25,36 +25,15 @@ class GradeForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
-        foreach ($options['criteria'] as $criterion) {
-
-            foreach ($options['participants'] as $participant) {
 
                 $builder->add('value', NumberType::class,
                     [
                         'constraints' => [
                             new Assert\NotBlank(),
-                            new Assert\Regex([
-                                'pattern' => "[a-zA-Z]"
-                            ])
                         ],
-                        'label' => $participant['usr_firstname'],
-
 
                     ]);
-            }
-        }
 
-        if ($options['standalone']){
-                $builder->add('save', SubmitType::class,[
-                    'label' => 'Sauvegarder'
-                ]);
-        }
-
-        if ($options['computed']){
-            $builder->add('submit', SubmitType::class,[
-                'label' => 'Soumettre'
-            ]);
-        }
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -62,10 +41,6 @@ class GradeForm extends AbstractType
         $resolver->setDefault('data_class',Grade::class);
         $resolver->setDefault('standalone', false);
         $resolver->addAllowedTypes('standalone', 'bool');
-        $resolver->setRequired('criteria');
-        $resolver->setRequired('participants');
-        $resolver->setDefault('computed', false);
-
     }
 
 }

@@ -96,7 +96,7 @@ class AddActivityCriteriaForm extends AbstractType
                         new Assert\GreaterThan(0)
                     ],
                     'scale' => 1,
-                    'label' => 'Min increment'
+                    'label' => '(Optional) Min increment'
                 ])
 
             ->add('objectives', TextareaType::class,
