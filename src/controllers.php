@@ -40,7 +40,7 @@ $routeActivityCreationParticipants = $app->get('/activity/create/participants/{a
 $routeActivityCreationParticipants->bind('activityCreationParticipants') ;
 
 // Activity modify page
-$routeActivityGrade = $app->get('/activity/{actId}/modify', "Controller\ActivityController::gradeAction") ;
+$routeActivityGrade = $app->match('/activity/{actId}/modify', "Controller\ActivityController::modifyAction") ;
 $routeActivityGrade->bind('activityModify') ;
 
 // Activity grade page
