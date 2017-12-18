@@ -188,16 +188,11 @@ class ActivityController extends MasterController
             $criteria[] = $criterion->toArray();
         }
 
-<<<<<<< HEAD
         $formFactory = $app['form.factory'] ;
         $gradeForm = $formFactory->create(GradeForm::class, $grade, ['standalone'=>true]);
-=======
-        $formFactory = $app['form.factory'];
-
         $gradeForm->handleRequest($request);
 
         if ($gradeForm->isSubmitted()){
->>>>>>> fb8f4914ba3dac27b7709fd2081c3cd7f9625d75
 
             print_r("Coucou");
             die;
