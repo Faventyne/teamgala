@@ -292,16 +292,20 @@ class ActivityUser
     public function toArray()
     {
         global $app;
-        $sql = "SELECT * FROM user INNER JOIN activity_user ON activity_user.user_usr_id=user.usr_id WHERE usr_id=:id";
+        $sql = "SELECT * FROM user INNER JOIN activity_user ON activity_user.user_usr_id=user.usr_id WHERE usr_id=:id AND activity_act_id=:actId";
         $pdoStatement = $app['db']->prepare($sql);
         $pdoStatement->bindValue(':id', $this->usrId);
+        $pdoStatement->bindValue(':actId', $this->actId);
         $pdoStatement->execute();
         $result = $pdoStatement->fetchAll();
+        return $result[0];
+        /*
         $participants = [];
         foreach ($result as $key => $value) {
             $participants[] = $value;
         }
         return $participants;
+        */
     }
 
 }

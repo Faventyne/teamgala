@@ -175,21 +175,26 @@ class ActivityController extends MasterController
         //Get all participants
         $repository = $entityManager->getRepository(\Model\ActivityUser::class);
         $participants = [];
+
+
         foreach ($repository->findByActId($actId) as $participant) {
             //TODO : define toArray method in ActivityUser repository; create repository
             $participants[] = $participant->toArray();
+
         }
 
         //Get all criteria
         $repository = $entityManager->getRepository(\Model\Criterion::class);
-        $criteria = [];
+        $criteria=[];
+
         foreach ($repository->findByActId($actId) as $criterion) {
             //TODO : define toArray method in Criteria repository; create repository
             $criteria[] = $criterion->toArray();
         }
 
+
         $formFactory = $app['form.factory'] ;
-        $gradeForm = $formFactory->create(GradeForm::class, $grade, ['standalone'=>true]);
+        $gradeForm = $formFactory->create(GradeForm::class, $grade, ['standalone'=>true,'criteria'=>$criteria,'participants'=>$participants,'computed'=>false]);
         $gradeForm->handleRequest($request);
 
         if ($gradeForm->isSubmitted()){
@@ -197,14 +202,13 @@ class ActivityController extends MasterController
             print_r("Coucou");
             die;
         }
-        /*
+
         return $app['twig']->render('activity_grade.html.twig',
             [
-                'criteria' => $criteria,
-                'participants' => $participants
+                'form' => $gradeForm->createView(),
             ]) ;
-        */
-        return true;
+
+        //return true;
 
     }
 

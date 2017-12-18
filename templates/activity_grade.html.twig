@@ -12,19 +12,7 @@
     {{ currentuser.firstname }} {{ currentuser.lastname }}
 {% endblock %}
 
-
-{% for criterion in criteria %}
-
-    {% for participant in participants %}
-
-
-
-        {% block content %}
-
-        {% endblock %}
-
-
-
-    {% endfor %}
-
-{% endfor %}
+{% block content %}
+{{ form_start(form)}}
+{{ form_end(form)}}
+{% endblock %}
