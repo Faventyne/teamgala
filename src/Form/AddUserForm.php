@@ -51,12 +51,11 @@ class AddUserForm extends AbstractType
             ])
             ->add('rolId', ChoiceType::class,
                 [
-
                     'choices' =>
                     [
-                        1 => false,
-                        2 => true,
-                        3 => false
+                        1 => 1,
+                        2 => 2,
+                        3 => 3,
                     ],
                     'choices_as_values' => true,
                     'choice_label' => function ($value, $key, $index) {
@@ -68,24 +67,19 @@ class AddUserForm extends AbstractType
                             return "Collaborator";
                         }
                     },
-
+                    'placeholder' => 3,
                     'label' => 'Role',
                     'expanded' => true,
                     'multiple' => false,
-
                     'data' => true
                 ])
-
-
-
-
-        ->add('positionName', TextType::class, [
-        'constraints' => [
-            new Assert\NotBlank(),
-            new Assert\Regex([
-                'pattern' => "[a-zA-Z]"
-            ])
-        ],
+            ->add('positionName', TextType::class, [
+            'constraints' => [
+                new Assert\NotBlank(),
+                new Assert\Regex([
+                    'pattern' => "[a-zA-Z]"
+                ])
+            ],
         'label' => 'Position'
         ])
         ->add('weightIni', NumberType::class, [
