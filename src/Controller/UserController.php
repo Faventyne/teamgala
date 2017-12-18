@@ -35,10 +35,10 @@ class UserController extends MasterController
         $formFactory = $app['form.factory'] ;
         $userForm = $formFactory->create(AddUserForm::class, $user, ['standalone'=>true]) ;
         $userForm->handleRequest($request) ;
-
+        $errorMessage = '';
         //Form submitted and valid
         if ($userForm->isSubmitted() && $userForm->isValid()) {
-            
+
             // Email : check wether the email exists or not
             $entityManager = $this->getEntityManager($app) ;
             $repository = $entityManager->getRepository(User::class) ;
@@ -46,7 +46,7 @@ class UserController extends MasterController
             if ($userExists->getEmail() != '') {
                 $errorMessage = 'User already created' ;
             } else {
-            
+
                 $token = md5(rand()) ;
                 $user->setToken($token) ;
                 $entityManager = $app['orm.em'] ;
@@ -79,7 +79,7 @@ class UserController extends MasterController
 
                 return $app->redirect($app['url_generator']->generate('settingsUsers'));
 
-            } 
+            }
         }
 
         return $app['twig']->render('create_user.html.twig',

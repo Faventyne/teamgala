@@ -27,7 +27,8 @@ class AddUserForm extends AbstractType
                 'constraints' => [
                     new Assert\NotBlank(),
                     new Assert\Regex([
-                        'pattern' => "/[a-zA-Z]/"
+                        'pattern' => "/[a-zA-Z]/",
+                        'message' => 'Firstname is invalid, please use only letters a-z, A-Z in this field'
                     ])
                 ],
                 'label' => 'Firstname'
@@ -36,18 +37,22 @@ class AddUserForm extends AbstractType
                 'constraints' => [
                     new Assert\NotBlank(),
                     new Assert\Regex([
-                        'pattern' => "/[a-zA-Z]/"
+                        'pattern' => "/[a-zA-Z]/",
+                        'message' => 'Lastname is invalid, please use only letters a-z, A-Z in this field'
                     ])
                 ],
-                'label' => 'Lastname'
+                'label' => 'Lastname',
+
             ])
             ->add('email', TextType::class, [
                 'constraints' => [
                     new Assert\NotBlank(),
                     new Assert\Regex([
-                        'pattern' => "/^[a-zA-Z0-9_.]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/"
+                        'pattern' => "/^[a-zA-Z0-9_.]+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/",
+                        'message' => 'Email is invalid, please enter a valid email adress in this field (example : some@thing.com)'
                     ])
                 ]
+
             ])
             ->add('rolId', ChoiceType::class,
                 [
@@ -77,7 +82,8 @@ class AddUserForm extends AbstractType
             'constraints' => [
                 new Assert\NotBlank(),
                 new Assert\Regex([
-                    'pattern' => "/[a-zA-Z0-9]/"
+                    'pattern' => "/[a-zA-Z0-9]/",
+                    'message' => 'The position field is currently invalid, please do not use special characters'
                 ])
             ],
         'label' => 'Position'
@@ -88,7 +94,7 @@ class AddUserForm extends AbstractType
                 ],
                 'label' => 'Weight'
             ]);
-            
+
         if ($options['standalone']){
             $builder->add('submit', SubmitType::class,[
                 'label' => 'Soumettre'
