@@ -10,6 +10,7 @@ namespace Controller;
 use Form\AddActivityCriteriaForm;
 use Form\AddActivityParticipantsForm;
 use Form\UserForm;
+use Form\GradeForm;
 use Model\Activity;
 use Model\ActivityUser;
 use Model\Grade;
@@ -174,7 +175,7 @@ class ActivityController extends MasterController
         //Get all participants
         $repository = $entityManager->getRepository(\Model\ActivityUser::class);
         $participants = [];
-        foreach ($repository->findByActId() as $participant) {
+        foreach ($repository->findByActId($actId) as $participant) {
             //TODO : define toArray method in ActivityUser repository; create repository
             $participants[] = $participant->toArray();
         }
@@ -182,13 +183,13 @@ class ActivityController extends MasterController
         //Get all criteria
         $repository = $entityManager->getRepository(\Model\Criterion::class);
         $criteria = [];
-        foreach ($repository->findByActId() as $criterion) {
+        foreach ($repository->findByActId($actId) as $criterion) {
             //TODO : define toArray method in Criteria repository; create repository
-            $criteria[] = $criteria->toArray();
+            $criteria[] = $criterion->toArray();
         }
 
         $formFactory = $app['form.factory'] ;
-        $gradeForm = $formFactory->create(GradeForm::class, $grade, ['standalone'=>true,'criteria'=>$criteria,'participants'=>$participants]);
+        $gradeForm = $formFactory->create(GradeForm::class, $grade, ['standalone'=>true]);
 
         return $app['twig']->render('activity_grade.html.twig',
             [
