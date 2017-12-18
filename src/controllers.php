@@ -24,19 +24,23 @@ $routeProfile = $app->get('/profile', "Controller\UserController::profileAction"
 $routeProfile->bind('profile') ;
 
 // My activities page
-$routeMyActivities = $app->get('/myactivities', "Controller\ActivityController::myActivitiesAction") ;
+$routeMyActivities = $app->get('/myactivities', "Controller\ActivityController::getAllUserActivitiesAction") ;
 $routeMyActivities->bind('myActivities') ;
 
-// Activity configuration page
+// Organization activities page
+$routeMyActivities = $app->get('/activities/all', "Controller\ActivityController::getAllOrganizationActivitiesAction") ;
+$routeMyActivities->bind('allActivities') ;
+
+// Activity creation : parameters page
 $routeActivityCreationParameters = $app->match('/activity/create/parameters', "Controller\ActivityController::addCriterionAction") ;
 $routeActivityCreationParameters->bind('activityCreationParameters') ;
 
-// Activity configuration page
-$routeActivityCreationParticipants = $app->get('/activity/create/participants', "Controller\ActivityController::getAllParticipantsAction") ;
+// Activity creation : users page
+$routeActivityCreationParticipants = $app->get('/activity/create/participants/{actId}', "Controller\ActivityController::addParticipantsAction") ;
 $routeActivityCreationParticipants->bind('activityCreationParticipants') ;
 
 // Activity grade page
-$routeActivityGrade = $app->get('/activity/grade', "Controller\ActivityController::gradeAction") ;
+$routeActivityGrade = $app->get('/activity/{actId}/grade', "Controller\ActivityController::gradeAction") ;
 $routeActivityGrade->bind('activityGrade') ;
 
 // Activity view page
@@ -69,6 +73,9 @@ $routeAjaxUserGet->bind('ajaxUserGet');
 
 $routeAjaxUserAdd = $app->post('/ajax/user', "Controller\UserController::addUserAction") ;
 $routeAjaxUserAdd->bind('ajaxUserAdd');
+
+$routeAjaxActivityAdd = $app->post('/ajax/activity/{actId}', "Controller\ActivityController::insertParticipantsAction") ;
+$routeAjaxActivityAdd->bind('ajaxActivityAdd');
 
 $routeAjaxUserModifiy = $app->post('/ajax/user/{id}', "Controller\UserController::modifyUserAction") ;
 $routeAjaxUserModifiy->bind('ajaxUserModify');

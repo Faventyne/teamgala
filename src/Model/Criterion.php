@@ -41,12 +41,12 @@ class Criterion extends DbObject
     protected $lowerbound;
     /**
      * @Column(name="cri_upperbound", length= 10, type="float")
+     * @Assert\GreaterThan($lowerbound)
      * @var float
      */
     protected $upperbound;
     /**
-     * @Column(name="cri_upperbound", length= 10, type="float")
-     * @Assert\GreaterThan($lowerbound)
+     * @Column(name="cri_step", length= 10, type="float")
      * @var float
      */
     protected $step;
@@ -55,6 +55,11 @@ class Criterion extends DbObject
      * @var string
      */
     protected $gradetype;
+    /**
+     * @Column(name="cri_inserted", type="datetime")
+     * @var \DateTime
+     */
+    protected $inserted;
 
     /**
      * Criterion constructor.
@@ -66,6 +71,7 @@ class Criterion extends DbObject
      * @param float $lowerbound
      * @param float $upperbound
      * @param float $step
+     * @param /DateTime $inserted
      */
     public function __construct($id=0, $act_id=0, $name='', $weight=0.0, $lowerbound=0.0, $upperbound=5.0, $step=0.5, $gradetype='absolute',$inserted=null)
     {
@@ -94,6 +100,22 @@ class Criterion extends DbObject
     {
         return $this->act_id;
     }
+
+
+    /*
+     * As for User class, the below setter is normally irrelevant but we forces the setting of a foreign key
+     * as activity creation has been simplified to what it should have been initially
+     */
+
+    /**
+     * @param int $act_id
+     */
+    public function setActId($act_id)
+    {
+        $this->act_id = $act_id;
+    }
+
+
 
     /**
      * @return string
@@ -194,5 +216,19 @@ class Criterion extends DbObject
         $activity = new Activity();
         return $activity->getVisibility();
     }
+
+    public function setObjectives($objectives)
+    {
+        $activity = new Activity();
+        $activity->setObjectives($objectives);
+    }
+
+    public function getObjectives()
+    {
+        $activity = new Activity();
+        return $activity->getObjectives();
+    }
+
+
 }
 

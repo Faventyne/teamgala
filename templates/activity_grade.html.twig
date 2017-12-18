@@ -1,0 +1,22 @@
+{% extends "layout.html.twig" %}
+
+{%  block pagename %}
+    Activity Preview
+{% endblock %}
+
+
+{% for criterion in criteria %}
+
+    {% for participant in participants %}
+
+
+
+        {% block content %}
+
+        {% endblock %}
+
+
+
+    {% endfor %}
+
+{% endfor %}

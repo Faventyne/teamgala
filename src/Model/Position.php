@@ -9,7 +9,7 @@
 namespace Model;
 
 /**
- * @Entity @Table(name="role")
+ * @Entity @Table(name="position")
  */
 class Position extends DbObject
 {
@@ -79,7 +79,7 @@ class Position extends DbObject
      * @param float $weight_5y
      * @param \DateTime inserted
      */
-    public function __construct($id=0, $org_id=0, $name='', $weight_ini=0.0, $weight_1y=0.0, $weight_2y=0.0, $weight_3y=0.0, $weight_4y=0.0, $weight_5y=0.0,$inserted=null)
+    public function __construct($id=0, $org_id=1, $name='', $weight_ini=0.0, $weight_1y=0.0, $weight_2y=0.0, $weight_3y=0.0, $weight_4y=0.0, $weight_5y=0.0,$inserted=null)
     {
         parent::__construct($id,new \DateTime());
         $this->org_id = $org_id;

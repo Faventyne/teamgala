@@ -6,7 +6,7 @@ $(function() {
             url : '../ajax/user/' + $(this).data("user-id"),
             type : 'DELETE',
             success: function(){
-                location.reload();
+                $(this).closest('ul').remove();
             }
         })
     });
@@ -15,9 +15,9 @@ $(function() {
         $.ajax({
 
             url : '../ajax/user/' + $(this).data("user-id"),
-            type : 'DELETE',
+            //type : 'DELETE',
             success: function(){
-                location.reload();
+                $(this).closest('ul').remove();
             }
         })
     })

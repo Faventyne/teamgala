@@ -6,30 +6,37 @@ Select participants
 
 {% block content %}
   <section class="col s10">
-
+      {#{{ form_start(form,{'attr': {'class': 'foo'}}) }}#}
     <input type="text" name="fakesearchbar" placeholder="FAKE SEARCH BAR">
-    {% for user in users %}
+    {% for participant in participants %}
       <ul class="collection">
         <li class="collection-item">
-            {{ user['firstname']  }}
-            {{ user['lastname'] | upper }}
+            {{ participant['firstname']  }}
+            {{ participant['lastname'] | upper }}
             <br>
-              {{user['username']}}
+              {{participant['position']}}
             <span class="secondary-content" >
-              <button type="submit" class="waves-effect waves-light btn action-button">ADD</button>
+
+              <button class="waves-effect waves-light btn action-button" data-participant-id={{ participant['id'] }}>ADD</button>
               <!-- le if sera pour ajoute ou non  -->
 
-      </span>
-    </li>
-  </ul>
-{% endfor %}
+            </span>
+        </li>
+      </ul>
+    {% endfor %}
 <div class="fixed-action-btn">
-  <a class="waves-effect waves-light btn-large">ADD PARTICIPANTS</a>
+
+    {#{{ form_row(form.submit,{'attr': {'class': 'waves-effect waves-light btn-large'}}) }}#}
+
+        <button type="submit" class="waves-effect waves-light btn-large">CREATE ACTIVITY</button>
+
+
 </div>
+{#{{ form_end(form) }}#}
 </section>
 
 {% endblock %}
 
 {% block javascripts %}
-  <script src="{{ asset('js/participants.js') }}"></script>
+<script src="{{ asset('js/participants.js') }}"></script>
 {% endblock %}

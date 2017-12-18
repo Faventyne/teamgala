@@ -1,11 +1,13 @@
 <?php
 /**
  * Created by IntelliJ IDEA.
- * User: Etudiant
- * Date: 07/12/2017
- * Time: 09:35
+ * User: Faventyne
+ * Date: 17/12/2017
+ * Time: 23:55
  */
+
 namespace Form;
+use Model\Grade;
 use Model\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -18,7 +20,7 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class AddUserForm extends AbstractType
+class GradeForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -53,11 +55,11 @@ class AddUserForm extends AbstractType
                 [
 
                     'choices' =>
-                    [
-                        1 => false,
-                        2 => true,
-                        3 => false
-                    ],
+                        [
+                            1 => false,
+                            2 => true,
+                            3 => false
+                        ],
                     'choices_as_values' => true,
                     'choice_label' => function ($value, $key, $index) {
                         if ($key == 1) {
@@ -79,22 +81,22 @@ class AddUserForm extends AbstractType
 
 
 
-        ->add('positionName', TextType::class, [
-        'constraints' => [
-            new Assert\NotBlank(),
-            new Assert\Regex([
-                'pattern' => "[a-zA-Z]"
+            ->add('positionName', TextType::class, [
+                'constraints' => [
+                    new Assert\NotBlank(),
+                    new Assert\Regex([
+                        'pattern' => "[a-zA-Z]"
+                    ])
+                ],
+                'label' => 'Position'
             ])
-        ],
-        'label' => 'Position'
-        ])
-        ->add('weightIni', NumberType::class, [
+            ->add('weightIni', NumberType::class, [
                 'constraints' => [
                     new Assert\NotBlank(),
                 ],
                 'label' => 'Weight'
             ]);
-            
+
         if ($options['standalone']){
             $builder->add('submit', SubmitType::class,[
                 'label' => 'Soumettre'
@@ -104,7 +106,7 @@ class AddUserForm extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefault('data_class',User::class);
+        $resolver->setDefault('data_class',Grade::class);
         $resolver->setDefault('standalone', false);
         $resolver->addAllowedTypes('standalone', 'bool');
     }
