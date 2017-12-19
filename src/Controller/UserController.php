@@ -43,7 +43,8 @@ class UserController extends MasterController
             $entityManager = $this->getEntityManager($app) ;
             $repository = $entityManager->getRepository(User::class) ;
             $userExists = $repository->findOneByEmail($user->getEmail());
-            if ($userExists->getEmail() != '') {
+
+            if ($userExists != NULL) {
                 $errorMessage = 'User already created' ;
             } else {
 

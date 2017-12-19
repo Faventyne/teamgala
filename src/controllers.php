@@ -54,7 +54,7 @@ $routeActivityView = $app->get('/activity/view', "Controller\ActivityController:
 $routeActivityView->bind('activityView') ;
 
 // Activity results page
-$routeActivityResults = $app->get('/activity/results/{actId}', "Controller\ActivityController::resultsAction") ;
+$routeActivityResults = $app->get('/activity/results', "Controller\ActivityController::resultsAction") ;
 $routeActivityResults->bind('activityResults') ;
 
 // Settings organization page
