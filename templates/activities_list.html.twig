@@ -26,6 +26,19 @@ Activity list
             {{ activity['act_name']  }}
             </div>
                 {# if user is not a simple collaborator #}
+                {% if is_granted('ROLE_ACTIVITY_MANAGER') or is_granted('ROLE_HR') %}
+                <div class="button-field col s5">
+                  <form action="{{ url('activityModify',{'actId' : activity['act_id']})}}">
+                    <button type="submit" class="validate"> MODIFY </button>
+                  </form>
+                  <a href="{{ url('activityResults',{'actId' : activity['act_id']}) }}"><button type="submit" class="validate">RESULTS</button></a>
+                </div>
+                {% endif %}
+                {% if activity['isParticipant'] == 1 %}
+                <div class="button-field col s5">
+                  <form action="{{ url('activityGrade',{'actId' : activity['act_id']})}}">
+                    <button type="submit" class="validate"> GRADE </button>
+                  </form>
 
                 <div class="" style=" display: flex; margin-left:30vw;">
                   {% if is_granted('ROLE_ACTIVITY_MANAGER') or is_granted('ROLE_HR') %}
