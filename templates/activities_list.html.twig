@@ -28,6 +28,7 @@ Activity list
                   <form action="{{ url('activityModify',{'actId' : activity['act_id']})}}">
                     <button type="submit" class="validate"> MODIFY </button>
                   </form>
+                  <a href="{{ url('activityResults',{'actId' : activity['act_id']}) }}"><button type="submit" class="validate">RESULTS</button></a>
                 </div>
                 {% endif %}
                 {% if activity['isParticipant'] == 1 %}
