@@ -9,6 +9,8 @@
         <link rel="stylesheet" href="{{ asset('lib/materialize/css/materialize.css') }}">
         <!-- CSS JQuery UI-->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
+        <!-- Font awesome-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
         <!-- Materialize icons  -->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
@@ -65,5 +67,12 @@
         <!-- header custom js -->
         <script src="{{ asset('js/header_Log_Out.js') }}"></script>
         {% block javascripts %}{% endblock %}
+      <footer>
+          <div class="footer-copyright">
+              <div class="container">
+                  © <script type="text/javascript">document.write(new Date().getFullYear());</script> Copyright Team GALA
+              </div>
+          </div>
+      </footer>
     </body>
 </html>
