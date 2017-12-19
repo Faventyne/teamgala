@@ -7,6 +7,7 @@
  */
 namespace Controller;
 
+use Doctrine\Common\Collections\Criteria;
 use Form\AddActivityCriteriaForm;
 use Form\AddActivityParticipantsForm;
 use Form\UserForm;
@@ -14,6 +15,7 @@ use Form\GradeForm;
 use Model\Activity;
 use Model\ActivityUser;
 use Model\Grade;
+use Model\Stage;
 use Symfony\Component\HttpFoundation\Request;
 use Silex\Application;
 use Model\User;
@@ -276,20 +278,58 @@ class ActivityController extends MasterController
     //Get the results of an activity for habilited people
     public function resultsAction(Request $request, Application $app, $actId){
         $em = $app['orm.em'];
-        
-        //Get the datas concerning the activity
+
+        //Accessing all repositories
+
+        //Get users associated to activity
+        $entityManager = $this->getEntityManager($app);
+        $repoAU = $entityManager->getRepository(ActivityUser::class);
         $repoA = $em->getRepository(Activity::class);
+        $repoU = $em->getRepository(User::class);
+        $repoC = $em->getRepository(Criterion::class);
+        $repoG = $em->getRepository(Grade::class);
+
+        //Get data associated to the activity
         $activity = $repoA->findOneById($actId);
         
-        //get the datas concerning the activy_user
-        $repoAU = $em->getRepository(ActivityUser::class);
-        $activityUser=$repoAU->findByActId($actId);
-        
+        //getting all activity users
+        $activityUsers=$repoAU->findByActId($actId);
+
+        //getting all criteria
+        $criteria = $repoC->findByActId($actId);
+
+        //getting all grades
+        $grades = $repoG->findByActId($actId);
+
+        /*****COMPUTE THE RESULTS****************************/
+
+        //foreach ($stage as stage){
+
+        foreach ($criteria as $criterion){
+
+            $cweight = $criterion->getWeight();
+
+            foreach ($activityUsers as $au){
+
+                $id = $au->getUsrId();
+                $user = $repoU->findOneById($id);
+                $weight = $user->getWeightIni($id);
+                $grade = $repoG->finOneByI
+
+                foreach ($)
+
+
+            }
+        }
+
+
+
+
+        $repoU = $em->getRepository(User::class);
         //get the datas concerning the participants
         $participants = [];
-        foreach ($activityUser as $au) {
+        foreach ($activityUsers as $au) {
             $id = $au->getUsrId();
-            $repoU = $em->getRepository(User::class);
             $user = $repoU->findOneById($id);
             $participants[]=$user;
         }
@@ -425,6 +465,15 @@ class ActivityController extends MasterController
         }
         $entityManager->flush();
         return $app->redirect($app['url_generator']->generate('myActivities')) ;
+    }
+
+    public function activityResults(Request $request, Application $app,$actId)
+    {
+
+
+
+
+
     }
 
 
