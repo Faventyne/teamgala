@@ -18,7 +18,7 @@ class Stage extends DbObject
      *@Id()
      * @GeneratedValue()
      * @Column(name="stg_id", type="integer",nullable=false, length=10)
-     * @var type int
+     * @var int
      */
     protected $id;
     /**

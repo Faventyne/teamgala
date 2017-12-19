@@ -7,6 +7,7 @@
  */
 namespace Controller;
 
+use Doctrine\Common\Collections\Criteria;
 use Form\AddActivityCriteriaForm;
 use Form\AddActivityParticipantsForm;
 use Form\UserForm;
@@ -14,6 +15,7 @@ use Form\GradeForm;
 use Model\Activity;
 use Model\ActivityUser;
 use Model\Grade;
+use Model\Stage;
 use Symfony\Component\HttpFoundation\Request;
 use Silex\Application;
 use Model\User;
@@ -265,16 +267,80 @@ class ActivityController extends MasterController
         return $app['twig']->render('activity_grade.html.twig',
             [
                 'form' => $gradeForm->createView(),
-                'result' => $result
+                'result' => $result,
+                'actId' => $result['stage']['criterion']['actId'],
+                'criId' => $result['stage']['criterion']['id'],
 
             ]) ;
 
     }
 
-    //Grade an activity (all users)
-    public function resultsAction(Request $request, Application $app){
-        $repository = $app['orm.em']->getRepository(Activity::class);
+    //Get the results of an activity for habilited people
+    public function resultsAction(Request $request, Application $app, $actId){
+        $em = $app['orm.em'];
 
+        //Accessing all repositories
+
+        //Get users associated to activity
+        $entityManager = $this->getEntityManager($app);
+        $repoAU = $entityManager->getRepository(ActivityUser::class);
+        $repoA = $em->getRepository(Activity::class);
+        $repoU = $em->getRepository(User::class);
+        $repoC = $em->getRepository(Criterion::class);
+        $repoG = $em->getRepository(Grade::class);
+
+        //Get data associated to the activity
+        $activity = $repoA->findOneById($actId);
+        
+        //getting all activity users
+        $activityUsers=$repoAU->findByActId($actId);
+
+        //getting all criteria
+        $criteria = $repoC->findByActId($actId);
+
+        //getting all grades
+        $grades = $repoG->findByActId($actId);
+
+        /*****COMPUTE THE RESULTS****************************/
+
+        //foreach ($stage as stage){
+
+        foreach ($criteria as $criterion){
+
+            $cweight = $criterion->getWeight();
+
+            foreach ($activityUsers as $au){
+
+                $id = $au->getUsrId();
+                $user = $repoU->findOneById($id);
+                $weight = $user->getWeightIni($id);
+                //$grade = $repoG->finOneById
+
+                //foreach ($)
+
+
+            }
+        }
+
+
+
+
+        $repoU = $em->getRepository(User::class);
+        //get the datas concerning the participants
+        $participants = [];
+        foreach ($activityUsers as $au) {
+            $id = $au->getUsrId();
+            $user = $repoU->findOneById($id);
+            $participants[]=$user;
+        }
+        
+        //rendering
+        return $app['twig']->render('activity_results.html.twig',
+            [
+                'activity' => $activity,
+                'activityUser' => $activityUser,
+                'participants' => $participants,           
+            ]);
     }
 
     // Display all organization activities (limited to HR)
@@ -309,15 +375,16 @@ class ActivityController extends MasterController
         $pdoStatement->bindValue(':id',$id);
         $pdoStatement->execute();
         $result = $pdoStatement->fetchAll();
-
+        $finalResult=[];
         foreach($result as $participant){
             $participant['isParticipant'] = 1;
+            $finalResult[]=$participant;
         }
 
         if($role != 1) {
             return $app['twig']->render('activities_list.html.twig',
                 [
-                    'user_activities' => $result
+                    'user_activities' => $finalResult
                 ]);
         } else {
             $sql = "SELECT * FROM activity 
@@ -363,6 +430,49 @@ class ActivityController extends MasterController
             ]) ;
 
     }
+
+    public function saveGradesAction(Request $request, Application $app){
+
+        //Insert Grades
+        $entityManager = $this->getEntityManager($app);
+        $repository = $entityManager->getRepository(Grade::class);
+
+        foreach ($_POST as $key => $value){
+            if($key=="usrId"){
+                $parId=intval($value);
+            }
+            if($key=="actId"){
+                $actId=intval($value);
+            }
+            if($key=="criId"){
+                $criId=intval($value);
+            }
+        }
+
+        foreach ($_POST as $key => $value){
+            if(is_numeric($key)){
+                $grade = new Grade();
+                $grade->setParId($parId);
+                $grade->setActId($actId);
+                $grade->setCriId($criId);
+                $grade->setGradedId($key);
+                $grade->setValue(floatval($value));
+                $entityManager->persist($grade);
+            }
+        }
+        $entityManager->flush();
+        return $app->redirect($app['url_generator']->generate('myActivities')) ;
+    }
+
+    public function activityResults(Request $request, Application $app,$actId)
+    {
+
+
+
+
+
+    }
+
 
 
     /*Optional : release an activity (all users)

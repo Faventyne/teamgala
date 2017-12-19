@@ -17,35 +17,35 @@ class Grade extends DbObject
     /**
      * @Id()
      * @GeneratedValue()
-     * @Column(name="crt_id", length=10, type="integer")
+     * @Column(name="grd_id", length=10, type="integer")
      * @var int
      */
     protected $id;
     /**
-     * @Column(name="activity_act_id", length=10, type="integer")
+     * @Column(name="activity_user_activity_act_id", length=10, type="integer")
      * @var int
      */
-    protected $act_id;
+    protected $actid;
     /**
-     * @Column(name="participant_par_id", length=10, type="integer")
+     * @Column(name="activity_user_user_usr_id", length=10, type="integer")
      * @var int
      */
-    protected $par_id;
+    protected $parid;
     /**
-     * @Column(name="criterion_cri_id", length=10, type="integer")
+     * @Column(name="criterion_crt_id", length=10, type="integer")
      * @var int
      */
-    protected $cri_id;
+    protected $criid;
     /**
      * @Column(name="stage_stg_id", length= 10, type="integer")
      * @var int
      */
-    protected $stg_id;
+    protected $stgid;
     /**
      * @Column(name="grd_graded_id", length= 10, type="integer")
      * @var int
      */
-    protected $graded_id;
+    protected $gradedid;
     //TODO : remove grader_id, similar to par_id, place graded_id next to foreign keys
     /**
      * @Column(name="grd_value", length= 10, type="float")
@@ -54,7 +54,7 @@ class Grade extends DbObject
     protected $value;
     //TODO : vérifier si dans Doctrine on peut créer un long champ
     /**
-     * @Column(name="grd_value", length= 10, type="string")
+     * @Column(name="grd_comment", length= 10, type="string")
      * @var string
      */
     protected $comment;
@@ -67,22 +67,23 @@ class Grade extends DbObject
     /**
      * Grade constructor.
      * @param int $id
-     * @param int $act_id
-     * @param int $par_id
-     * @param int $cri_id
+     * @param int $actid
+     * @param int $parid
+     * @param int $criid
      * @param int $stg_id
      * @param int $graded_id
      * @param float $value
      * @param string $comment
+     * @param \DateTime $inserted
      */
-    public function __construct($id=0, $act_id=0, $par_id=0, $cri_id=0, $stg_id=0, $graded_id=0, $value=0.0, $comment='',$inserted=null)
+    public function __construct($id=0, $actid=0, $parid=0, $criid=0, $stgid=2, $gradedid=0, $value=0.0, $comment='',$inserted=null)
     {
-        parent::__construct($id,$inserted);
-        $this->act_id = $act_id;
-        $this->par_id = $par_id;
-        $this->cri_id = $cri_id;
-        $this->stg_id = $stg_id;
-        $this->graded_id = $graded_id;
+        parent::__construct($id,new \DateTime());
+        $this->actid = $actid;
+        $this->parid = $parid;
+        $this->criid = $criid;
+        $this->stgid = $stgid;
+        $this->gradedid = $gradedid;
         $this->value = $value;
         $this->comment = $comment;
     }
@@ -100,7 +101,7 @@ class Grade extends DbObject
      */
     public function getActId()
     {
-        return $this->act_id;
+        return $this->actid;
     }
 
     /**
@@ -108,7 +109,7 @@ class Grade extends DbObject
      */
     public function getParId()
     {
-        return $this->par_id;
+        return $this->parid;
     }
 
     /**
@@ -116,7 +117,7 @@ class Grade extends DbObject
      */
     public function getCriId()
     {
-        return $this->cri_id;
+        return $this->criid;
     }
 
     /**
@@ -124,7 +125,7 @@ class Grade extends DbObject
      */
     public function getStgId()
     {
-        return $this->stg_id;
+        return $this->stgid;
     }
 
     /**
@@ -132,15 +133,15 @@ class Grade extends DbObject
      */
     public function getGradedId()
     {
-        return $this->graded_id;
+        return $this->gradedid;
     }
 
     /**
      * @param int $graded_id
      */
-    public function setGradedId($graded_id)
+    public function setGradedId($gradedid)
     {
-        $this->graded_id = $graded_id;
+        $this->gradedid = $gradedid;
     }
 
     /**
@@ -174,6 +175,39 @@ class Grade extends DbObject
     {
         $this->comment = $comment;
     }
+
+    /**
+     * @param int $act_id
+     */
+    public function setActId($actid)
+    {
+        $this->actid = $actid;
+    }
+
+    /**
+     * @param int $par_id
+     */
+    public function setParId($parid)
+    {
+        $this->par_id = $parid;
+    }
+
+    /**
+     * @param int $cri_id
+     */
+    public function setCriId($criid)
+    {
+        $this->criid = $criid;
+    }
+
+    /**
+     * @param int $stg_id
+     */
+    public function setStgId($stgid)
+    {
+        $this->stgid = $stgid;
+    }
+
 
 
 
