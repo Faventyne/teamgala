@@ -4,12 +4,22 @@ $(function(){
     $('.btn-large').css('background-color','grey');
     $('.btn-large').on("click",function(e){
 
-        e.preventDefault();
+        var nb_selected_participants = $('.red').length;
+        if(nb_selected_participants>=2)
+
+
+
+
+            e.preventDefault();
 
         var nb_selected_participants = $('.red').length;
 
-        if(nb_selected_participants>=2){
+        if(nb_selected_participants<2) {
 
+            e.preventDefault();
+        }
+
+        /*
             var usrId = [];
             $('.red').each(function(){
                 usrId.push($(this).data("participant-id"));
@@ -24,7 +34,7 @@ $(function(){
 
 
                 url : '../../../ajax/activity/' + actId,
-                data : {usrId:usrId},
+                data : {params:$_POST, usrId:usrId},
                 method : 'POST',
                 //dataType : 'json',
                 success: function(){
@@ -33,11 +43,15 @@ $(function(){
                 }
             })
 
+
         }
+        */
     });
 
 
-    $('.action-button').on("click", function(){
+    $('.action-button').on("click", function(e){
+
+        e.preventDefault();
         var nb_selected_participants = $('.red').length;
         if(!$(this).hasClass('red') && nb_selected_participants == 1){
             $('.btn-large').css('background-color','');

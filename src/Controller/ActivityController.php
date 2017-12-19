@@ -41,7 +41,7 @@ class ActivityController extends MasterController
 
         if ($criterionForm->isSubmitted()){
             if ($criterionForm->isValid()){
-
+                /*
                 //Settings activity parameters before inserting ("forcing") foreign key act_id in criterion
                 $activity->setDeadline($criterionForm->get('deadline')->getData());
                 $activity->setVisibility($criterionForm->get('visibility')->getData());
@@ -56,16 +56,16 @@ class ActivityController extends MasterController
                 $_SESSION['created_act_id']=$activityId;
 
                 return $app->redirect($app['url_generator']->generate('activityCreationParticipants',['actId' => $activityId]));
+                */
 
 
 
 
-                /*
                 //Subrequest to get to participants and keep param values with post method
                 // as activity will not be inserted in DB till act mgr does not finish activity creation
                 $subrequest = Request::create($app['url_generator']->generate('activityCreationParticipants'), 'POST', $_POST, $_COOKIE, $_FILES, $_SERVER);
                 $app->handle($subrequest,HttpKernelInterface::SUB_REQUEST);
-                */
+
             //return $app->redirect($app['url_generator']->generate('activityCreationParticipants'));
             } else {
                 return $criterionForm->getErrors();
@@ -80,7 +80,8 @@ class ActivityController extends MasterController
 
     // 2 - Display participants to be added
 
-    public function addParticipantsAction(Request $request, Application $app, $actId){
+    public function addParticipantsAction(Request $request, Application $app){
+
 
         // Get all participants (users)
         $entityManager = $this->getEntityManager($app) ;
@@ -96,6 +97,13 @@ class ActivityController extends MasterController
                 'participants' => $result,
             ]);
 
+
+    }
+
+    public function insertActivityAction(Request $request, Application $app){
+
+        print_r($_POST);
+        die;
 
     }
 
@@ -178,7 +186,7 @@ class ActivityController extends MasterController
         $criterion = new Criterion();
         $entityManager = $this->getEntityManager($app) ;
         $repository = $entityManager->getRepository(Criterion::class) ;
-        $criterion = $repository->findOneByActId($actId); 
+        $criterion = $repository->findOneByActId($actId);
         var_dump ($criterion);
         
         $formFactory = $app['form.factory'] ;

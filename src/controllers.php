@@ -27,16 +27,22 @@ $routeProfile->bind('profile') ;
 $routeMyActivities = $app->get('/myactivities', "Controller\ActivityController::getAllUserActivitiesAction") ;
 $routeMyActivities->bind('myActivities') ;
 
+
+// My activities page
+$routeMyActivities = $app->post('/myactivities', "Controller\ActivityController::insertActivityAction") ;
+$routeMyActivities->bind('insertActivity') ;
+
+
 // Organization activities page
 $routeMyActivities = $app->get('/activities/all', "Controller\ActivityController::getAllOrganizationActivitiesAction") ;
 $routeMyActivities->bind('allActivities') ;
 
 // Activity creation : parameters page
-$routeActivityCreationParameters = $app->match('/activity/create/parameters', "Controller\ActivityController::addCriterionAction") ;
+$routeActivityCreationParameters = $app->get('/activity/create/', "Controller\ActivityController::addCriterionAction") ;
 $routeActivityCreationParameters->bind('activityCreationParameters') ;
 
 // Activity creation : users page
-$routeActivityCreationParticipants = $app->get('/activity/create/participants/{actId}', "Controller\ActivityController::addParticipantsAction") ;
+$routeActivityCreationParticipants = $app->post('/activity/create/', "Controller\ActivityController::addParticipantsAction") ;
 $routeActivityCreationParticipants->bind('activityCreationParticipants') ;
 
 // Activity modify page
