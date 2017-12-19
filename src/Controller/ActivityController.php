@@ -271,10 +271,34 @@ class ActivityController extends MasterController
 
     }
 
-    //Grade an activity (all users)
-    public function resultsAction(Request $request, Application $app){
-        $repository = $app['orm.em']->getRepository(Activity::class);
-
+    //Get the results of an activity for habilited people
+    public function resultsAction(Request $request, Application $app, $actId){
+        $em = $app['orm.em'];
+        
+        //Get the datas concerning the activity
+        $repoA = $em->getRepository(Activity::class);
+        $activity = $repoA->findOneById($actId);
+        
+        //get the datas concerning the activy_user
+        $repoAU = $em->getRepository(ActivityUser::class);
+        $activityUser=$repoAU->findByActId($actId);
+        
+        //get the datas concerning the participants
+        $participants = [];
+        foreach ($activityUser as $au) {
+            $id = $au->getUsrId();
+            $repoU = $em->getRepository(User::class);
+            $user = $repoU->findOneById($id);
+            $participants[]=$user;
+        }
+        
+        //rendering
+        return $app['twig']->render('activity_results.html.twig',
+            [
+                'activity' => $activity,
+                'activityUser' => $activityUser,
+                'participants' => $participants,           
+            ]);
     }
 
     // Display all organization activities (limited to HR)
