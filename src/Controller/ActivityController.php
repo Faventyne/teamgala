@@ -309,15 +309,17 @@ class ActivityController extends MasterController
         $pdoStatement->bindValue(':id',$id);
         $pdoStatement->execute();
         $result = $pdoStatement->fetchAll();
-
+        $finalResult=[];
         foreach($result as $participant){
             $participant['isParticipant'] = 1;
+            $finalResult[]=$participant;
         }
 
         if($role != 1) {
+            
             return $app['twig']->render('activities_list.html.twig',
                 [
-                    'user_activities' => $result
+                    'user_activities' => $finalResult
                 ]);
         } else {
             $sql = "SELECT * FROM activity 
