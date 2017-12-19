@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>{% block title '' %} - Serpico</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!-- CSS custom -->
         <link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css" />
@@ -28,7 +29,7 @@
     </head>
     <body>
       <div id="logOutMenu" class="hiddenMenu">
-        <h1> {% block username %}{% endblock %} </h1>
+         <h1>{% block username %}{% endblock %} </h1>
         would you like to :
         <ul>
           <li><a href="#">Log out</a></li>
@@ -44,15 +45,16 @@
 
       <header>
         <a href="{{ path('home') }}"><i id="returnMenu" class="material-icons">home</i></a>
-        <a href="#"><i id="returnPage" class="material-icons">chevron_left</i></a>
+          <a href="{{ path('home') }}"><img id="logoHomepage" src="{{ asset('lib/img/logo.png') }}" </a><h3>Serpico</h3>
+        <!--<a href="#"><i id="returnPage" class="material-icons">chevron_left</i></a>-->
         <a href="#"><i id="logOutButton" class="material-icons">person</i></a>
+          <h4> {{ currentuser.firstname }} {{ currentuser.lastname }} </h4>
+
         <div class="currentPage">
           {% block pagename %}{% endblock %}
-
         </div>
-
+          <h5>{{ currentuser.firstname }} {{ currentuser.lastname }}</h5>
       </header>
-
 
 
 
