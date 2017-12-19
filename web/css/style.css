@@ -10,6 +10,9 @@
 body{
   margin: 0;
   padding: 0;
+  /*background-image: url("../lib/img/tea.jpg");
+  background-size: 1000px;
+  background-repeat: no-repeat;*/
 }
 
 main {
@@ -238,13 +241,13 @@ margin: 0px;
 
 /*** HOME PAGE ***/
 
-ul {
+#homelist ul {
   margin-left: 6vw;
   font-size: 1.5vw;
   margin-top: 4vw;
 }
 
-li{
+#homelist ul li{
   margin-bottom: 1rem;
 }
 
@@ -329,6 +332,7 @@ input+label{
     margin-top: -7vh;
     margin-left:11vh;
     color: white;
+    width: 18vh;
   }
 
   header h4 {
