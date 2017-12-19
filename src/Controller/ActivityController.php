@@ -314,9 +314,9 @@ class ActivityController extends MasterController
                 $id = $au->getUsrId();
                 $user = $repoU->findOneById($id);
                 $weight = $user->getWeightIni($id);
-                $grade = $repoG->finOneByI
+                //$grade = $repoG->finOneById
 
-                foreach ($)
+                //foreach ($)
 
 
             }
@@ -381,10 +381,7 @@ class ActivityController extends MasterController
             $finalResult[]=$participant;
         }
 
-
-
         if($role != 1) {
-
             return $app['twig']->render('activities_list.html.twig',
                 [
                     'user_activities' => $finalResult
@@ -475,7 +472,6 @@ class ActivityController extends MasterController
 
 
     }
-
 
 
 

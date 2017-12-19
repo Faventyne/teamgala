@@ -7,7 +7,9 @@ Home
 {%  block pagename %}
     HOME
 {% endblock %}
-
+{% block username %}
+    {{ currentuser.firstname }} {{ currentuser.lastname }}
+{% endblock %}
 {% block content %}
     <img id="homeLogo" src="{{ asset('lib/img/Serpico.png') }}"/>
     <div id="homelist">
