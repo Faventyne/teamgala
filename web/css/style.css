@@ -23,6 +23,26 @@ background-color: black;
 box-shadow: 0px 5px 15px #black;
 height: 15vw;
 }
+
+header h3{
+  display: none;
+}
+
+header h4{
+  display: none;
+}
+
+header h5{
+  position: absolute;
+  color: white;
+  font-size: 1.5vh;
+  margin-top: 0vh;
+  margin-left: 12vh;
+}
+
+#logoHomepage{
+  display: none;
+}
 /* jai du faire trois id pour les icons ca marche pas avec materialize pour le css */
 #returnMenu {
   margin-top: 2vw;
@@ -293,3 +313,54 @@ input+label{
   height: 3vh;
   font-size: 2vh;
   }
+
+
+/******Desktop**********/
+
+@media screen and (min-width: 800px) {
+  /***header***/
+  header{
+    height: 6vw;
+    margin: 0;
+  }
+
+  #returnMenu{
+    display: none;
+    font-size: 3vw;
+    margin-top: 0.5vw;
+  }
+
+  #logOutButton{
+    display: none;
+  }
+
+  #logoHomepage{
+    display: inline;
+    margin-left: 2vh;
+    margin-top: 2vh;
+    width: 4%;
+  }
+
+  header h3{
+    display: block;
+    margin-top: -7vh;
+    margin-left:11vh;
+    color: white;
+  }
+
+  header h4 {
+    display: block;
+    margin-top: -7vh;
+    margin-left: 147vh;
+    color: white;
+  }
+
+  header h5{
+    display: none;
+  }
+
+  /***Homepage***/
+  #homeLogo {
+    display : none;
+  }
+}
