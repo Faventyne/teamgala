@@ -21,34 +21,39 @@ Activity list
         <li>
           <div class="collapsible-header">
             <i class="material-icons">expand_more</i>
-            <div class="" style="position: absolute;">
-
+            <!-- just giving the name an absolute position because it was interfering ith the button position -->
+            <div class="" style="position: absolute; margin-left: 3vw;">
             {{ activity['act_name']  }}
             </div>
                 {# if user is not a simple collaborator #}
-                {% if is_granted('ROLE_ACTIVITY_MANAGER') or is_granted('ROLE_HR') %}
-                <div class="button-field col s5">
-                  <form action="{{ url('activityModify',{'actId' : activity['act_id']})}}">
-                    <button type="submit" class="validate"> MODIFY </button>
-                  </form>
-                  <a href="{{ url('activityResults',{'actId' : activity['act_id']}) }}"><button type="submit" class="validate">RESULTS</button></a>
-                </div>
-                {% endif %}
-
-                <div class="" style=" display: flex; margin-left:30vw;">
-                  {% if activity['isParticipant'] == 1 %}
+                <!-- i had to make a div to contain the buttons because of marginalise and did the style inside
+                 it to override the important aspects of all the classes -->
+<div style="display: flex;">
+                  {% if is_granted('ROLE_ACTIVITY_MANAGER') or is_granted('ROLE_HR') %}
                   <div class="button-field col s5">
-                    <form action="{{ url('activityGrade',{'actId' : activity['act_id']})}}">
-                      <button type="submit" class="validate"> GRADE </button>
+                    <form action="{{ url('activityModify',{'actId' : activity['act_id']})}}">
+                      <button type="submit" class="validate"> MODIFY </button>
                     </form>
-                  </div>
+                    </div>
+                    <div class="button-field col s5">
+                      <button id="alexButton" type="submit" class="validate"><a href="{{ url('activityResults',{'actId' : activity['act_id']}) }}">RESULTS</a></button>
+                    </div>
                   {% endif %}
-                </div>
-                
+
+
+                    {% if activity['isParticipant'] == 1 %}
+                    <div class="button-field col s5">
+                      <form action="{{ url('activityGrade',{'actId' : activity['act_id']})}}">
+                        <button type="submit" class="validate"> GRADE </button>
+                      </form>
+                    </div>
+                    {% endif %}
+</div>
+
               <span class="new badge"> {{ activity['act_status'] }} </span>
-              
+
           </div>
-              
+
           <div class="collapsible-body">autres infos
             <div class="row">
             {{ activity['act_objectives']  }}
