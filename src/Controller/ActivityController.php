@@ -265,7 +265,9 @@ class ActivityController extends MasterController
         return $app['twig']->render('activity_grade.html.twig',
             [
                 'form' => $gradeForm->createView(),
-                'result' => $result
+                'result' => $result,
+                'actId' => $result['stage']['criterion']['actId'],
+                'criId' => $result['stage']['criterion']['id'],
 
             ]) ;
 
@@ -315,8 +317,10 @@ class ActivityController extends MasterController
             $finalResult[]=$participant;
         }
 
+
+
         if($role != 1) {
-            
+
             return $app['twig']->render('activities_list.html.twig',
                 [
                     'user_activities' => $finalResult
@@ -365,6 +369,41 @@ class ActivityController extends MasterController
             ]) ;
 
     }
+
+    public function saveGradesAction(Request $request, Application $app){
+
+        //Insert Grades
+        $entityManager = $this->getEntityManager($app);
+        $repository = $entityManager->getRepository(Grade::class);
+
+        foreach ($_POST as $key => $value){
+            if($key=="usrId"){
+                $parId=intval($value);
+            }
+            if($key=="actId"){
+                $actId=intval($value);
+            }
+            if($key=="criId"){
+                $criId=intval($value);
+            }
+        }
+
+        foreach ($_POST as $key => $value){
+            if(is_numeric($key)){
+                $grade = new Grade();
+                $grade->setParId($parId);
+                $grade->setActId($actId);
+                $grade->setCriId($criId);
+                $grade->setGradedId($key);
+                $grade->setValue(floatval($value));
+                $entityManager->persist($grade);
+            }
+        }
+        $entityManager->flush();
+        return $app->redirect($app['url_generator']->generate('myActivities')) ;
+    }
+
+
 
 
     /*Optional : release an activity (all users)

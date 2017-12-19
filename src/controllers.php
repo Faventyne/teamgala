@@ -27,6 +27,11 @@ $routeProfile->bind('profile') ;
 $routeMyActivities = $app->get('/myactivities', "Controller\ActivityController::getAllUserActivitiesAction") ;
 $routeMyActivities->bind('myActivities') ;
 
+// My activities page
+$routeMyActivities = $app->post('/myactivities', "Controller\ActivityController::saveGradesAction") ;
+$routeMyActivities->bind('myActivitiesSaveGrades') ;
+
+
 // Organization activities page
 $routeMyActivities = $app->get('/activities/all', "Controller\ActivityController::getAllOrganizationActivitiesAction") ;
 $routeMyActivities->bind('allActivities') ;

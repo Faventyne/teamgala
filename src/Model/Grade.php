@@ -17,22 +17,22 @@ class Grade extends DbObject
     /**
      * @Id()
      * @GeneratedValue()
-     * @Column(name="crt_id", length=10, type="integer")
+     * @Column(name="grd_id", length=10, type="integer")
      * @var int
      */
     protected $id;
     /**
-     * @Column(name="activity_act_id", length=10, type="integer")
+     * @Column(name="activity_user_activity_act_id", length=10, type="integer")
      * @var int
      */
     protected $act_id;
     /**
-     * @Column(name="participant_par_id", length=10, type="integer")
+     * @Column(name="activity_user_user_usr_id", length=10, type="integer")
      * @var int
      */
     protected $par_id;
     /**
-     * @Column(name="criterion_cri_id", length=10, type="integer")
+     * @Column(name="criterion_crt_id", length=10, type="integer")
      * @var int
      */
     protected $cri_id;
@@ -54,7 +54,7 @@ class Grade extends DbObject
     protected $value;
     //TODO : vérifier si dans Doctrine on peut créer un long champ
     /**
-     * @Column(name="grd_value", length= 10, type="string")
+     * @Column(name="grd_comment", length= 10, type="string")
      * @var string
      */
     protected $comment;
@@ -74,10 +74,11 @@ class Grade extends DbObject
      * @param int $graded_id
      * @param float $value
      * @param string $comment
+     * @param \DateTime $inserted
      */
-    public function __construct($id=0, $act_id=0, $par_id=0, $cri_id=0, $stg_id=0, $graded_id=0, $value=0.0, $comment='',$inserted=null)
+    public function __construct($id=0, $act_id=0, $par_id=0, $cri_id=0, $stg_id=2, $graded_id=0, $value=0.0, $comment='',$inserted=null)
     {
-        parent::__construct($id,$inserted);
+        parent::__construct($id,new \DateTime());
         $this->act_id = $act_id;
         $this->par_id = $par_id;
         $this->cri_id = $cri_id;
@@ -174,6 +175,39 @@ class Grade extends DbObject
     {
         $this->comment = $comment;
     }
+
+    /**
+     * @param int $act_id
+     */
+    public function setActId($act_id)
+    {
+        $this->act_id = $act_id;
+    }
+
+    /**
+     * @param int $par_id
+     */
+    public function setParId($par_id)
+    {
+        $this->par_id = $par_id;
+    }
+
+    /**
+     * @param int $cri_id
+     */
+    public function setCriId($cri_id)
+    {
+        $this->cri_id = $cri_id;
+    }
+
+    /**
+     * @param int $stg_id
+     */
+    public function setStgId($stg_id)
+    {
+        $this->stg_id = $stg_id;
+    }
+
 
 
 
